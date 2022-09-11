@@ -41,10 +41,10 @@ export default function SideBar() {
 
     if (isLoggedIn) {
       dispatch(logout());
-      setIsLoggedIn("Login");
+      setIsLoggedIn("Log in");
     } else {
       dispatch(login());
-      setIsLoggedIn("Logout");
+      setIsLoggedIn("Log out");
     }
   };
 

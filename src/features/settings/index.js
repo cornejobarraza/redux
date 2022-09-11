@@ -18,7 +18,7 @@ export default function Settings() {
 
 const LoggedOut = () => (
   <div className="login">
-    <h1 className="page-header">Please Login</h1>
+    <h1 className="page-header">Please Log In</h1>
     <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto lg:text-center">
       Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in accusamus
       quisquam.
