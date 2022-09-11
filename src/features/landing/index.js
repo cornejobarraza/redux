@@ -21,7 +21,18 @@ const features = [
     icon: IdentificationIcon,
   },
   {
-    name: "4. Built using React Redux and Tailwind",
+    name: (
+      <span>
+        4. Built using{" "}
+        <a href="https://react-redux.js.org/" target="_blank" rel="noreferrer" className="text-redux-600">
+          React Redux
+        </a>{" "}
+        and{" "}
+        <a href="https://tailwindcss.com/" target="_blank" rel="noreferrer" className="text-sky-600">
+          Tailwind CSS
+        </a>
+      </span>
+    ),
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.",
     icon: CodeBracketIcon,
