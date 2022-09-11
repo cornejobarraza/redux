@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.searchbar[data-expanded="true"] {
+  order: 100;
+  width: 100%;
+  display: inline-block;
+}
+
+/* CSS trick to avoid layout shift on hover:bold */
+.link::after {
+  content: attr(data-text) / "";
+  height: 0;
+  visibility: hidden;
+  overflow: hidden;
+  user-select: none;
+  pointer-events: none;
+  font-weight: bold;
+}
+
+@media speech {
+  .link {
+    display: none;
+  }
+}
+/* End of trick */
+
+@layer components {
+  .redux {
+    @apply flex flex-wrap;
+  }
+
+  .active {
+    @apply font-bold text-redux-500 active:text-black lg:hover:text-redux-600 lg:hover:active:text-black transition-colors;
+  }
+
+  .navbar {
+    @apply relative flex flex-wrap gap-5 items-center px-6 py-5 lg:py-4 border-b border-gray-300 w-full;
+  }
+
+  .logo {
+    @apply leading-8 font-bold text-xl mr-auto;
+  }
+
+  .pages {
+    @apply hidden lg:flex items-center gap-8 mx-auto;
+  }
+
+  .link {
+    @apply inline-flex flex-col items-center justify-between active:font-bold lg:hover:font-bold lg:hover:active:font-normal cursor-pointer;
+  }
+
+  .searchbar {
+    @apply hidden lg:inline-block focus-visible:outline-none w-96 px-3 mx-auto border border-gray-300 rounded-2xl;
+  }
+
+  .account {
+    @apply flex items-center gap-4 ml-auto;
+  }
+
+  .avatar {
+    @apply rounded-full border-solid border border-black inline-block cursor-pointer m-0 md:my-4;
+  }
+
+  .info-tooltip {
+    @apply scale-0 right-6 top-16 lg:top-20 z-20 absolute transition-all text-white bg-redux-500 p-3 rounded-md shadow-xl;
+  }
+
+  .swapper {
+    @apply text-sm cursor-pointer md:block md:ml-0 ml-4 active:text-redux-500 lg:hover:text-redux-500 lg:hover:active:text-current transition-colors;
+  }
+
+  .name {
+    @apply hidden font-medium lg:inline-block;
+  }
+
+  .search {
+    @apply cursor-pointer lg:hidden;
+  }
+
+  .menu {
+    @apply cursor-pointer lg:hidden;
+  }
+
+  .sidebar {
+    @apply ease-in-out duration-500 border-r-0 -right-full transition-all lg:transition-none fixed top-[3.25rem] z-20 bg-transparent lg:bg-white lg:left-0 lg:h-full lg:top-[4.05rem] flex flex-col w-72 gap-5 p-6 lg:border-r lg:border-gray-300;
+  }
+
+  .sidebar-link {
+    @apply flex items-center cursor-pointer gap-3 active:font-bold lg:hover:font-bold lg:hover:active:font-normal;
+  }
+
+  .content {
+    @apply grow p-8 lg:ml-72;
+  }
+
+  .page-header {
+    @apply text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl lg:text-center;
+  }
+
+  .settings {
+    @apply flex flex-col gap-12;
+  }
+
+  .profile {
+    @apply flex flex-col sm:flex-row gap-6 md:gap-16 lg:justify-center;
+  }
+
+  .form-label {
+    @apply block mb-2 lg:text-center font-bold;
+  }
+
+  .form-input {
+    @apply focus-visible:outline-none border border-gray-300 rounded-2xl px-3;
+  }
+
+  .button {
+    @apply rounded-full text-white text-sm font-semibold bg-redux-500 active:bg-redux-400 lg:hover:bg-redux-600 lg:hover:active:bg-redux-400 py-2 px-3 inline-block cursor-pointer transition-colors disabled:cursor-not-allowed disabled:bg-gray-500 disabled:hover:bg-gray-500 disabled:hover:active:bg-gray-500;
+  }
+
+  .pending {
+    @apply text-yellow-500 block mt-7;
+  }
+
+  .success {
+    @apply text-green-500 block mt-7;
+  }
+
+  .error {
+    @apply text-red-500 block mt-7;
+  }
+}
