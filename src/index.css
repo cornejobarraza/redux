@@ -64,7 +64,7 @@ body {
   }
 
   .avatar {
-    @apply rounded-full outline outline-1 border-black inline-block m-0 bg-black;
+    @apply rounded-full inline-block m-0 shadow-md;
   }
 
   .info-tooltip {
@@ -72,7 +72,11 @@ body {
   }
 
   .swapper {
-    @apply text-sm cursor-pointer md:block md:ml-0 ml-4 active:text-redux-500 lg:hover:text-redux-500 lg:hover:active:text-current transition-colors;
+    @apply text-sm cursor-pointer md:block ml-6 md:ml-0;
+  }
+
+  .swapper-icon {
+    @apply w-6 h-6 active:text-redux-500 lg:hover:text-redux-500 lg:hover:active:text-current transition-colors mx-auto inline-block;
   }
 
   .name {
@@ -100,7 +104,7 @@ body {
   }
 
   .page-header {
-    @apply text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl lg:text-center;
+    @apply text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl md:text-center;
   }
 
   .main {
@@ -120,22 +124,22 @@ body {
   }
 
   .profile {
-    @apply flex flex-col sm:flex-row gap-6 md:gap-16 lg:justify-center;
+    @apply flex flex-col flex-wrap sm:flex-row gap-8 md:gap-16 md:justify-center;
   }
 
   .form-label {
-    @apply block mb-2 lg:text-center font-bold;
+    @apply block mb-2 md:text-center font-bold;
   }
 
   .form-input {
-    @apply focus-visible:outline-none border border-gray-400 rounded-2xl px-3 invalid:border-2 invalid:border-red-500 bg-slate-50;
+    @apply focus-visible:outline-none border border-gray-300 rounded-2xl px-3 invalid:shadow-red-300 invalid:shadow-md bg-slate-50 transition-shadow;
   }
 
   .button {
-    @apply rounded-full text-white text-sm font-semibold bg-redux-500 active:bg-redux-400 lg:hover:bg-redux-600 lg:hover:active:bg-redux-400 py-2 px-3 block cursor-pointer transition-colors disabled:cursor-not-allowed disabled:bg-gray-500 disabled:hover:bg-gray-500 disabled:hover:active:bg-gray-500 lg:mx-auto;
+    @apply rounded-full text-white text-sm font-semibold bg-redux-500 active:bg-redux-400 lg:hover:bg-redux-600 lg:hover:active:bg-redux-400 py-2 px-3 block cursor-pointer transition-colors disabled:cursor-not-allowed disabled:bg-gray-500 disabled:hover:bg-gray-500 disabled:hover:active:bg-gray-500 md:mx-auto;
   }
 
   .status {
-    @apply text-sm block mt-7;
+    @apply text-sm block mt-8;
   }
 }
