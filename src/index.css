@@ -64,7 +64,7 @@ body {
   }
 
   .avatar {
-    @apply rounded-full outline outline-1 border-black inline-block m-0 bg-slate-50;
+    @apply rounded-full outline outline-1 border-black inline-block m-0 bg-black;
   }
 
   .info-tooltip {
