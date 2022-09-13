@@ -91,7 +91,7 @@ export default function Landing() {
             <h1 className="font-bold text-lg">{info.name}</h1>
             <span className="block text-sm">{info.email}</span>
             <img
-              className="avatar outline-none mx-auto my-8"
+              className="avatar shadow-xl mx-auto my-8"
               src={`https://avatars.dicebear.com/api/adventurer-neutral/${info.avatar}.svg`}
               alt="Default user"
               width="64px"
