@@ -15,7 +15,7 @@ export default function Settings() {
   }, [dispatch]);
 
   const handleAvatar = () => {
-    const seed = Math.round(Math.random() * 100);
+    const seed = Math.round(Math.random() * 99);
     setData((prev) => ({ ...prev, avatar: seed }));
   };
 
@@ -26,13 +26,13 @@ export default function Settings() {
     if (source === "email") {
       // eslint-disable-next-line
       const mailRegEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      if (!input.match(mailRegEx)) {
+      if (!mailRegEx.test(input)) {
         return;
       }
     }
 
     // Checks if input begins with spaces and is not empty
-    if (!input.match(/^\s+/) && input.length > 0) {
+    if (!/^\s+/.test(input) && input.length > 0) {
       setData((prev) => ({ ...prev, [e.target.name]: input }));
     } else {
       setData((prev) => ({ ...prev, [e.target.name]: info[e.target.name] }));

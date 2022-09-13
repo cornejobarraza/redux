@@ -1,6 +1,6 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { useSelector, useDispatch } from "react-redux";
-import { logInAsync } from "../settings/settingsSlice";
+import { resetEdit, logInAsync } from "../settings/settingsSlice";
 import { IdentificationIcon, CodeBracketIcon, UserIcon, Cog6ToothIcon } from "@heroicons/react/24/outline";
 
 const features = [
@@ -47,15 +47,16 @@ const features = [
 ];
 
 export default function Landing() {
-  const { isLoggedIn, info, pending, error } = useSelector((state) => state.settings);
+  const { edited, isLoggedIn, info, pending, error } = useSelector((state) => state.settings);
   const dispatch = useDispatch();
 
   const handleLogin = () => {
-    dispatch(logInAsync({ info: info }));
+    dispatch(logInAsync());
   };
 
   const handleReset = () => {
     localStorage.removeItem("user");
+    dispatch(resetEdit());
     window.location.reload();
   };
 
@@ -101,9 +102,7 @@ export default function Landing() {
               Log In
             </button>
           </div>
-          {(info.name !== "John Doe" || info.email !== "john.doe@gmail.com" || info.avatar !== 34) &&
-          !pending.login &&
-          !error.login ? (
+          {edited && !pending.login && !error.login ? (
             <span className="mx-auto text-sm cursor-pointer hover:underline" onClick={handleReset}>
               Reset account
             </span>

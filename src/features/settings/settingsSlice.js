@@ -4,8 +4,9 @@ import { fakeBackend } from "./settingsAPI";
 const createInitialState = () => {
   const data = JSON.parse(localStorage.getItem("user"));
   return {
+    edited: false,
     isLoggedIn: data?.isLoggedIn || false,
-    info: data?.info || { name: "John Doe", email: "john.doe@gmail.com", avatar: 34 },
+    info: data?.info || { name: "John Doe", email: "john.doe@gmail.com", avatar: 59 },
     pending: {
       login: null,
       update: null,
@@ -34,6 +35,9 @@ export const settingsSlice = createSlice({
   name: "settings",
   initialState: createInitialState(),
   reducers: {
+    resetEdit: (state) => {
+      state.edited = false;
+    },
     resetStatus: (state) => {
       state.pending = createInitialState().pending;
       state.error = createInitialState().error;
@@ -47,6 +51,7 @@ export const settingsSlice = createSlice({
       .addCase(updateAsync.fulfilled, (state, action) => {
         state.pending.update = false;
         state.info = action.payload;
+        state.edited = true;
       })
       .addCase(updateAsync.rejected, (state) => {
         state.pending.update = false;
@@ -55,10 +60,9 @@ export const settingsSlice = createSlice({
       .addCase(logInAsync.pending, (state) => {
         state.pending.login = true;
       })
-      .addCase(logInAsync.fulfilled, (state, action) => {
+      .addCase(logInAsync.fulfilled, (state) => {
         state.pending.login = false;
         state.isLoggedIn = true;
-        state.info = action.payload.info;
       })
       .addCase(logInAsync.rejected, (state) => {
         state.pending.login = false;
@@ -67,9 +71,9 @@ export const settingsSlice = createSlice({
       .addCase(logOutAsync.pending, (state) => {
         state.pending.logout = true;
       })
-      .addCase(logOutAsync.fulfilled, (state, action) => {
+      .addCase(logOutAsync.fulfilled, (state) => {
         state.pending.logout = false;
-        state.isLoggedIn = action.payload.isLoggedIn;
+        state.isLoggedIn = false;
       })
       .addCase(logOutAsync.rejected, (state) => {
         state.pending.logout = false;
@@ -78,5 +82,5 @@ export const settingsSlice = createSlice({
   },
 });
 
-export const { resetStatus } = settingsSlice.actions;
+export const { resetEdit, resetStatus } = settingsSlice.actions;
 export default settingsSlice.reducer;
