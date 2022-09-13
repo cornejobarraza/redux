@@ -92,7 +92,7 @@ body {
   }
 
   .sidebar {
-    @apply ease-in-out duration-500 border-r-0 -right-full transition-all lg:transition-none fixed top-[3.25rem] z-20 bg-transparent lg:left-0 lg:h-full lg:top-[4.05rem] flex flex-col w-72 gap-5 p-6 lg:border-r lg:border-gray-300;
+    @apply ease-in border-r-0 right-0 opacity-0 transition-all lg:transition-none fixed top-[3.25rem] z-20 bg-transparent lg:left-0 lg:h-full lg:top-[4.05rem] flex flex-col w-72 gap-5 p-6 lg:border-r lg:border-gray-300;
   }
 
   .sidebar-link {
