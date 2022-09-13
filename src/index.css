@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-color: #e2e8f0;
+}
+
 .searchbar[data-expanded="true"] {
   order: 100;
   width: 100%;
@@ -52,7 +56,7 @@
   }
 
   .searchbar {
-    @apply hidden lg:inline-block focus-visible:outline-none w-96 px-3 mx-auto border border-gray-300 rounded-2xl;
+    @apply hidden lg:inline-block focus-visible:outline-none w-96 px-3 mx-auto border border-gray-300 rounded-2xl bg-slate-50;
   }
 
   .account {
@@ -60,7 +64,7 @@
   }
 
   .avatar {
-    @apply rounded-full border-solid border border-black inline-block cursor-pointer m-0 md:my-4;
+    @apply rounded-full outline outline-1 border-black inline-block m-0 bg-slate-50;
   }
 
   .info-tooltip {
@@ -84,11 +88,11 @@
   }
 
   .sidebar {
-    @apply ease-in-out duration-500 border-r-0 -right-full transition-all lg:transition-none fixed top-[3.25rem] z-20 bg-transparent lg:bg-white lg:left-0 lg:h-full lg:top-[4.05rem] flex flex-col w-72 gap-5 p-6 lg:border-r lg:border-gray-300;
+    @apply ease-in-out duration-500 border-r-0 -right-full transition-all lg:transition-none fixed top-[3.25rem] z-20 bg-transparent lg:left-0 lg:h-full lg:top-[4.05rem] flex flex-col w-72 gap-5 p-6 lg:border-r lg:border-gray-300;
   }
 
   .sidebar-link {
-    @apply flex items-center cursor-pointer gap-3 active:font-bold lg:hover:font-bold lg:hover:active:font-normal;
+    @apply flex items-center cursor-pointer gap-3 active:font-bold lg:hover:font-bold lg:hover:active:font-normal disabled:cursor-not-allowed disabled:font-normal disabled:text-gray-500 disabled:hover:font-normal;
   }
 
   .content {
@@ -97,6 +101,18 @@
 
   .page-header {
     @apply text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl lg:text-center;
+  }
+
+  .main {
+    @apply mx-auto max-w-7xl flex flex-col gap-12;
+  }
+
+  .about {
+    @apply space-y-12 md:grid md:grid-cols-2 md:gap-12 md:space-y-0;
+  }
+
+  .default-user {
+    @apply border rounded-2xl mx-auto bg-slate-50 px-6 py-5 min-w-[13rem] text-center shadow-xl;
   }
 
   .settings {
@@ -112,22 +128,14 @@
   }
 
   .form-input {
-    @apply focus-visible:outline-none border border-gray-300 rounded-2xl px-3;
+    @apply focus-visible:outline-none border border-gray-400 rounded-2xl px-3 invalid:border-2 invalid:border-red-500 bg-slate-50;
   }
 
   .button {
-    @apply rounded-full text-white text-sm font-semibold bg-redux-500 active:bg-redux-400 lg:hover:bg-redux-600 lg:hover:active:bg-redux-400 py-2 px-3 inline-block cursor-pointer transition-colors disabled:cursor-not-allowed disabled:bg-gray-500 disabled:hover:bg-gray-500 disabled:hover:active:bg-gray-500;
+    @apply rounded-full text-white text-sm font-semibold bg-redux-500 active:bg-redux-400 lg:hover:bg-redux-600 lg:hover:active:bg-redux-400 py-2 px-3 block cursor-pointer transition-colors disabled:cursor-not-allowed disabled:bg-gray-500 disabled:hover:bg-gray-500 disabled:hover:active:bg-gray-500 lg:mx-auto;
   }
 
-  .pending {
-    @apply text-yellow-500 block mt-7;
-  }
-
-  .success {
-    @apply text-green-500 block mt-7;
-  }
-
-  .error {
-    @apply text-red-500 block mt-7;
+  .status {
+    @apply text-sm block mt-7;
   }
 }
