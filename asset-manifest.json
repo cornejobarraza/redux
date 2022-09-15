@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.css": "/redux/static/css/main.a8298cfc.css",
-    "main.js": "/redux/static/js/main.2b102eb2.js",
+    "main.css": "/redux/static/css/main.31dd9c68.css",
+    "main.js": "/redux/static/js/main.abe3993d.js",
     "index.html": "/redux/index.html"
   },
   "entrypoints": [
-    "static/css/main.a8298cfc.css",
-    "static/js/main.2b102eb2.js"
+    "static/css/main.31dd9c68.css",
+    "static/js/main.abe3993d.js"
   ]
 }
