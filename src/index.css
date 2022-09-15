@@ -2,35 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background-color: #e2e8f0;
-}
-
-.searchbar[data-expanded="true"] {
-  order: 100;
-  width: 100%;
-  display: inline-block;
-}
-
-/* CSS trick to avoid layout shift on hover:bold */
-.link::after {
-  content: attr(data-text) / "";
-  height: 0;
-  visibility: hidden;
-  overflow: hidden;
-  user-select: none;
-  pointer-events: none;
-  font-weight: bold;
-}
-
-@media speech {
-  .link {
-    display: none;
-  }
-}
-/* End of trick */
-
 @layer components {
+  body {
+    @apply bg-slate-200;
+  }
+
   .redux {
     @apply flex flex-wrap;
   }
@@ -55,8 +31,31 @@ body {
     @apply inline-flex flex-col items-center justify-between active:font-bold lg:hover:font-bold lg:hover:active:font-normal cursor-pointer;
   }
 
+  /* CSS trick to avoid layout shift on hover:bold */
+  .link::after {
+    content: attr(data-text) / "";
+    height: 0;
+    visibility: hidden;
+    overflow: hidden;
+    user-select: none;
+    pointer-events: none;
+    font-weight: bold;
+  }
+
+  @media speech {
+    .link {
+      display: none;
+    }
+  }
+  /* End of trick */
+
   .searchbar {
-    @apply hidden lg:inline-block focus-visible:outline-none w-96 px-3 mx-auto border border-gray-300 rounded-2xl bg-slate-50;
+    width: clamp(25%, 25rem, 100%);
+    @apply hidden lg:inline-block focus-visible:outline-none px-3 mx-auto border border-gray-300 rounded-2xl bg-slate-50;
+  }
+
+  .searchbar[data-expanded="true"] {
+    @apply order-last md:order-none inline-block;
   }
 
   .account {
@@ -92,7 +91,7 @@ body {
   }
 
   .sidebar {
-    @apply ease-in border-r-0 right-0 opacity-0 transition-all lg:transition-none fixed top-[3.25rem] z-20 bg-transparent lg:left-0 lg:h-full lg:top-[4.05rem] flex flex-col w-72 gap-5 p-6 lg:border-r lg:border-gray-300;
+    @apply ease-in border-r-0 right-0 opacity-0 lg:opacity-100 transition-all lg:transition-none fixed top-[3.25rem] z-20 lg:z-auto invisible lg:visible bg-transparent lg:left-0 lg:h-full lg:top-[4.05rem] flex flex-col w-72 gap-5 px-7 py-6 lg:p-6 lg:border-r lg:border-gray-300;
   }
 
   .sidebar-link {
@@ -107,7 +106,8 @@ body {
     @apply text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl md:text-center;
   }
 
-  .main {
+  .main,
+  .login {
     @apply mx-auto max-w-7xl flex flex-col gap-12;
   }
 
@@ -115,7 +115,11 @@ body {
     @apply space-y-12 md:grid md:grid-cols-2 md:gap-12 md:space-y-0;
   }
 
-  .default-user {
+  .users {
+    @apply flex flex-col md:flex-row gap-12;
+  }
+
+  .user {
     @apply border rounded-2xl mx-auto bg-slate-50 px-6 py-5 min-w-[13rem] text-center shadow-xl;
   }
 

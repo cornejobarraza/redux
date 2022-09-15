@@ -2,11 +2,13 @@ import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 
+export { SlideOver };
+
 // Headless UI slide-over
-export default function SlideOver({ open, toggle }) {
+function SlideOver({ open, handler }) {
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10 lg:hidden" onClose={toggle}>
+      <Dialog as="div" className="relative z-10 lg:hidden" onClose={() => {}}>
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-500"
@@ -41,11 +43,11 @@ export default function SlideOver({ open, toggle }) {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                   >
-                    <div className="absolute top-0 right-0 -ml-8 flex pt-6 pr-5">
+                    <div className="absolute top-0 right-0 -ml-8 flex pt-[1.6rem] pr-6">
                       <button
                         type="button"
                         className="rounded-md text-gray-500 active:text-gray-600 focus:outline-none focus:ring-2 focus:ring-slate-200"
-                        onClick={toggle}
+                        onClick={handler}
                       >
                         <span className="sr-only">Close panel</span>
                         <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -53,7 +55,7 @@ export default function SlideOver({ open, toggle }) {
                     </div>
                   </Transition.Child>
                   <div className="flex h-full flex-col bg-slate-200 py-6 shadow-xl">
-                    <div className="px-6">
+                    <div className="px-7 lg:px-6">
                       <Dialog.Title className="text-lg font-bold text-gray-900">Menu</Dialog.Title>
                     </div>
                     <div className="relative mt-6 flex-1 px-4 sm:px-6"></div>

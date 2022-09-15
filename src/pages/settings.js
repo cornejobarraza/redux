@@ -1,22 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateAsync, resetStatus } from "./settingsSlice";
+import { userActions } from "store";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 
-export default function Settings() {
-  const { info, pending, error } = useSelector((state) => state.settings);
+export { Settings };
+
+function Settings() {
+  const { info, pending, error } = useSelector((state) => state.user);
   const [data, setData] = useState({ name: info.name, email: info.email, avatar: info.avatar });
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    return () => {
-      dispatch(resetStatus());
-    };
-  }, [dispatch]);
-
   const handleAvatar = () => {
     const seed = Math.round(Math.random() * 99);
-    setData((prev) => ({ ...prev, avatar: seed }));
+    if (seed === 59) {
+      handleAvatar();
+    } else {
+      setData((prev) => ({ ...prev, avatar: seed }));
+    }
   };
 
   const handleChange = (e) => {
@@ -42,7 +42,7 @@ export default function Settings() {
   const handleUpdate = (e) => {
     e.preventDefault();
     if (data.name !== info.name || data.email !== info.email || data.avatar !== info.avatar) {
-      dispatch(updateAsync({ name: data.name, email: data.email, avatar: data.avatar }));
+      dispatch(userActions.updateAsync({ name: data.name, email: data.email, avatar: data.avatar }));
     }
     e.target.reset();
   };
