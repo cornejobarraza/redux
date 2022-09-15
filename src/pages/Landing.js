@@ -1,7 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { IdentificationIcon, CodeBracketIcon, UserIcon, Cog6ToothIcon } from "@heroicons/react/24/outline";
 
-export { Landing };
+export { Landing as default };
 
 function Landing() {
   return (

@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { userActions } from "store";
 
-export { Login };
+export { Login as default };
 
 function Login() {
   const { edited, info, pending, error } = useSelector((state) => state.user);

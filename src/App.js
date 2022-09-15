@@ -1,10 +1,13 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, Suspense, lazy } from "react";
 import { useDispatch } from "react-redux";
 import { userActions } from "store";
 import { history } from "helpers";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
-import { Navbar, Sidebar, Toggle, SlideOver, PrivateRoute, Login, Landing, NotFound } from "components";
-import { Settings } from "pages";
+import { Navbar, Sidebar, Toggle, SlideOver, ErrorBoundary, PrivateRoute, NotFound } from "components";
+
+const Login = lazy(() => import("pages/Login"));
+const Landing = lazy(() => import("pages/Landing"));
+const Settings = lazy(() => import("pages/Settings"));
 
 function App() {
   const [isSlideOverOpen, setIsSlideOverOpen] = useState(false);
@@ -62,26 +65,30 @@ function App() {
       <Navbar />
       <Sidebar sidebarRef={sidebarRef} />
       <div className="content">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <PrivateRoute>
-                <Landing />
-              </PrivateRoute>
-            }
-          />
-          <Route path="login" element={<Login />} />
-          <Route
-            path="settings"
-            element={
-              <PrivateRoute>
-                <Settings />
-              </PrivateRoute>
-            }
-          />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <ErrorBoundary>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <PrivateRoute>
+                    <Landing />
+                  </PrivateRoute>
+                }
+              />
+              <Route path="login" element={<Login />} />
+              <Route
+                path="settings"
+                element={
+                  <PrivateRoute>
+                    <Settings />
+                  </PrivateRoute>
+                }
+              />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </ErrorBoundary>
       </div>
       <Toggle handler={toggleSidebar} />
       <SlideOver open={isSlideOverOpen} handler={toggleSidebar} />

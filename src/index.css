@@ -16,7 +16,7 @@
   }
 
   .navbar {
-    @apply relative flex flex-wrap gap-5 items-center px-6 py-5 lg:py-4 border-b border-gray-300 w-full;
+    @apply relative flex flex-wrap gap-5 items-center px-6 py-5 lg:py-4 border-b border-gray-300 w-full overflow-hidden max-h-[65px];
   }
 
   .logo {
@@ -71,7 +71,20 @@
   }
 
   .swapper {
-    @apply text-sm cursor-pointer md:block ml-6 md:ml-0;
+    @apply inline-block text-sm cursor-pointer md:block ml-7 md:ml-0;
+  }
+
+  .spin {
+    animation: spin 0.5s;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(180deg);
+    }
   }
 
   .swapper-icon {

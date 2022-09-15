@@ -59,7 +59,7 @@ function Navbar() {
               <img
                 className="avatar"
                 src={`https://avatars.dicebear.com/api/adventurer-neutral/${info.avatar}.svg`}
-                alt="Current user"
+                alt="user avatar"
                 width="32px"
                 height="32px"
               />

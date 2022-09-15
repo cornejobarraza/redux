@@ -3,14 +3,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "store";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 
-export { Settings };
+export { Settings as default };
 
 function Settings() {
   const { info, pending, error } = useSelector((state) => state.user);
   const [data, setData] = useState({ name: info.name, email: info.email, avatar: info.avatar });
+  const [isSwapperSpinning, setIsSwapperSpinning] = useState(false);
   const dispatch = useDispatch();
 
   const handleAvatar = () => {
+    setIsSwapperSpinning(true);
     const seed = Math.round(Math.random() * 99);
     if (seed === 59) {
       handleAvatar();
@@ -60,13 +62,17 @@ function Settings() {
         <div className="picture md:text-center">
           <label className="block mb-4 md:mb-0 font-bold">Profile picture</label>
           <img
-            className="avatar cursor-default md:my-6"
+            className="avatar cursor-default md:my-7"
             src={`https://avatars.dicebear.com/api/adventurer-neutral/${data.avatar}.svg`}
             alt="Current user"
             width="64px"
             height="64px"
           />
-          <span className="swapper" onClick={handleAvatar}>
+          <span
+            className={`swapper${isSwapperSpinning ? " spin" : ""}`}
+            onClick={handleAvatar}
+            onAnimationEnd={() => setIsSwapperSpinning(!isSwapperSpinning)}
+          >
             <ArrowPathIcon className="swapper-icon" />
           </span>
         </div>
