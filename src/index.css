@@ -120,7 +120,7 @@
   }
 
   .user {
-    @apply border rounded-2xl mx-auto bg-slate-50 px-6 py-5 min-w-[13rem] text-center shadow-xl;
+    @apply border rounded-2xl mx-auto bg-slate-100 px-6 py-5 min-w-[13rem] text-center shadow-xl;
   }
 
   .settings {
