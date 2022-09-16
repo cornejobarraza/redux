@@ -23,7 +23,7 @@ function SlideOver({ open, handler }) {
 
         <div className="fixed inset-0 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
-            <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+            <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-64 pl-10">
               <Transition.Child
                 as={Fragment}
                 enter="transform transition ease-in-out duration-500"
@@ -33,7 +33,7 @@ function SlideOver({ open, handler }) {
                 leaveFrom="translate-x-0"
                 leaveTo="translate-x-full"
               >
-                <Dialog.Panel className="pointer-events-auto relative w-72">
+                <Dialog.Panel className="pointer-events-auto relative w-64">
                   <Transition.Child
                     as={Fragment}
                     enter="ease-in-out duration-500"
@@ -43,7 +43,7 @@ function SlideOver({ open, handler }) {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                   >
-                    <div className="absolute top-0 right-0 -ml-8 flex pt-[1.6rem] pr-6">
+                    <div className="absolute top-0 right-0 -ml-8 flex pt-[1.3rem] pr-6">
                       <button
                         type="button"
                         className="rounded-md text-gray-500 active:text-gray-600 focus:outline-none focus:ring-2 focus:ring-slate-200"
@@ -54,7 +54,7 @@ function SlideOver({ open, handler }) {
                       </button>
                     </div>
                   </Transition.Child>
-                  <div className="flex h-full flex-col bg-slate-200 py-6 shadow-xl">
+                  <div className="flex h-full flex-col bg-slate-200 py-5 shadow-xl">
                     <div className="px-7 lg:px-6">
                       <Dialog.Title className="text-lg font-bold text-gray-900">Menu</Dialog.Title>
                     </div>

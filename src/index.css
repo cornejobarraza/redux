@@ -16,7 +16,7 @@
   }
 
   .navbar {
-    @apply relative flex flex-wrap gap-5 items-center px-6 py-5 lg:py-4 border-b border-gray-300 w-full max-h-[65px];
+    @apply lg:fixed flex flex-wrap gap-5 items-center px-6 py-5 lg:py-4 border-b border-gray-300 w-full lg:h-[65px] bg-slate-200 lg:z-20;
   }
 
   .logo {
@@ -67,7 +67,7 @@
   }
 
   .info-tooltip {
-    @apply scale-0 right-6 top-16 lg:top-20 z-20 absolute transition-all text-white bg-redux-500 p-3 rounded-md shadow-xl;
+    @apply invisible lg:visible scale-0 right-6 top-16 lg:top-20 lg:z-20 absolute transition-all text-white bg-redux-500 p-3 rounded-md shadow-xl;
   }
 
   .swapper {
@@ -104,7 +104,7 @@
   }
 
   .sidebar {
-    @apply max-w-[18rem] ease-in border-r-0 right-0 opacity-0 lg:opacity-100 transition-all lg:transition-none fixed top-[3.25rem] z-20 lg:z-auto invisible lg:visible bg-transparent lg:left-0 lg:h-full lg:top-[4.05rem] flex flex-col gap-5 px-7 py-6 lg:p-6 lg:border-r lg:border-gray-300;
+    @apply bg-slate-200 w-64 max-w-[16rem] ease-in border-r-0 right-0 opacity-0 lg:opacity-100 transition-all lg:transition-none fixed top-[3.25rem] z-20 invisible lg:visible bg-transparent lg:left-0 lg:h-full lg:top-[4.05rem] flex flex-col gap-5 px-7 py-6 lg:p-6 lg:border-r lg:border-gray-300;
   }
 
   .sidebar-link {
@@ -112,7 +112,7 @@
   }
 
   .content {
-    @apply grow p-8 lg:ml-72;
+    @apply grow p-8 lg:ml-64 lg:mt-[65px];
   }
 
   .page-header {
