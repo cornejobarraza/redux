@@ -35,7 +35,8 @@ function Login() {
           <img
             className="avatar mx-auto my-8"
             src={`https://avatars.dicebear.com/api/adventurer-neutral/${info.avatar}.svg`}
-            alt="Default user"
+            alt=""
+            aria-label="Default user avatar"
             width="64px"
             height="64px"
           />

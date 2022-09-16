@@ -64,7 +64,8 @@ function Settings() {
           <img
             className="avatar cursor-default md:my-7"
             src={`https://avatars.dicebear.com/api/adventurer-neutral/${data.avatar}.svg`}
-            alt="Current user"
+            alt=""
+            aria-label="Current user avatar"
             width="64px"
             height="64px"
           />
