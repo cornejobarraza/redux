@@ -69,7 +69,7 @@ function Navbar() {
               </small>
             </Link>
           </div>
-          <span className="lg:hidden" onClick={toggle}>
+          <span className="search" onClick={toggle}>
             <SearchOutlined />
           </span>
         </>
@@ -86,7 +86,7 @@ function classNames(...classes) {
 
 function DropDown() {
   return (
-    <Menu as="div" className="lg:hidden inline-block text-left">
+    <Menu as="div" className="menu">
       <div>
         <Menu.Button className="flex w-full justify-center rounded-md">
           <MoreVertOutlined className="h-5 w-5" aria-hidden="true" />

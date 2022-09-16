@@ -100,11 +100,11 @@
   }
 
   .menu {
-    @apply cursor-pointer lg:hidden;
+    @apply cursor-pointer inline-block text-left lg:hidden;
   }
 
   .sidebar {
-    @apply ease-in border-r-0 right-0 opacity-0 lg:opacity-100 transition-all lg:transition-none fixed top-[3.25rem] z-20 lg:z-auto invisible lg:visible bg-transparent lg:left-0 lg:h-full lg:top-[4.05rem] flex flex-col w-72 gap-5 px-7 py-6 lg:p-6 lg:border-r lg:border-gray-300;
+    @apply max-w-[18rem] ease-in border-r-0 right-0 opacity-0 lg:opacity-100 transition-all lg:transition-none fixed top-[3.25rem] z-20 lg:z-auto invisible lg:visible bg-transparent lg:left-0 lg:h-full lg:top-[4.05rem] flex flex-col gap-5 px-7 py-6 lg:p-6 lg:border-r lg:border-gray-300;
   }
 
   .sidebar-link {
