@@ -21,7 +21,7 @@ function Navbar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const toggle = () => {
+  const toggleSearchbar = () => {
     expanded ? setExpanded(false) : setExpanded(true);
   };
 
@@ -44,13 +44,13 @@ function Navbar() {
           Contact
         </span>
       </div>
-      <input
-        className="searchbar"
-        placeholder={`Search here${isLoggedIn ? " " + info.name.split(" ")[0] : ""}...`}
-        data-expanded={expanded}
-      />
       {isLoggedIn && (
         <>
+          <input
+            className="searchbar"
+            placeholder={`Search here ${info.name.split(" ")[0]}...`}
+            data-expanded={expanded}
+          />
           <div className="account">
             <span className="name">
               Hello, <span className="text-redux-500">{info.name.split(" ")[0]}</span>
@@ -70,7 +70,7 @@ function Navbar() {
               </small>
             </Link>
           </div>
-          <span className="search" onClick={toggle}>
+          <span className="search" onClick={toggleSearchbar}>
             <SearchOutlined />
           </span>
         </>
@@ -103,7 +103,7 @@ function DropDown() {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-6 top-16 w-32 z-20 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute right-6 top-20 w-32 z-20 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
             <Menu.Item>
               {({ active }) => (

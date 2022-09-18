@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import { Sidebar } from "./Sidebar";
 
 export { SlideOver };
 
@@ -8,7 +9,7 @@ export { SlideOver };
 function SlideOver({ open, handler }) {
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10 lg:hidden" onClose={() => {}}>
+      <Dialog as="div" className="relative z-10 lg:hidden" onClose={handler}>
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-500"
@@ -43,7 +44,7 @@ function SlideOver({ open, handler }) {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                   >
-                    <div className="absolute top-0 right-0 -ml-8 flex pt-[1.3rem] pr-6">
+                    <div className="absolute top-0 right-0 -ml-8 flex pt-[1.3rem] pr-7">
                       <button
                         type="button"
                         className="rounded-md text-gray-500 active:text-gray-600 focus:outline-none focus:ring-2 focus:ring-slate-200"
@@ -55,10 +56,12 @@ function SlideOver({ open, handler }) {
                     </div>
                   </Transition.Child>
                   <div className="flex h-full flex-col bg-slate-200 py-5 shadow-xl">
-                    <div className="px-7 lg:px-6">
+                    <div className="px-8 lg:px-6">
                       <Dialog.Title className="text-lg font-bold text-gray-900">Menu</Dialog.Title>
                     </div>
-                    <div className="relative mt-6 flex-1 px-4 sm:px-6"></div>
+                    <div className="relative mt-6 flex-1 px-4 sm:px-6">
+                      <Sidebar modifiers="visible right-0" />
+                    </div>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

@@ -16,7 +16,7 @@
   }
 
   .navbar {
-    @apply lg:fixed flex flex-wrap gap-5 items-center px-6 py-5 lg:py-4 border-b border-gray-300 w-full lg:h-[65px] bg-slate-200 lg:z-20;
+    @apply lg:fixed flex flex-wrap gap-5 items-center px-8 py-4 border-b border-gray-300 w-full bg-slate-200 lg:z-20 min-h-[65px];
   }
 
   .logo {
@@ -104,7 +104,7 @@
   }
 
   .sidebar {
-    @apply bg-slate-200 w-64 max-w-[16rem] ease-in border-r-0 right-0 opacity-0 lg:opacity-100 transition-all lg:transition-none fixed top-[3.25rem] z-20 invisible lg:visible bg-transparent lg:left-0 lg:h-full lg:top-[4.05rem] flex flex-col gap-5 px-7 py-6 lg:p-6 lg:border-r lg:border-gray-300;
+    @apply invisible lg:visible bg-slate-200 w-64 min-w-[256px] border-r-0 fixed top-[3.25rem] bg-transparent lg:left-0 h-full lg:top-[4.05rem] flex flex-col gap-5 px-8 py-6 lg:border-r lg:border-gray-300;
   }
 
   .sidebar-link {

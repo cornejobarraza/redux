@@ -3,5 +3,5 @@ export * from "./NotFound";
 export * from "./PrivateRoute";
 export * from "./Sidebar";
 export * from "./SlideOver";
-export * from "./Toggle";
+export * from "./SidebarToggle";
 export * from "./ErrorBoundary";

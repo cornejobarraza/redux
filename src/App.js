@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { userActions } from "store";
 import { history } from "helpers";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
-import { Navbar, Sidebar, Toggle, SlideOver, ErrorBoundary, PrivateRoute, NotFound } from "components";
+import { Navbar, Sidebar, SidebarToggle, SlideOver, ErrorBoundary, PrivateRoute, NotFound } from "components";
 
 const Login = lazy(() => import("pages/Login"));
 const Landing = lazy(() => import("pages/Landing"));
@@ -20,44 +20,17 @@ function App() {
   history.location = useLocation();
 
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024) {
-        closeSidebar();
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
     if (history.location.pathname !== "/login") {
       dispatch(userActions.resetStatus());
     }
-
-    closeSidebar();
+    if (window.innerWidth < 1024) {
+      setIsSlideOverOpen(false);
+    }
     // eslint-disable-next-line
   }, [history.location, dispatch]);
 
-  const closeSidebar = () => {
-    sidebarRef.current.classList.remove("visible");
-    sidebarRef.current.classList.remove("duration-500");
-    sidebarRef.current.classList.remove("delay-[400ms]");
-    sidebarRef.current.classList.remove("opacity-100");
-    setIsSlideOverOpen(false);
-  };
-
-  const openSidebar = () => {
-    sidebarRef.current.classList.add("visible");
-    sidebarRef.current.classList.add("duration-500");
-    sidebarRef.current.classList.add("delay-[400ms]");
-    sidebarRef.current.classList.add("opacity-100");
-    setIsSlideOverOpen(true);
-  };
-
   const toggleSidebar = () => {
-    isSlideOverOpen ? closeSidebar() : openSidebar();
+    isSlideOverOpen ? setIsSlideOverOpen(false) : setIsSlideOverOpen(true);
   };
 
   return (
@@ -90,7 +63,7 @@ function App() {
           </Suspense>
         </ErrorBoundary>
       </div>
-      <Toggle handler={toggleSidebar} />
+      <SidebarToggle handler={toggleSidebar} />
       <SlideOver open={isSlideOverOpen} handler={toggleSidebar} />
     </div>
   );
