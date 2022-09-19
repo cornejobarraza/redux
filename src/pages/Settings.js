@@ -22,8 +22,8 @@ function Settings() {
   };
 
   const handleChange = (e) => {
-    let input = e.target.value;
-    let source = e.target.name;
+    const input = e.target.value;
+    const source = e.target.name;
 
     if (source === "email") {
       // eslint-disable-next-line
@@ -33,9 +33,11 @@ function Settings() {
       }
     }
 
-    // Checks if input begins with spaces and is not empty
-    if (!/^\s+/.test(input) && input.length > 0) {
-      setData((prev) => ({ ...prev, [e.target.name]: input }));
+    // Checks if input is not empty
+    if (input.length > 0) {
+      // Regular Expression to remove starting and ending whitespaces from input
+      const inputRegEx = /^\s+|\s+$/;
+      setData((prev) => ({ ...prev, [e.target.name]: input.trim(inputRegEx, "") }));
     } else {
       setData((prev) => ({ ...prev, [e.target.name]: info[e.target.name] }));
     }
