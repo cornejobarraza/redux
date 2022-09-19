@@ -22,7 +22,7 @@ function Settings() {
   };
 
   const handleChange = (e) => {
-    const input = e.target.value;
+    const input = e.target.value.trim();
     const source = e.target.name;
 
     if (source === "email") {
@@ -35,9 +35,7 @@ function Settings() {
 
     // Checks if input is not empty
     if (input.length > 0) {
-      // Regular Expression to remove starting and ending whitespaces from input
-      const inputRegEx = /^\s+|\s+$/;
-      setData((prev) => ({ ...prev, [e.target.name]: input.trim(inputRegEx, "") }));
+      setData((prev) => ({ ...prev, [e.target.name]: input }));
     } else {
       setData((prev) => ({ ...prev, [e.target.name]: info[e.target.name] }));
     }
