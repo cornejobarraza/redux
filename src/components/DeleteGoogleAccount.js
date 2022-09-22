@@ -2,11 +2,13 @@ import { auth, db, googleProvider } from "firebase.js";
 import { reauthenticateWithPopup, deleteUser } from "firebase/auth";
 import { doc, deleteDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useGoogleSignOut } from "hooks";
 
 export { DeleteGoogleAccount };
 
 function DeleteGoogleAccount() {
   const [user] = useAuthState(auth);
+  const googleSignOut = useGoogleSignOut(user);
 
   if (user === null) return;
 
@@ -17,6 +19,7 @@ function DeleteGoogleAccount() {
 
       await deleteDoc(usersRef);
       await deleteUser(result.user);
+      googleSignOut();
     } catch (err) {
       console.error(err);
     }
