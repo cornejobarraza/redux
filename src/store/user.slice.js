@@ -1,6 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fakeBackend } from "helpers";
 
+// Default user
+export const defaultUser = {
+  name: "John Doe",
+  email: "john.doe@email.com",
+  avatar: "https://avatars.dicebear.com/api/adventurer-neutral/59.svg",
+};
+
 // Create slice
 const name = "user";
 const initialState = createInitialState();
@@ -15,17 +22,16 @@ export const userReducer = slice.reducer;
 
 // Implementation
 function createInitialState() {
-  const data = JSON.parse(localStorage.getItem("user"));
+  const data = JSON.parse(localStorage.getItem("currentUser"));
   return {
-    edited: data?.edited || false,
-    isLoggedIn: data?.isLoggedIn || false,
-    info: data?.info || { name: "John Doe", email: "john.doe@gmail.com", avatar: 59 },
-    pending: data?.pending || {
+    user: data?.user || null,
+    logged: data?.logged || false,
+    pending: {
       login: null,
       update: null,
       logout: null,
     },
-    error: data?.error || { login: null, update: null, logout: null },
+    error: { login: null, update: null, logout: null },
   };
 }
 
@@ -42,10 +48,18 @@ function createReducers() {
 
 function createExtraActions() {
   return {
+    updateGoogleAsync: updateGoogleAsync(),
     updateAsync: updateAsync(),
     logInAsync: logInAsync(),
     logOutAsync: logOutAsync(),
   };
+
+  function updateGoogleAsync() {
+    return createAsyncThunk(`${name}/update/google`, async (user) => {
+      const response = await fakeBackend(user);
+      return response.data;
+    });
+  }
 
   function updateAsync() {
     return createAsyncThunk(`${name}/update`, async (user) => {
@@ -55,14 +69,14 @@ function createExtraActions() {
   }
 
   function logInAsync() {
-    return createAsyncThunk("user/login", async (user) => {
+    return createAsyncThunk(`${name}/login`, async (user) => {
       const response = await fakeBackend(user);
       return response.data;
     });
   }
 
   function logOutAsync() {
-    return createAsyncThunk("user/logout", async (user) => {
+    return createAsyncThunk(`${name}/logout`, async (user) => {
       const response = await fakeBackend(user);
       return response.data;
     });
@@ -71,10 +85,28 @@ function createExtraActions() {
 
 function createExtraReducers() {
   return {
+    ...updateGoogleAsync(),
     ...updateAsync(),
     ...logInAsync(),
     ...logOutAsync(),
   };
+
+  function updateGoogleAsync() {
+    const { pending, fulfilled, rejected } = extraActions.updateGoogleAsync;
+    return {
+      [pending]: (state) => {
+        state.pending.update = true;
+      },
+      [fulfilled]: (state, action) => {
+        state.pending.update = false;
+        state.user = action.payload;
+      },
+      [rejected]: (state) => {
+        state.pending.update = false;
+        state.error.update = true;
+      },
+    };
+  }
 
   function updateAsync() {
     const { pending, fulfilled, rejected } = extraActions.updateAsync;
@@ -84,8 +116,7 @@ function createExtraReducers() {
       },
       [fulfilled]: (state, action) => {
         state.pending.update = false;
-        state.info = action.payload;
-        state.edited = true;
+        state.user = action.payload;
       },
       [rejected]: (state) => {
         state.pending.update = false;
@@ -100,9 +131,10 @@ function createExtraReducers() {
       [pending]: (state) => {
         state.pending.login = true;
       },
-      [fulfilled]: (state) => {
+      [fulfilled]: (state, action) => {
         state.pending.login = false;
-        state.isLoggedIn = true;
+        state.logged = true;
+        state.user = action.payload;
       },
       [rejected]: (state) => {
         state.pending.login = false;
@@ -119,7 +151,7 @@ function createExtraReducers() {
       },
       [fulfilled]: (state) => {
         state.pending.logout = false;
-        state.isLoggedIn = false;
+        state.logged = false;
       },
       [rejected]: (state) => {
         state.pending.logout = false;

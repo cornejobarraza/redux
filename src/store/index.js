@@ -13,7 +13,7 @@ const userMiddleware = (store) => (next) => (action) => {
     action.type.startsWith("user/logout")
   ) {
     const user = store.getState().user;
-    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("currentUser", JSON.stringify(user));
   }
   if (action.type.match("user/login/fulfilled") || action.type.match("user/logout/fulfilled")) {
     // Get return url from location state or default to home page

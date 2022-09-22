@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 export { Navbar };
 
 function Navbar() {
-  const { isLoggedIn, info } = useSelector((state) => state.user);
+  const { logged, user } = useSelector((state) => state.user);
   const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
@@ -44,29 +44,30 @@ function Navbar() {
           Contact
         </span>
       </div>
-      {isLoggedIn && (
+      {logged && (
         <>
           <input
             className="searchbar"
-            placeholder={`Search here ${info.name.split(" ")[0]}...`}
+            placeholder={`Search here ${user?.name.split(" ")[0]}...`}
             data-expanded={expanded}
           />
           <div className="account">
             <span className="name">
-              Hello, <span className="text-redux-500">{info.name.split(" ")[0]}</span>
+              Hello, <span className="text-redux-500">{user?.name.split(" ")[0]}</span>
             </span>
             <Link className="group" to="settings">
               <img
                 className="avatar"
-                src={`https://avatars.dicebear.com/api/adventurer-neutral/${info.avatar}.svg`}
+                src={user?.avatar}
                 alt=""
                 aria-label="User avatar"
                 width="32px"
                 height="32px"
+                referrerPolicy="no-referrer"
               />
               <small className="info-tooltip lg:group-hover:scale-100">
-                <span className="block font-bold">{info.name}</span>
-                <span className="block">{info.email}</span>
+                <span className="block font-bold">{user?.name}</span>
+                <span className="block">{user?.email}</span>
               </small>
             </Link>
           </div>

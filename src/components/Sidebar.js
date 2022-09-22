@@ -13,12 +13,12 @@ import {
 } from "@material-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { userActions } from "store";
+import { userActions, defaultUser } from "store";
 
 export { Sidebar };
 
 function Sidebar({ sidebarRef, modifiers }) {
-  const { isLoggedIn, info, pending, error } = useSelector((state) => state.user);
+  const { logged, user, pending, error } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const handleLogOut = () => {
@@ -27,7 +27,7 @@ function Sidebar({ sidebarRef, modifiers }) {
 
   const Links = [
     { icon: <HomeOutlined />, text: "Main", route: "/" },
-    { icon: <List />, text: "Lists" },
+    { icon: <List />, text: "Lists", route: "lists" },
     { icon: <ShoppingCartOutlined />, text: "Products" },
     { icon: <GroupOutlined />, text: "Groups" },
     { icon: <FileCopyOutlined />, text: "Pages" },
@@ -36,13 +36,19 @@ function Sidebar({ sidebarRef, modifiers }) {
     { icon: <ScheduleOutlined />, text: "Schedule" },
     { icon: <BookmarkBorderOutlined />, text: "Wishlist" },
     { icon: <SettingsOutlined />, text: "Settings", route: "settings" },
-    { icon: <ExitToAppOutlined />, text: "Log Out", name: info.name, state: pending.logout, handler: handleLogOut },
+    {
+      icon: <ExitToAppOutlined />,
+      text: "Log Out",
+      name: user?.name || defaultUser.name,
+      state: pending.logout,
+      handler: handleLogOut,
+    },
   ];
 
   return (
     <>
       <div className={`sidebar${modifiers ? " " + modifiers : ""}`} ref={sidebarRef}>
-        {isLoggedIn ? (
+        {logged ? (
           <>
             {Links.map((link, index) => (
               <SideBarLink

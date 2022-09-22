@@ -1,14 +1,20 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "firebase.js";
 import { userActions } from "store";
+import { useUpdateGoogleAccount } from "hooks";
+import { DeleteGoogleAccount } from "components";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 
 export { Settings as default };
 
 function Settings() {
-  const { info, pending, error } = useSelector((state) => state.user);
-  const [data, setData] = useState({ name: info.name, email: info.email, avatar: info.avatar });
+  const { user, pending, error } = useSelector((state) => state.user);
+  const [data, setData] = useState({ name: user.name, email: user.email, avatar: user.avatar });
   const [isSwapperSpinning, setIsSwapperSpinning] = useState(false);
+  const [authUser] = useAuthState(auth);
+  const updateGoogleAccount = useUpdateGoogleAccount(data);
   const dispatch = useDispatch();
 
   const handleAvatar = () => {
@@ -17,7 +23,7 @@ function Settings() {
     if (seed === 59) {
       handleAvatar();
     } else {
-      setData((prev) => ({ ...prev, avatar: seed }));
+      setData((prev) => ({ ...prev, avatar: `https://avatars.dicebear.com/api/adventurer-neutral/${seed}.svg` }));
     }
   };
 
@@ -37,14 +43,19 @@ function Settings() {
     if (input.length > 0) {
       setData((prev) => ({ ...prev, [e.target.name]: input }));
     } else {
-      setData((prev) => ({ ...prev, [e.target.name]: info[e.target.name] }));
+      setData((prev) => ({ ...prev, [e.target.name]: user[e.target.name] }));
     }
   };
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    if (data.name !== info.name || data.email !== info.email || data.avatar !== info.avatar) {
-      dispatch(userActions.updateAsync({ name: data.name, email: data.email, avatar: data.avatar }));
+    if (data.name !== user?.name || data.email !== user?.email || data.avatar !== user?.avatar) {
+      if (authUser) {
+        updateGoogleAccount();
+        dispatch(userActions.updateGoogleAsync({ name: data.name, email: data.email, avatar: data.avatar }));
+      } else {
+        dispatch(userActions.updateAsync({ name: data.name, email: data.email, avatar: data.avatar }));
+      }
     }
     e.target.reset();
   };
@@ -63,11 +74,12 @@ function Settings() {
           <label className="block mb-4 md:mb-0 font-bold">Profile picture</label>
           <img
             className="avatar cursor-default md:my-7"
-            src={`https://avatars.dicebear.com/api/adventurer-neutral/${data.avatar}.svg`}
+            src={data.avatar}
             alt=""
             aria-label="Current user avatar"
             width="64px"
             height="64px"
+            referrerPolicy="no-referrer"
           />
           <span
             className={`swapper${isSwapperSpinning ? " spin" : ""}`}
@@ -84,7 +96,7 @@ function Settings() {
               name="name"
               className="form-input"
               disabled={pending.update}
-              placeholder={info.name}
+              placeholder={user?.name}
               onChange={(e) => handleChange(e)}
             ></input>
           </div>
@@ -94,7 +106,7 @@ function Settings() {
               name="email"
               className="form-input"
               disabled={pending.update}
-              placeholder={info.email}
+              placeholder={user?.email}
               pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
               onChange={(e) => handleChange(e)}
             ></input>
@@ -109,6 +121,7 @@ function Settings() {
           {error.update && <span className="status">Something went wrong</span>}
         </div>
       </div>
+      <DeleteGoogleAccount />
     </div>
   );
 }
