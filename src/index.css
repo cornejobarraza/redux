@@ -129,11 +129,15 @@
   }
 
   .users {
-    @apply flex flex-col md:flex-row gap-12;
+    @apply flex flex-col md:flex-row gap-16 justify-center items-center;
   }
 
   .user {
-    @apply border rounded-2xl mx-auto bg-slate-100 px-6 py-5 min-w-[13rem] text-center shadow-xl;
+    @apply relative border rounded-2xl bg-slate-100 px-6 py-5 w-fit min-w-[13rem] text-center shadow-xl;
+  }
+
+  .reset {
+    @apply h-5 w-5 absolute bottom-7 right-6 cursor-pointer;
   }
 
   .settings {
@@ -142,6 +146,14 @@
 
   .profile {
     @apply flex flex-col flex-wrap sm:flex-row gap-8 md:gap-16 md:justify-center;
+  }
+
+  .warning {
+    @apply w-80 min-w-[20rem] md:mx-auto;
+  }
+
+  .danger {
+    @apply bg-red-600 active:bg-red-500 lg:hover:bg-red-700 lg:hover:active:bg-red-500;
   }
 
   .form-label {
@@ -158,5 +170,9 @@
 
   .status {
     @apply text-sm block mt-8;
+  }
+
+  .text-link {
+    @apply mx-auto text-sm cursor-pointer hover:underline;
   }
 }
