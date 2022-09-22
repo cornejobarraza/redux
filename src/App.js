@@ -7,6 +7,7 @@ import { Navbar, Sidebar, SidebarToggle, SlideOver, ErrorBoundary, PrivateRoute,
 
 const Login = lazy(() => import("pages/Login"));
 const Landing = lazy(() => import("pages/Landing"));
+const Lists = lazy(() => import("pages/Lists"));
 const Settings = lazy(() => import("pages/Settings"));
 
 function App() {
@@ -50,6 +51,14 @@ function App() {
                 }
               />
               <Route path="login" element={<Login />} />
+              <Route
+                path="lists"
+                element={
+                  <PrivateRoute>
+                    <Lists />
+                  </PrivateRoute>
+                }
+              />
               <Route
                 path="settings"
                 element={
