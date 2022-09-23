@@ -11,7 +11,7 @@ function GoogleSignOut() {
   if (user === null) return;
 
   return (
-    <span className="text-link" onClick={googleSignOut}>
+    <span className="text-link" onClick={() => googleSignOut}>
       Sign Out from Google
     </span>
   );
