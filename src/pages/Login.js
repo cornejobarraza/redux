@@ -1,16 +1,17 @@
 import { useSelector } from "react-redux";
+import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "firebase.js";
-import { useLogInUser } from "hooks";
-import { defaultUser } from "store";
-import isEqual from "lodash.isequal";
-import { GoogleAccount, GoogleSignIn, GoogleSignOut } from "components";
-import { UserMinusIcon } from "@heroicons/react/24/solid";
+import { Account, GoogleAccount } from "components";
+import { useGoogleSignIn, useGoogleSignOut } from "hooks";
 
 export { Login as default };
 
 function Login() {
   const { user, pending, error } = useSelector((state) => state.user);
+  const googleSignIn = useGoogleSignIn();
+  const googleSignOut = useGoogleSignOut();
+
+  const auth = getAuth();
   const [authUser, authLoading] = useAuthState(auth);
 
   return (
@@ -25,56 +26,21 @@ function Login() {
         </p>
       </div>
       <div className="users">
-        {!authUser && !authLoading ? <LocalUser user={user} pending={pending} /> : <GoogleAccount pending={pending} />}
+        {!authUser && <Account user={user} pending={pending} />}
+        {authUser && !authLoading && <GoogleAccount pending={pending} />}
       </div>
-      {!pending.login && !error.login && !authLoading && (
-        <>
-          <GoogleSignIn />
-          <GoogleSignOut />
-        </>
+      {!pending.login && !error.login && !authUser && !authLoading && (
+        <span className="text-link" onClick={googleSignIn}>
+          Or continue with Google
+        </span>
+      )}
+      {!pending.login && !error.login && authUser && !authLoading && (
+        <span className="text-link" onClick={googleSignOut}>
+          Sign Out from Google
+        </span>
       )}
       {pending.login && <span className="text-sm text-center">Signing In...</span>}
       {error.login && <span className="status text-center">Something went wrong</span>}
-    </div>
-  );
-}
-
-function LocalUser({ user, pending }) {
-  const logInUser = useLogInUser();
-
-  const handleReset = () => {
-    localStorage.removeItem("currentUser");
-    window.location.reload();
-  };
-
-  return (
-    <div className="user">
-      {user && !isEqual(user, defaultUser) && (
-        <span className="reset" title="Reset account" onClick={handleReset}>
-          <UserMinusIcon />
-        </span>
-      )}
-      <h1 className="font-bold text-lg">{user?.name || defaultUser.name}</h1>
-      <span className="block text-sm">{user?.email || defaultUser.email}</span>
-      <img
-        className="avatar mx-auto my-8"
-        src={user?.avatar || "https://avatars.dicebear.com/api/adventurer-neutral/59.svg"}
-        alt=""
-        aria-label="Default user avatar"
-        width="64px"
-        height="64px"
-        referrerPolicy="no-referrer"
-      />
-      <button
-        className="button mx-auto"
-        type="button"
-        disabled={pending.login}
-        onClick={() => {
-          logInUser();
-        }}
-      >
-        Log In
-      </button>
     </div>
   );
 }

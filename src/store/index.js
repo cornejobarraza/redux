@@ -7,19 +7,24 @@ export * from "./user.slice";
 
 const userMiddleware = (store) => (next) => (action) => {
   const result = next(action);
-  if (
-    action.type.startsWith("user/update") ||
-    action.type.startsWith("user/login") ||
-    action.type.startsWith("user/logout")
-  ) {
+
+  if (action.type.match("user/resetState")) {
+    localStorage.removeItem("currentUser");
+  }
+
+  if (action.type.endsWith("fulfilled")) {
     const user = store.getState().user;
     localStorage.setItem("currentUser", JSON.stringify(user));
   }
+
   if (action.type.match("user/login/fulfilled") || action.type.match("user/logout/fulfilled")) {
-    // Get return url from location state or default to home page
-    const { from } = history.location.state || { from: { pathname: "/" } };
-    history.navigate(from);
+    if (history.location.state) {
+      // Get return URL from location state
+      const { from } = history.location.state;
+      history.navigate(from);
+    }
   }
+
   return result;
 };
 

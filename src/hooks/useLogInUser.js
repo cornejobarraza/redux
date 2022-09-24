@@ -1,16 +1,29 @@
+import { getAuth } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
-import { userActions, defaultUser } from "store";
+import { userActions } from "store";
 
 export { useLogInUser };
 
-function useLogInUser(newUser) {
+function useLogInUser(payload) {
   const { user } = useSelector((state) => state.user);
+  const auth = getAuth();
   const dispatch = useDispatch();
-  return () => {
-    if (!user) {
-      dispatch(userActions.logInAsync(newUser || defaultUser));
+
+  const handleLogIn = () => {
+    if (!auth) {
+      dispatch(userActions.logInAsync(payload));
     } else {
       dispatch(userActions.logInAsync({ ...user }));
     }
+
+    if (!user) {
+      dispatch(userActions.logInAsync(payload));
+    } else {
+      dispatch(userActions.logInAsync({ ...user }));
+    }
+  };
+
+  return () => {
+    handleLogIn();
   };
 }

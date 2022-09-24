@@ -1,13 +1,13 @@
-import { useAuthState } from "react-firebase-hooks/auth";
+import { getAuth } from "firebase/auth";
+import { getDatabase } from "firebase/database";
 import { doc, updateDoc } from "firebase/firestore";
-import { auth, db } from "firebase.js";
 
 export { useUpdateGoogleAccount };
 
 function useUpdateGoogleAccount(data) {
-  const [user] = useAuthState(auth);
-
-  if (user === null) return;
+  const db = getDatabase();
+  const auth = getAuth();
+  const user = auth.currentUser;
 
   async function updateAccount() {
     const userRef = doc(db, "users", user.uid);

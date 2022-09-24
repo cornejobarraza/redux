@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 export { Navbar };
 
 function Navbar() {
-  const { logged, user } = useSelector((state) => state.user);
+  const { user, logged } = useSelector((state) => state.user);
   const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
@@ -44,7 +44,7 @@ function Navbar() {
           Contact
         </span>
       </div>
-      {logged && (
+      {user && logged && (
         <>
           <input
             className="searchbar"

@@ -13,13 +13,20 @@ import {
 } from "@material-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { userActions, defaultUser } from "store";
+import { getAuth } from "firebase/auth";
+import { userActions } from "store";
+import { useGoogleSignIn } from "hooks";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export { Sidebar };
 
 function Sidebar({ sidebarRef, modifiers }) {
-  const { logged, user, pending, error } = useSelector((state) => state.user);
+  const { user, logged, pending, error } = useSelector((state) => state.user);
+  const googleSignIn = useGoogleSignIn();
   const dispatch = useDispatch();
+
+  const auth = getAuth();
+  const [authUser, authLoading] = useAuthState(auth);
 
   const handleLogOut = () => {
     dispatch(userActions.logOutAsync());
@@ -39,7 +46,7 @@ function Sidebar({ sidebarRef, modifiers }) {
     {
       icon: <ExitToAppOutlined />,
       text: "Log Out",
-      name: user?.name || defaultUser.name,
+      name: user?.name,
       state: pending.logout,
       handler: handleLogOut,
     },
@@ -48,7 +55,7 @@ function Sidebar({ sidebarRef, modifiers }) {
   return (
     <>
       <div className={`sidebar${modifiers ? " " + modifiers : ""}`} ref={sidebarRef}>
-        {logged ? (
+        {user && logged ? (
           <>
             {Links.map((link, index) => (
               <SideBarLink
@@ -61,6 +68,12 @@ function Sidebar({ sidebarRef, modifiers }) {
                 handler={link.handler}
               />
             ))}
+            {!pending.login && !pending.logout && !authUser && !authLoading && (
+              <span className="text-link" onClick={googleSignIn}>
+                Sign-In with Google
+              </span>
+            )}
+            {pending.login && <span className="text-sm mt-0">Signing In...</span>}
             {pending.logout && <span className="text-sm mt-0">Signing Out...</span>}
             {error.logout && <span className="status mt-0">Something went wrong</span>}
           </>

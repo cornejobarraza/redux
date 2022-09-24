@@ -5,7 +5,6 @@ export * from "./Sidebar";
 export * from "./SlideOver";
 export * from "./SidebarToggle";
 export * from "./ErrorBoundary";
-export * from "./GoogleSignIn";
-export * from "./GoogleSignOut";
+export * from "./Account";
 export * from "./GoogleAccount";
 export * from "./DeleteGoogleAccount";

@@ -1,24 +1,25 @@
-import { auth, db, googleProvider } from "firebase.js";
-import { reauthenticateWithPopup, deleteUser } from "firebase/auth";
+import { getAuth, reauthenticateWithPopup, deleteUser } from "firebase/auth";
+import { getDatabase } from "firebase/database";
 import { doc, deleteDoc } from "firebase/firestore";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { googleProvider } from "firebase.js";
 import { useGoogleSignOut } from "hooks";
 
 export { DeleteGoogleAccount };
 
 function DeleteGoogleAccount() {
-  const [user] = useAuthState(auth);
-  const googleSignOut = useGoogleSignOut(user);
+  const googleSignOut = useGoogleSignOut();
 
-  if (user === null) return;
+  const db = getDatabase();
+  const auth = getAuth();
+  const user = auth.currentUser;
 
   const handleDeletion = async () => {
     try {
-      const result = await reauthenticateWithPopup(auth.currentUser, googleProvider);
-      const usersRef = doc(db, "users", result.user.uid);
+      await reauthenticateWithPopup(user, googleProvider);
+      const docRef = doc(db, "users", user.uid);
 
-      await deleteDoc(usersRef);
-      await deleteUser(result.user);
+      await deleteDoc(docRef);
+      await deleteUser(user);
       googleSignOut();
     } catch (err) {
       console.error(err);
@@ -29,7 +30,7 @@ function DeleteGoogleAccount() {
     <div className="warning">
       <h1 className="text-2xl font-bold md:text-center">Delete Your Account</h1>
       <p className="mt-3 mb-7 max-w-2xl text-md text-gray-500 md:mx-auto md:text-center">
-        Warning: This will erase your profile from our database and all data will be lost.
+        WARNING: This will erase your account from our database and all data will be lost.
       </p>
       <button className="button danger" type="button" onClick={handleDeletion}>
         Delete

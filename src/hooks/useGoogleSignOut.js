@@ -1,13 +1,17 @@
-import { signOut } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { getAuth, signOut } from "firebase/auth";
+import { userActions } from "store";
 
 export { useGoogleSignOut };
 
-function useGoogleSignOut(auth) {
+function useGoogleSignOut() {
+  const auth = getAuth();
+  const dispatch = useDispatch();
+
   return () => {
     signOut(auth)
       .then(() => {
-        window.location.reload();
-        localStorage.removeItem("currentUser");
+        dispatch(userActions.resetState());
       })
       .catch((error) => {
         console.error(error);

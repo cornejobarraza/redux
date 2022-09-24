@@ -1,6 +1,4 @@
 import { useRef, useState, useEffect, Suspense, lazy } from "react";
-import { useDispatch } from "react-redux";
-import { userActions } from "store";
 import { history } from "helpers";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { Navbar, Sidebar, SidebarToggle, SlideOver, ErrorBoundary, PrivateRoute, NotFound } from "components";
@@ -12,7 +10,6 @@ const Settings = lazy(() => import("pages/Settings"));
 
 function App() {
   const [isSlideOverOpen, setIsSlideOverOpen] = useState(false);
-  const dispatch = useDispatch();
   const sidebarRef = useRef(null);
 
   // Init custom history object to allow navigation from
@@ -21,14 +18,10 @@ function App() {
   history.location = useLocation();
 
   useEffect(() => {
-    if (history.location.pathname !== "/login") {
-      dispatch(userActions.resetStatus());
-    }
     if (window.innerWidth < 1024) {
       setIsSlideOverOpen(false);
     }
-    // eslint-disable-next-line
-  }, [history.location, dispatch]);
+  }, []);
 
   const toggleSidebar = () => {
     isSlideOverOpen ? setIsSlideOverOpen(false) : setIsSlideOverOpen(true);

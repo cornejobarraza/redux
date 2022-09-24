@@ -1,21 +1,42 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "firebase.js";
+import { getAuth } from "firebase/auth";
 import { userActions } from "store";
 import { useUpdateGoogleAccount } from "hooks";
 import { DeleteGoogleAccount } from "components";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export { Settings as default };
 
 function Settings() {
   const { user, pending, error } = useSelector((state) => state.user);
-  const [data, setData] = useState({ name: user.name, email: user.email, avatar: user.avatar });
+  const [data, setData] = useState({ name: user?.name, email: user?.email, avatar: user?.avatar });
   const [isSwapperSpinning, setIsSwapperSpinning] = useState(false);
-  const [authUser] = useAuthState(auth);
   const updateGoogleAccount = useUpdateGoogleAccount(data);
+  const isFirstCall = useRef(true);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      dispatch(userActions.clearStatus());
+    };
+  }, [dispatch]);
+
+  const auth = getAuth();
+  const [authUser, authLoading] = useAuthState(auth);
+
+  useEffect(() => {
+    if (authUser && !authLoading && isFirstCall.current) {
+      isFirstCall.current = false;
+      if (data.avatar !== authUser.photoURL) {
+        // Mimic async fetch
+        setTimeout(() => {
+          setData((prev) => ({ ...prev, avatar: authUser.photoURL }));
+        }, 1500);
+      }
+    }
+  }, [data, authUser, authLoading]);
 
   const handleAvatar = () => {
     setIsSwapperSpinning(true);
@@ -121,7 +142,8 @@ function Settings() {
           {error.update && <span className="status">Something went wrong</span>}
         </div>
       </div>
-      <DeleteGoogleAccount />
+      {authUser && !authLoading && <DeleteGoogleAccount />}
+      {authUser && authLoading && <p>Loading...</p>}
     </div>
   );
 }

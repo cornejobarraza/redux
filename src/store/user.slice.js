@@ -24,8 +24,8 @@ export const userReducer = slice.reducer;
 function createInitialState() {
   const data = JSON.parse(localStorage.getItem("currentUser"));
   return {
-    user: data?.user || null,
-    logged: data?.logged || false,
+    user: data?.user,
+    logged: data?.logged,
     pending: {
       login: null,
       update: null,
@@ -37,10 +37,16 @@ function createInitialState() {
 
 function createReducers() {
   return {
-    resetStatus,
+    resetState,
+    clearStatus,
   };
 
-  function resetStatus(state) {
+  function resetState(state) {
+    state.user = null;
+    state.logged = null;
+  }
+
+  function clearStatus(state) {
     state.pending = { login: null, update: null, logout: null };
     state.error = { login: null, update: null, logout: null };
   }
