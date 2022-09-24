@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkredux=self.webpackChunkredux||[]).push([[157],{8157:function(n,e,r){r.r(e),r.d(e,{default:function(){return t}});var u=r(9489),o=r(6417);function t(){return(0,u.v0)().currentUser?(0,o.jsx)("p",{children:"Coming soon..."}):(0,o.jsx)("p",{children:"Sign into your Google account to see your lists"})}}}]);
