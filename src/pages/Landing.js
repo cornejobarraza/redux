@@ -8,7 +8,7 @@ function Landing() {
     <div className="main">
       <div className="welcome">
         <p className="text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl lg:text-center">
-          Centralized State Application
+          Centralized state application
         </p>
         <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto lg:text-center">
           Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in

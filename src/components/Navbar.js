@@ -8,22 +8,6 @@ export { Navbar };
 
 function Navbar() {
   const { user, logged } = useSelector((state) => state.user);
-  const [expanded, setExpanded] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024) {
-        setExpanded(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const toggleSearchbar = () => {
-    expanded ? setExpanded(false) : setExpanded(true);
-  };
 
   return (
     <div className="navbar">
@@ -33,24 +17,9 @@ function Navbar() {
         </Link>{" "}
         App
       </span>
-      <div className="pages">
-        <span className="link" data-text="Home">
-          Home
-        </span>
-        <span className="link" data-text="About">
-          About
-        </span>
-        <span className="link" data-text="Contact">
-          Contact
-        </span>
-      </div>
       {user && logged && (
         <>
-          <input
-            className="searchbar"
-            placeholder={`Search here ${user?.name.split(" ")[0]}...`}
-            data-expanded={expanded}
-          />
+          <Pages />
           <div className="account">
             <span className="name">
               Hello, <span className="text-redux-500">{user?.name.split(" ")[0]}</span>
@@ -71,13 +40,59 @@ function Navbar() {
               </small>
             </Link>
           </div>
-          <span className="search" onClick={toggleSearchbar}>
-            <SearchOutlined />
-          </span>
+          <SearchBar user={user} />
+          <DropDown />
         </>
       )}
-      <DropDown />
     </div>
+  );
+}
+
+function Pages() {
+  return (
+    <div className="pages">
+      <span className="link" data-text="Home">
+        Home
+      </span>
+      <span className="link" data-text="About">
+        About
+      </span>
+      <span className="link" data-text="Contact">
+        Contact
+      </span>
+    </div>
+  );
+}
+
+function SearchBar({ user }) {
+  const [expanded, setExpanded] = useState(false);
+
+  const toggleSearchbar = () => {
+    expanded ? setExpanded(false) : setExpanded(true);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setExpanded(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return (
+    <>
+      <input
+        className="searchbar"
+        placeholder={`Search here ${user?.name.split(" ")[0]}...`}
+        data-expanded={expanded}
+      />
+      <span className="search" onClick={toggleSearchbar}>
+        <SearchOutlined />
+      </span>
+    </>
   );
 }
 

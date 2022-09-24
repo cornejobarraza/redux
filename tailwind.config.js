@@ -11,7 +11,7 @@ module.exports = {
       },
       colors: {
         redux: {
-          400: "#845dc3",
+          400: "#8f6bc8",
           500: "#764abc",
           600: "#5e399a",
         },

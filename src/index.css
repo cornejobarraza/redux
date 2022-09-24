@@ -20,11 +20,11 @@
   }
 
   .logo {
-    @apply leading-8 font-bold text-xl mr-auto;
+    @apply leading-8 font-bold text-xl mr-auto order-1;
   }
 
   .pages {
-    @apply hidden lg:flex items-center gap-8 mx-auto;
+    @apply hidden lg:flex items-center gap-8 mx-auto order-2;
   }
 
   .link {
@@ -51,15 +51,15 @@
 
   .searchbar {
     width: clamp(25%, 25rem, 100%);
-    @apply hidden lg:inline-block focus-visible:outline-none px-3 mx-auto border border-gray-300 rounded-2xl bg-slate-50;
+    @apply hidden lg:inline-block focus-visible:outline-none px-3 mx-auto border border-gray-300 rounded-2xl bg-slate-50 order-3;
   }
 
   .searchbar[data-expanded="true"] {
-    @apply order-last md:order-none inline-block;
+    @apply order-last md:order-2 inline-block;
   }
 
   .account {
-    @apply flex items-center gap-4 ml-auto;
+    @apply flex items-center gap-4 ml-auto order-4;
   }
 
   .avatar {
@@ -96,11 +96,11 @@
   }
 
   .search {
-    @apply cursor-pointer lg:hidden;
+    @apply cursor-pointer lg:hidden order-5;
   }
 
   .menu {
-    @apply cursor-pointer inline-block text-left lg:hidden;
+    @apply cursor-pointer inline-block text-left lg:hidden order-6;
   }
 
   .sidebar {

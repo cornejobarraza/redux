@@ -12,16 +12,14 @@ function useGoogleSignIn() {
   const isFirstCall = useRef(true);
 
   const auth = getAuth();
-  const user = auth.currentUser;
 
   useEffect(() => {
+    // Log in once Google user is set
     if (googleUser && isFirstCall.current) {
       isFirstCall.current = false;
       logInUser();
     }
-  }, [googleUser, logInUser]);
-
-  if (user) return;
+  });
 
   const handleSignUp = async () => {
     await signInWithGoogle();

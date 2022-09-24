@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAuth } from "firebase/auth";
 import { userActions } from "store";
@@ -14,10 +14,10 @@ function Settings() {
   const [data, setData] = useState({ name: user?.name, email: user?.email, avatar: user?.avatar });
   const [isSwapperSpinning, setIsSwapperSpinning] = useState(false);
   const updateGoogleAccount = useUpdateGoogleAccount(data);
-  const isFirstCall = useRef(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // Reset pending and error statuses after leaving page
     return () => {
       dispatch(userActions.clearStatus());
     };
@@ -25,18 +25,6 @@ function Settings() {
 
   const auth = getAuth();
   const [authUser, authLoading] = useAuthState(auth);
-
-  useEffect(() => {
-    if (authUser && !authLoading && isFirstCall.current) {
-      isFirstCall.current = false;
-      if (data.avatar !== authUser.photoURL) {
-        // Mimic async fetch
-        setTimeout(() => {
-          setData((prev) => ({ ...prev, avatar: authUser.photoURL }));
-        }, 1500);
-      }
-    }
-  }, [data, authUser, authLoading]);
 
   const handleAvatar = () => {
     setIsSwapperSpinning(true);
@@ -84,7 +72,7 @@ function Settings() {
   return (
     <div className="settings">
       <div className="description">
-        <h1 className="page-header">Update Your Account</h1>
+        <h1 className="page-header">Update your account</h1>
         <p className="mt-4 max-w-2xl text-xl text-gray-500 md:mx-auto md:text-center">
           Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
           accusamus quisquam.
