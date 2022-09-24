@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, Suspense, lazy } from "react";
-import { history } from "helpers";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { Navbar, Sidebar, SidebarToggle, SlideOver, ErrorBoundary, PrivateRoute, NotFound } from "components";
+import { history } from "helpers";
 
 const Login = lazy(() => import("pages/Login"));
 const Landing = lazy(() => import("pages/Landing"));
