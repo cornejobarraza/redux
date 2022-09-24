@@ -47,7 +47,7 @@ const features = [
     icon: Cog6ToothIcon,
   },
   {
-    name: "3. Update any info and watch the magic happen!",
+    name: "3. Update anything and watch the magic happen!",
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.",
     icon: IdentificationIcon,
@@ -60,9 +60,17 @@ const features = [
           href="https://react-redux.js.org/"
           target="_blank"
           rel="noreferrer"
-          className="text-redux-600 hover:text-redux-400"
+          className="text-redux-500 hover:text-redux-400"
         >
-          React Redux
+          React Redux,
+        </a>{" "}
+        <a
+          href="https://firebase.google.com/"
+          target="_blank"
+          rel="noreferrer"
+          className="text-[#F57C00] hover:text-[#FFA000]"
+        >
+          Firebase
         </a>{" "}
         and{" "}
         <a href="https://tailwindcss.com/" target="_blank" rel="noreferrer" className="text-sky-600 hover:text-sky-500">

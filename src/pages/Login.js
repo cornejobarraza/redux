@@ -16,7 +16,7 @@ function Login() {
 
   return (
     <div className="login">
-      <div className="disclaimer">
+      <div className="description">
         <p className="text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl lg:text-center">
           Please Log In
         </p>
@@ -26,17 +26,18 @@ function Login() {
         </p>
       </div>
       <div className="users">
-        {!authUser && <Account user={user} pending={pending} />}
-        {authUser && !authLoading && <GoogleAccount pending={pending} />}
+        {!authUser && !authLoading && <Account user={user} pending={pending} />}
+        {user && authUser && !authLoading && <GoogleAccount pending={pending} />}
+        {authUser && authLoading && <p>Loading...</p>}
       </div>
       {!pending.login && !error.login && !authUser && !authLoading && (
-        <span className="text-link" onClick={googleSignIn}>
+        <span className="text-link text-center" onClick={googleSignIn}>
           Or continue with Google
         </span>
       )}
-      {!pending.login && !error.login && authUser && !authLoading && (
-        <span className="text-link" onClick={googleSignOut}>
-          Sign Out from Google
+      {!pending.login && !error.login && user && authUser && !authLoading && (
+        <span className="text-link text-center" onClick={googleSignOut}>
+          Remove Google account
         </span>
       )}
       {pending.login && <span className="text-sm text-center">Signing In...</span>}

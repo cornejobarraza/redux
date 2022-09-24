@@ -7,7 +7,7 @@ import isEqual from "lodash.isequal";
 export { Account };
 
 function Account({ user, pending }) {
-  const logInUser = useLogInUser(defaultUser);
+  const logInUser = useLogInUser();
   const dispatch = useDispatch();
 
   const handleReset = () => {

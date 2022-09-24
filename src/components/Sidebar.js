@@ -69,9 +69,9 @@ function Sidebar({ sidebarRef, modifiers }) {
               />
             ))}
             {!pending.login && !pending.logout && !authUser && !authLoading && (
-              <span className="text-link" onClick={googleSignIn}>
+              <button className="button w-max m-0 text-xs" onClick={googleSignIn}>
                 Sign-In with Google
-              </span>
+              </button>
             )}
             {pending.login && <span className="text-sm mt-0">Signing In...</span>}
             {pending.logout && <span className="text-sm mt-0">Signing Out...</span>}

@@ -17,12 +17,10 @@ const userMiddleware = (store) => (next) => (action) => {
     localStorage.setItem("currentUser", JSON.stringify(user));
   }
 
-  if (action.type.match("user/login/fulfilled") || action.type.match("user/logout/fulfilled")) {
-    if (history.location.state) {
-      // Get return URL from location state
-      const { from } = history.location.state;
-      history.navigate(from);
-    }
+  if (action.type.match("user/login/fulfilled")) {
+    // Get return URL from location state or default to home page
+    const { from } = history.location.state || { from: { pathname: "/" } };
+    history.navigate(from);
   }
 
   return result;

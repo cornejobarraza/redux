@@ -21,7 +21,8 @@ function App() {
     if (window.innerWidth < 1024) {
       setIsSlideOverOpen(false);
     }
-  }, []);
+    // eslint-disable-next-line
+  }, [history.location]);
 
   const toggleSidebar = () => {
     isSlideOverOpen ? setIsSlideOverOpen(false) : setIsSlideOverOpen(true);

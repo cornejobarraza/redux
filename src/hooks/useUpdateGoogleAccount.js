@@ -1,11 +1,10 @@
 import { getAuth } from "firebase/auth";
-import { getDatabase } from "firebase/database";
 import { doc, updateDoc } from "firebase/firestore";
+import { db } from "firebase.js";
 
 export { useUpdateGoogleAccount };
 
 function useUpdateGoogleAccount(data) {
-  const db = getDatabase();
   const auth = getAuth();
   const user = auth.currentUser;
 

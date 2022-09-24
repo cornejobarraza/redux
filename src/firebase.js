@@ -20,8 +20,8 @@ initializeAppCheck(app, {
 });
 getAuth(app);
 getAnalytics(app);
-getFirestore(app);
 
+const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 
-export { googleProvider };
+export { db, googleProvider };

@@ -1,6 +1,5 @@
 import { getAuth, signInWithPopup } from "firebase/auth";
-import { getDatabase } from "firebase/database";
-import { googleProvider } from "firebase.js";
+import { db, googleProvider } from "firebase.js";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useState, useEffect, useRef } from "react";
 import { useLogInUser } from "hooks";
@@ -12,7 +11,6 @@ function useGoogleSignIn() {
   const logInUser = useLogInUser(googleUser);
   const isFirstCall = useRef(true);
 
-  const db = getDatabase();
   const auth = getAuth();
   const user = auth.currentUser;
 
