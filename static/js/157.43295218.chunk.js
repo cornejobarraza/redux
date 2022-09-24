@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkredux=self.webpackChunkredux||[]).push([[157],{8157:function(u,e,n){n.r(e),n.d(e,{default:function(){return t}});var r=n(6417);function t(){return(0,r.jsx)("p",{children:"Lists"})}}}]);
