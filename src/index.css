@@ -141,15 +141,11 @@
 
   .settings,
   .login {
-    @apply text-center flex flex-col gap-12;
+    @apply md:text-center flex flex-col gap-12;
   }
 
   .profile {
     @apply flex flex-col flex-wrap sm:flex-row gap-8 md:gap-16 md:justify-center;
-  }
-
-  .warning {
-    @apply w-80 min-w-[21rem] md:mx-auto;
   }
 
   .danger {
