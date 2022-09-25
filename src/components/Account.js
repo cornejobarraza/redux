@@ -17,7 +17,7 @@ function Account({ auth, user, pending }) {
 
   return (
     <div className="user">
-      {!auth && user && !isEqual(user, defaultUser) && (
+      {!auth && !pending.logout && user && !isEqual(user, defaultUser) && (
         <span className="reset" title="Reset account" onClick={handleReset}>
           <TrashIcon />
         </span>

@@ -1,9 +1,14 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { IdentificationIcon, CodeBracketIcon, UserIcon, Cog6ToothIcon } from "@heroicons/react/24/outline";
+import { useEffect } from "react";
 
 export { Landing as default };
 
 function Landing() {
+  useEffect(() => {
+    document.title = "Redux - Main";
+  }, []);
+
   return (
     <div className="main">
       <div className="welcome">
@@ -57,7 +62,7 @@ const features = [
       <span>
         4. Built using{" "}
         <a
-          href="https://react-redux.js.org/"
+          href="https://react-redux.js.org"
           target="_blank"
           rel="noreferrer"
           className="text-redux-500 hover:text-redux-400"
@@ -65,7 +70,7 @@ const features = [
           React Redux,
         </a>{" "}
         <a
-          href="https://firebase.google.com/"
+          href="https://firebase.google.com"
           target="_blank"
           rel="noreferrer"
           className="text-[#F57C00] hover:text-[#FFA000]"
@@ -73,7 +78,7 @@ const features = [
           Firebase
         </a>{" "}
         and{" "}
-        <a href="https://tailwindcss.com/" target="_blank" rel="noreferrer" className="text-sky-600 hover:text-sky-500">
+        <a href="https://tailwindcss.com" target="_blank" rel="noreferrer" className="text-sky-600 hover:text-sky-500">
           Tailwind CSS
         </a>
       </span>

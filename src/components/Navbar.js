@@ -51,15 +51,15 @@ function Navbar() {
 function Pages() {
   return (
     <div className="pages">
-      <span className="link" data-text="Home">
+      <Link className="link" data-text="Home" to="/">
         Home
-      </span>
-      <span className="link" data-text="About">
+      </Link>
+      <a href="https://cornejobarraza.github.io" target="_blank" rel="noreferrer" className="link" data-text="About">
         About
-      </span>
-      <span className="link" data-text="Contact">
+      </a>
+      <a href="https://linktr.ee/cornejobarraza" target="_blank" rel="noreferrer" className="link" data-text="Contact">
         Contact
-      </span>
+      </a>
     </div>
   );
 }

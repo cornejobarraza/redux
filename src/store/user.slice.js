@@ -187,6 +187,7 @@ function createExtraReducers() {
       [fulfilled]: (state) => {
         state.pending.logout = false;
         state.logged = false;
+        state.user = null;
       },
       [rejected]: (state) => {
         state.pending.logout = false;

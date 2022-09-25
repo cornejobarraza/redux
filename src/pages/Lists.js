@@ -1,10 +1,15 @@
 import { getAuth } from "firebase/auth";
+import { useEffect } from "react";
 
 export { Lists as default };
 
 function Lists() {
   const auth = getAuth();
   const user = auth.currentUser;
+
+  useEffect(() => {
+    document.title = "Redux - Lists";
+  }, []);
 
   if (!user) {
     return <p>Sign into your Google account to see your lists</p>;

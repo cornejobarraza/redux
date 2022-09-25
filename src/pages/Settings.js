@@ -17,6 +17,10 @@ function Settings() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    document.title = "Redux - Settings";
+  }, []);
+
+  useEffect(() => {
     // Reset pending and error statuses after leaving page
     return () => {
       dispatch(userActions.clear());
@@ -131,7 +135,6 @@ function Settings() {
         </div>
       </div>
       {authUser && !authLoading && <DeleteGoogleAccount />}
-      {authUser && authLoading && <p>Loading...</p>}
     </div>
   );
 }

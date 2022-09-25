@@ -3,6 +3,7 @@ import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Account } from "components";
 import { useGoogleSignIn, useGoogleSignOut } from "hooks";
+import { useEffect } from "react";
 
 export { Login as default };
 
@@ -10,6 +11,10 @@ function Login() {
   const { user, pending, error } = useSelector((state) => state.user);
   const googleSignIn = useGoogleSignIn();
   const googleSignOut = useGoogleSignOut();
+
+  useEffect(() => {
+    document.title = "Redux - Login";
+  }, []);
 
   const auth = getAuth();
   const [authUser, authLoading] = useAuthState(auth);
@@ -33,12 +38,12 @@ function Login() {
           Or continue with Google
         </span>
       )}
-      {!pending.login && !error.login && authUser && (
+      {!pending.login && !error.login && !pending.logout && authUser && (
         <span className="text-link text-center" onClick={googleSignOut}>
           Remove Google account
         </span>
       )}
-      {pending.logout && (
+      {pending.logout && !authUser && (
         <span className="text-sm text-center" onClick={googleSignOut}>
           Removing...
         </span>

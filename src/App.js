@@ -34,7 +34,7 @@ function App() {
       <Sidebar sidebarRef={sidebarRef} />
       <div className="content">
         <ErrorBoundary>
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<div className="text-center">Loading...</div>}>
             <Routes>
               <Route
                 path="/"

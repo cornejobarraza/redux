@@ -21,12 +21,16 @@ const userMiddleware = (store) => (next) => (action) => {
 
   // Backup previous local user when adding Google account
   if (action.type.startsWith("user/google/login/pending")) {
-    const { user } = JSON.parse(localStorage.getItem("currentUser"));
-    if (user) localStorage.setItem("previousUser", JSON.stringify(user));
+    const data = JSON.parse(localStorage.getItem("currentUser"));
+    if (data) {
+      if (data.user) {
+        localStorage.setItem("previousUser", JSON.stringify(data.user));
+      }
+    }
   }
 
   // Restore saved local user when removing Google account
-  if (action.type.startsWith("user/google/logout")) {
+  if (action.type.match("user/google/logout/fulfilled")) {
     const previousUser = JSON.parse(localStorage.getItem("previousUser"));
     if (previousUser) {
       const currentUser = JSON.parse(localStorage.getItem("currentUser"));
