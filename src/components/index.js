@@ -6,5 +6,4 @@ export * from "./SlideOver";
 export * from "./SidebarToggle";
 export * from "./ErrorBoundary";
 export * from "./Account";
-export * from "./GoogleAccount";
 export * from "./DeleteGoogleAccount";
