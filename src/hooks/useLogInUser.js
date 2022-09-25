@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { defaultUser, userActions } from "store";
+import { userActions } from "store";
+import { defaultUser } from "helpers";
 
 export { useLogInUser };
 
@@ -9,7 +10,7 @@ function useLogInUser(googleUser) {
 
   const handleLogIn = () => {
     if (googleUser) {
-      dispatch(userActions.logInAsync(googleUser));
+      dispatch(userActions.logInGoogleAsync(googleUser));
     } else if (!user) {
       dispatch(userActions.logInAsync(defaultUser));
     } else {

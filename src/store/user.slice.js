@@ -1,13 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fakeBackend } from "helpers";
 
-// Default user
-export const defaultUser = {
-  name: "John Doe",
-  email: "john.doe@email.com",
-  avatar: "https://avatars.dicebear.com/api/adventurer-neutral/59.svg",
-};
-
 // Create slice
 const name = "user";
 const initialState = createInitialState();
@@ -37,16 +30,16 @@ function createInitialState() {
 
 function createReducers() {
   return {
-    resetState,
-    clearStatus,
+    reset,
+    clear,
   };
 
-  function resetState(state) {
+  function reset(state) {
     state.user = null;
     state.logged = null;
   }
 
-  function clearStatus(state) {
+  function clear(state) {
     state.pending = { login: null, update: null, logout: null };
     state.error = { login: null, update: null, logout: null };
   }
@@ -56,12 +49,14 @@ function createExtraActions() {
   return {
     updateGoogleAsync: updateGoogleAsync(),
     updateAsync: updateAsync(),
+    logInGoogleAsync: logInGoogleAsync(),
     logInAsync: logInAsync(),
+    logOutGoogleAsync: logOutGoogleAsync(),
     logOutAsync: logOutAsync(),
   };
 
   function updateGoogleAsync() {
-    return createAsyncThunk(`${name}/update/google`, async (user) => {
+    return createAsyncThunk(`${name}/google/update`, async (user) => {
       const response = await fakeBackend(user);
       return response.data;
     });
@@ -74,8 +69,22 @@ function createExtraActions() {
     });
   }
 
+  function logInGoogleAsync() {
+    return createAsyncThunk(`${name}/google/login`, async (user) => {
+      const response = await fakeBackend(user);
+      return response.data;
+    });
+  }
+
   function logInAsync() {
     return createAsyncThunk(`${name}/login`, async (user) => {
+      const response = await fakeBackend(user);
+      return response.data;
+    });
+  }
+
+  function logOutGoogleAsync() {
+    return createAsyncThunk(`${name}/google/logout`, async (user) => {
       const response = await fakeBackend(user);
       return response.data;
     });
@@ -93,7 +102,9 @@ function createExtraReducers() {
   return {
     ...updateGoogleAsync(),
     ...updateAsync(),
+    ...logInGoogleAsync(),
     ...logInAsync(),
+    ...logOutGoogleAsync(),
     ...logOutAsync(),
   };
 
@@ -131,6 +142,24 @@ function createExtraReducers() {
     };
   }
 
+  function logInGoogleAsync() {
+    const { pending, fulfilled, rejected } = extraActions.logInGoogleAsync;
+    return {
+      [pending]: (state) => {
+        state.pending.login = true;
+      },
+      [fulfilled]: (state, action) => {
+        state.pending.login = false;
+        state.logged = true;
+        state.user = action.payload;
+      },
+      [rejected]: (state) => {
+        state.pending.login = false;
+        state.error.login = true;
+      },
+    };
+  }
+
   function logInAsync() {
     const { pending, fulfilled, rejected } = extraActions.logInAsync;
     return {
@@ -145,6 +174,23 @@ function createExtraReducers() {
       [rejected]: (state) => {
         state.pending.login = false;
         state.error.login = true;
+      },
+    };
+  }
+
+  function logOutGoogleAsync() {
+    const { pending, fulfilled, rejected } = extraActions.logOutGoogleAsync;
+    return {
+      [pending]: (state) => {
+        state.pending.logout = true;
+      },
+      [fulfilled]: (state) => {
+        state.pending.logout = false;
+        state.logged = false;
+      },
+      [rejected]: (state) => {
+        state.pending.logout = false;
+        state.error.logout = true;
       },
     };
   }

@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Account, GoogleAccount } from "components";
+import { Account } from "components";
 import { useGoogleSignIn, useGoogleSignOut } from "hooks";
 
 export { Login as default };
@@ -26,22 +26,25 @@ function Login() {
         </p>
       </div>
       <div className="users">
-        {!authUser && !authLoading && <Account user={user} pending={pending} />}
-        {user && authUser && !authLoading && <GoogleAccount pending={pending} />}
-        {authUser && authLoading && <p>Loading...</p>}
+        <Account auth={authUser} user={user} pending={pending} />
       </div>
-      {!pending.login && !error.login && !authUser && !authLoading && (
+      {!pending.login && !error.login && !pending.logout && !authUser && !authLoading && (
         <span className="text-link text-center" onClick={googleSignIn}>
           Or continue with Google
         </span>
       )}
-      {!pending.login && !error.login && user && authUser && !authLoading && (
+      {!pending.login && !error.login && authUser && (
         <span className="text-link text-center" onClick={googleSignOut}>
           Remove Google account
         </span>
       )}
+      {pending.logout && (
+        <span className="text-sm text-center" onClick={googleSignOut}>
+          Removing...
+        </span>
+      )}
       {pending.login && <span className="text-sm text-center">Signing In...</span>}
-      {error.login && <span className="status text-center">Something went wrong</span>}
+      {error.login && <span className="text-sm text-center">Something went wrong</span>}
     </div>
   );
 }

@@ -11,7 +11,7 @@ function useGoogleSignOut() {
   return () => {
     signOut(auth)
       .then(() => {
-        dispatch(userActions.resetState());
+        dispatch(userActions.logOutGoogleAsync());
       })
       .catch((error) => {
         console.error(error);

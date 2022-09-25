@@ -19,7 +19,7 @@ function Settings() {
   useEffect(() => {
     // Reset pending and error statuses after leaving page
     return () => {
-      dispatch(userActions.clearStatus());
+      dispatch(userActions.clear());
     };
   }, [dispatch]);
 
