@@ -21,7 +21,7 @@ function Landing() {
         </p>
       </div>
 
-      <dl className="about">
+      <dl className="features">
         {features.map((feature) => (
           <div key={feature.name} className="relative">
             <dt>
