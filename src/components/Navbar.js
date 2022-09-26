@@ -17,9 +17,9 @@ function Navbar() {
         </Link>{" "}
         App
       </span>
-      <Pages />
       {user && logged && (
         <>
+          <Pages />
           <div className="account">
             <span className="name">
               Hello, <span className="text-redux-500">{user?.name.split(" ")[0]}</span>
@@ -51,7 +51,13 @@ function Navbar() {
 function Pages() {
   return (
     <div className="pages">
-      <a href="https://cornejobarraza.github.io" target="_blank" rel="noreferrer" className="link" data-text="Home">
+      <a
+        href="https://cornejobarraza.github.io"
+        target="_blank"
+        rel="noreferrer"
+        className="link"
+        data-text="Portfolio"
+      >
         Portfolio
       </a>
       <NavLink className="link" data-text="About" to="about">
@@ -117,13 +123,7 @@ function DropDown() {
         <Menu.Items className="absolute right-9 top-20 w-32 z-20 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
             <Menu.Item>
-              <a
-                href="https://cornejobarraza.github.io"
-                target="_blank"
-                rel="noreferrer"
-                className="link"
-                data-text="Home"
-              >
+              <a href="https://cornejobarraza.github.io" target="_blank" rel="noreferrer" className="link">
                 Portfolio
               </a>
             </Menu.Item>
