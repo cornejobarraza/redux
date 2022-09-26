@@ -125,7 +125,7 @@ function Settings() {
             ></input>
           </div>
         </form>
-        <div className="action lg:text-center md:-mt-8 w-full">
+        <div className="action md:text-center md:-mt-8 w-full">
           <button className="button" disabled={pending.update} type="submit" form="detailsForm">
             Update
           </button>

@@ -34,7 +34,7 @@ function Navbar() {
                 height="32px"
                 referrerPolicy="no-referrer"
               />
-              <small className="info-tooltip lg:group-hover:scale-100">
+              <small className="info-tooltip">
                 <span className="block font-bold">{user?.name}</span>
                 <span className="block">{user?.email}</span>
               </small>
@@ -123,38 +123,45 @@ function DropDown() {
           <div className="py-1">
             <Menu.Item>
               {({ active }) => (
-                <span
+                <Link
                   className={classNames(
                     active ? "bg-slate-50 text-gray-900" : "text-gray-700",
                     "block px-4 py-2 text-sm"
                   )}
+                  to="/"
                 >
                   Home
-                </span>
+                </Link>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <span
+                <a
+                  href="https://cornejobarraza.github.io"
+                  target="_blank"
+                  rel="noreferrer"
                   className={classNames(
                     active ? "bg-slate-50 text-gray-900" : "text-gray-700",
                     "block px-4 py-2 text-sm"
                   )}
                 >
                   About
-                </span>
+                </a>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <span
+                <a
+                  href="https://linktr.ee/cornejobarraza"
+                  target="_blank"
+                  rel="noreferrer"
                   className={classNames(
                     active ? "bg-slate-50 text-gray-900" : "text-gray-700",
                     "block px-4 py-2 text-sm"
                   )}
                 >
                   Contact
-                </span>
+                </a>
               )}
             </Menu.Item>
           </div>

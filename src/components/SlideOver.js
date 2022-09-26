@@ -56,7 +56,7 @@ function SlideOver({ open, handler }) {
                     </div>
                   </Transition.Child>
                   <div className="flex h-full flex-col bg-slate-200 py-5 shadow-xl">
-                    <div className="px-8 lg:px-6">
+                    <div className="px-8">
                       <Dialog.Title className="text-lg font-bold text-gray-900">Menu</Dialog.Title>
                     </div>
                     <div className="relative mt-6 flex-1 px-4 sm:px-6">
