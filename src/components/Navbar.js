@@ -2,7 +2,7 @@ import { useEffect, useState, Fragment } from "react";
 import { useSelector } from "react-redux";
 import { Menu, Transition } from "@headlessui/react";
 import { SearchOutlined, MoreVertOutlined } from "@material-ui/icons";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export { Navbar };
 
@@ -17,9 +17,9 @@ function Navbar() {
         </Link>{" "}
         App
       </span>
+      <Pages />
       {user && logged && (
         <>
-          <Pages />
           <div className="account">
             <span className="name">
               Hello, <span className="text-redux-500">{user?.name.split(" ")[0]}</span>
@@ -51,15 +51,15 @@ function Navbar() {
 function Pages() {
   return (
     <div className="pages">
-      <Link className="link" data-text="Home" to="/">
-        Home
-      </Link>
-      <a href="https://cornejobarraza.github.io" target="_blank" rel="noreferrer" className="link" data-text="About">
+      <a href="https://cornejobarraza.github.io" target="_blank" rel="noreferrer" className="link" data-text="Home">
+        Portfolio
+      </a>
+      <NavLink className="link" data-text="About" to="about">
         About
-      </a>
-      <a href="https://linktr.ee/cornejobarraza" target="_blank" rel="noreferrer" className="link" data-text="Contact">
+      </NavLink>
+      <NavLink className="link" data-text="Contact" to="contact">
         Contact
-      </a>
+      </NavLink>
     </div>
   );
 }
@@ -96,11 +96,6 @@ function SearchBar({ user }) {
   );
 }
 
-// Headless UI dropdown
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
 function DropDown() {
   return (
     <Menu as="div" className="menu">
@@ -122,47 +117,25 @@ function DropDown() {
         <Menu.Items className="absolute right-9 top-20 w-32 z-20 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
             <Menu.Item>
-              {({ active }) => (
-                <Link
-                  className={classNames(
-                    active ? "bg-slate-50 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
-                  )}
-                  to="/"
-                >
-                  Home
-                </Link>
-              )}
+              <a
+                href="https://cornejobarraza.github.io"
+                target="_blank"
+                rel="noreferrer"
+                className="link"
+                data-text="Home"
+              >
+                Portfolio
+              </a>
             </Menu.Item>
             <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="https://cornejobarraza.github.io"
-                  target="_blank"
-                  rel="noreferrer"
-                  className={classNames(
-                    active ? "bg-slate-50 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
-                  )}
-                >
-                  About
-                </a>
-              )}
+              <NavLink className="block px-4 py-2 text-sm" to="about">
+                About
+              </NavLink>
             </Menu.Item>
             <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="https://linktr.ee/cornejobarraza"
-                  target="_blank"
-                  rel="noreferrer"
-                  className={classNames(
-                    active ? "bg-slate-50 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
-                  )}
-                >
-                  Contact
-                </a>
-              )}
+              <NavLink className="block px-4 py-2 text-sm" to="contact">
+                Contact
+              </NavLink>
             </Menu.Item>
           </div>
         </Menu.Items>
