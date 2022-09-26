@@ -5,6 +5,8 @@ import { history } from "helpers";
 
 const Login = lazy(() => import("pages/Login"));
 const Landing = lazy(() => import("pages/Landing"));
+const About = lazy(() => import("pages/About"));
+const Contact = lazy(() => import("pages/Contact"));
 const Lists = lazy(() => import("pages/Lists"));
 const Settings = lazy(() => import("pages/Settings"));
 
@@ -45,6 +47,8 @@ function App() {
                 }
               />
               <Route path="login" element={<Login />} />
+              <Route path="about" element={<About />} />
+              <Route path="contact" element={<Contact />} />
               <Route
                 path="lists"
                 element={
