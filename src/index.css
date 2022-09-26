@@ -11,10 +11,6 @@
     @apply flex flex-wrap;
   }
 
-  .active {
-    @apply font-bold text-redux-500 active:text-black lg:hover:text-redux-600 lg:hover:active:text-black transition-colors;
-  }
-
   .navbar {
     @apply lg:fixed flex flex-wrap gap-5 items-center px-8 py-4 border-b border-gray-300 w-full bg-slate-200 lg:z-20 min-h-[65px];
   }
@@ -24,30 +20,12 @@
   }
 
   .pages {
-    @apply hidden lg:flex items-center gap-8 mx-auto order-2;
+    @apply hidden lg:flex items-center lg:gap-4 xl:gap-8 mx-auto order-2;
   }
 
   .link {
     @apply inline-flex flex-col items-center justify-between active:font-bold lg:hover:font-bold lg:hover:active:font-normal cursor-pointer;
   }
-
-  /* CSS trick to avoid layout shift on hover:bold */
-  .link::after {
-    content: attr(data-text) / "";
-    height: 0;
-    visibility: hidden;
-    overflow: hidden;
-    user-select: none;
-    pointer-events: none;
-    font-weight: bold;
-  }
-
-  @media speech {
-    .link {
-      display: none;
-    }
-  }
-  /* End of trick */
 
   .searchbar {
     width: clamp(25%, 25rem, 100%);
@@ -72,19 +50,6 @@
 
   .swapper {
     @apply inline-block text-sm cursor-pointer md:block ml-7 md:ml-0;
-  }
-
-  .spin {
-    animation: spin 0.5s;
-  }
-
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(180deg);
-    }
   }
 
   .swapper-icon {
@@ -185,3 +150,58 @@
     @apply text-sm cursor-pointer hover:underline;
   }
 }
+
+/* Active link styles */
+.active {
+  font-weight: bold;
+  color: #764abc;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.active:active {
+  color: black;
+}
+
+.active:hover {
+  color: #5e399a;
+}
+
+.active:hover:active {
+  color: black;
+}
+/* End of active link styles */
+
+/* Swapper animation */
+.spin {
+  animation: spin 0.5s;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+/* End of swapper animation */
+
+/* CSS trick to avoid layout shift on hover:bold */
+.link::after {
+  content: attr(data-text) / "";
+  height: 0;
+  visibility: hidden;
+  overflow: hidden;
+  user-select: none;
+  pointer-events: none;
+  font-weight: bold;
+}
+
+@media speech {
+  .link {
+    display: none;
+  }
+}
+/* End of trick */
