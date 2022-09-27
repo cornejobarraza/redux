@@ -38,6 +38,8 @@ function App() {
         <ErrorBoundary>
           <Suspense fallback={<div className="md:text-center">Loading...</div>}>
             <Routes>
+              <Route path="*" element={<NotFound />} />
+              <Route path="login" element={<Login />} />
               <Route
                 path="/"
                 element={
@@ -46,9 +48,22 @@ function App() {
                   </PrivateRoute>
                 }
               />
-              <Route path="login" element={<Login />} />
-              <Route path="about" element={<About />} />
-              <Route path="contact" element={<Contact />} />
+              <Route
+                path="about"
+                element={
+                  <PrivateRoute>
+                    <About />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="contact"
+                element={
+                  <PrivateRoute>
+                    <Contact />
+                  </PrivateRoute>
+                }
+              />
               <Route
                 path="lists"
                 element={
@@ -65,7 +80,6 @@ function App() {
                   </PrivateRoute>
                 }
               />
-              <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
         </ErrorBoundary>
