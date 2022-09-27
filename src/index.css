@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Start of Tailwind layer */
 @layer components {
   body {
     @apply bg-slate-200;
@@ -150,6 +151,56 @@
     @apply text-sm cursor-pointer hover:underline;
   }
 }
+/* End of Tailwind layer */
+
+/* Start of Google Identity button */
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap");
+
+.google-identity {
+  width: max-content;
+  display: inline-block;
+  background: #ffffff;
+  border-radius: 0.25rem;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.google-identity:disabled {
+  background-color: #424242;
+  cursor: not-allowed;
+}
+
+.google-identity:disabled .logo svg g :not(:last-child) {
+  fill: #212121;
+}
+
+.google-identity:disabled .text {
+  color: black;
+}
+
+.google-identity:active {
+  background-color: #f5f5f5;
+}
+
+.google-identity:focus-visible {
+  outline: 2px solid #01579b;
+}
+
+.google-identity .logo svg {
+  display: inline;
+  margin: 0.75rem;
+}
+
+.google-identity .text {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  color: #5f6368;
+  white-space: nowrap;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 600;
+}
+/* End of Google Identity button */
 
 /* Active link styles */
 .active {
