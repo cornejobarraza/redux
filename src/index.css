@@ -180,6 +180,10 @@
   color: black;
 }
 
+.google-identity:disabled:active {
+  background-color: #424242;
+}
+
 .google-identity:active {
   background-color: #f5f5f5;
 }
