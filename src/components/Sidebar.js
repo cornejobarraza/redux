@@ -10,23 +10,63 @@ import {
   SettingsOutlined,
   ShoppingCartOutlined,
   BookmarkBorderOutlined,
+  MenuOutlined,
 } from "@material-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
+import { Dialog, Transition } from "@headlessui/react";
+import { XMarkIcon } from "@heroicons/react/20/solid";
+import { useEffect, useState, Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import { getAuth } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { userActions } from "store";
 import { useGoogleSignIn } from "hooks";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { history } from "helpers";
 
 export { Sidebar };
 
-function Sidebar({ sidebarRef, modifiers }) {
-  const { user, logged, pending, error } = useSelector((state) => state.user);
-  const googleSignIn = useGoogleSignIn();
-  const dispatch = useDispatch();
+function Sidebar() {
+  const [isMobile, setIsMobile] = useState(null);
+  const [isSlideOverOpen, setIsSlideOverOpen] = useState(false);
 
-  const auth = getAuth();
-  const [authUser, authLoading] = useAuthState(auth);
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1024) {
+        setIsMobile(true);
+      } else {
+        setIsMobile(false);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (window.innerWidth < 1024) {
+      setIsSlideOverOpen(false);
+    }
+    // eslint-disable-next-line
+  }, [history.location]);
+
+  const toggleSidebar = () => {
+    isSlideOverOpen ? setIsSlideOverOpen(false) : setIsSlideOverOpen(true);
+  };
+
+  return (
+    <>
+      {isMobile ? <SlideOver open={isSlideOverOpen} handler={toggleSidebar} /> : <Menu />}
+      {isMobile && <SidebarToggle handler={toggleSidebar} />}
+    </>
+  );
+}
+
+function Menu() {
+  const { user, logged, pending, error } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const googleSignIn = useGoogleSignIn();
 
   const handleLogOut = () => {
     dispatch(userActions.logOutAsync());
@@ -52,36 +92,37 @@ function Sidebar({ sidebarRef, modifiers }) {
     },
   ];
 
+  const auth = getAuth();
+  const [authUser, authLoading] = useAuthState(auth);
+
   return (
-    <>
-      <div className={`sidebar${modifiers ? " " + modifiers : ""}`} ref={sidebarRef}>
-        {user && logged ? (
-          <>
-            {Links.map((link, index) => (
-              <SideBarLink
-                key={index}
-                icon={link.icon}
-                text={link.text}
-                route={link.route}
-                name={link.name}
-                state={link.state}
-                handler={link.handler}
-              />
-            ))}
-            {!pending.login && !pending.logout && !authUser && !authLoading && (
-              <button className="button w-max m-0 text-xs" onClick={googleSignIn}>
-                Sign-In with Google
-              </button>
-            )}
-            {pending.login && <span className="text-sm mt-0">Signing In...</span>}
-            {pending.logout && <span className="text-sm mt-0">Signing Out...</span>}
-            {error.logout && <span className="status mt-0">Something went wrong</span>}
-          </>
-        ) : (
-          <SideBarLinkEmpty />
-        )}
-      </div>
-    </>
+    <div className="sidebar">
+      {user && logged ? (
+        <>
+          {Links.map((link, index) => (
+            <SideBarLink
+              key={index}
+              icon={link.icon}
+              text={link.text}
+              route={link.route}
+              name={link.name}
+              state={link.state}
+              handler={link.handler}
+            />
+          ))}
+          {!pending.login && !pending.logout && !authUser && !authLoading && (
+            <button className="button w-max m-0 text-xs" onClick={googleSignIn}>
+              Sign in with Google
+            </button>
+          )}
+          {pending.login && <span className="text-sm mt-0">Signing In...</span>}
+          {pending.logout && <span className="text-sm mt-0">Signing Out...</span>}
+          {error.logout && <span className="status mt-0">Something went wrong</span>}
+        </>
+      ) : (
+        <SideBarLinkEmpty />
+      )}
+    </div>
   );
 }
 
@@ -124,3 +165,83 @@ const SideBarLinkEmpty = () => (
     <circle cx="12" cy="412" r="12" opacity="0.1"></circle>
   </svg>
 );
+
+function SlideOver({ open, handler }) {
+  return (
+    <Transition.Root show={open} as={Fragment}>
+      <Dialog as="div" className="relative z-10 lg:hidden" onClose={handler}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-in-out duration-500"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in-out duration-500"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 overflow-hidden">
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-64 pl-10">
+              <Transition.Child
+                as={Fragment}
+                enter="transform transition ease-in-out duration-500"
+                enterFrom="translate-x-full"
+                enterTo="translate-x-0"
+                leave="transform transition ease-in-out duration-500"
+                leaveFrom="translate-x-0"
+                leaveTo="translate-x-full"
+              >
+                <Dialog.Panel className="pointer-events-auto relative w-64">
+                  <Transition.Child
+                    as={Fragment}
+                    enter="ease-in-out duration-500"
+                    enterFrom="opacity-0"
+                    enterTo="opacity-100"
+                    leave="ease-in-out duration-500"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                  >
+                    <div className="absolute top-0 right-0 -ml-8 flex pt-[1.3rem] pr-7">
+                      <button
+                        type="button"
+                        className="rounded-md text-gray-500 active:text-gray-600 focus:outline-none focus:ring-2 focus:ring-slate-200"
+                        onClick={handler}
+                      >
+                        <span className="sr-only">Close panel</span>
+                        <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                      </button>
+                    </div>
+                  </Transition.Child>
+                  <div className="flex h-full flex-col bg-slate-200 py-5 shadow-xl">
+                    <div className="px-8">
+                      <Dialog.Title className="text-lg font-bold text-gray-900">Menu</Dialog.Title>
+                    </div>
+                    <div className="relative mt-6 flex-1">
+                      <Menu />
+                    </div>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </div>
+      </Dialog>
+    </Transition.Root>
+  );
+}
+
+function SidebarToggle({ handler }) {
+  return (
+    <button
+      id="sidebar-toggle"
+      type="button"
+      className="lg:hidden button p-3 fixed bottom-0 right-0 m-4 z-[5]"
+      onClick={handler}
+    >
+      <MenuOutlined />
+    </button>
+  );
+}
