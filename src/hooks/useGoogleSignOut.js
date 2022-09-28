@@ -11,7 +11,14 @@ function useGoogleSignOut() {
   return () => {
     signOut(auth)
       .then(() => {
-        dispatch(userActions.logOutGoogleAsync());
+        const previousUser = JSON.parse(localStorage.getItem("previousUser"));
+        dispatch(
+          userActions.logOutGoogleAsync({
+            name: previousUser?.name,
+            email: previousUser?.email,
+            avatar: previousUser?.avatar,
+          })
+        );
       })
       .catch((error) => {
         console.error(error);

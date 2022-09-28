@@ -8,40 +8,28 @@ export * from "./user.slice";
 const userMiddleware = (store) => (next) => (action) => {
   const result = next(action);
 
-  // Remove user state from localStorage
+  // Remove user from localStorage after resetting state
   if (action.type.match("user/reset")) {
     localStorage.removeItem("currentUser");
   }
 
-  // Save user state in localStorage for every successful action
+  // Update user in localStorage after every successful action
   if (action.type.endsWith("fulfilled")) {
     const user = store.getState().user;
     localStorage.setItem("currentUser", JSON.stringify(user));
   }
 
-  // Backup previous local user when adding Google account
+  // Backup previous user when adding Google account
   if (action.type.startsWith("user/google/login/pending")) {
     const data = JSON.parse(localStorage.getItem("currentUser"));
     if (data) {
-      if (data.user) {
-        localStorage.setItem("previousUser", JSON.stringify(data.user));
-      }
+      localStorage.setItem("previousUser", JSON.stringify(data.user));
     }
   }
 
-  // Restore saved local user when removing Google account
+  // Remove previous user after Google account is logged out
   if (action.type.match("user/google/logout/fulfilled")) {
-    const previousUser = JSON.parse(localStorage.getItem("previousUser"));
-    if (previousUser) {
-      const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-      const restoredUser = {
-        ...currentUser,
-        user: { name: previousUser.name, email: previousUser.email, avatar: previousUser.avatar },
-      };
-      localStorage.setItem("currentUser", JSON.stringify(restoredUser));
-      localStorage.removeItem("previousUser");
-      history.navigate(0);
-    }
+    localStorage.removeItem("previousUser");
   }
 
   // Return to previous page or default to home page after login
