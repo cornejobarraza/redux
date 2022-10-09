@@ -6,7 +6,7 @@ This project was created with:
 
 - [React 18.2](https://reactjs.org/)
 - [React Router 6.3](https://reactrouter.com/en/main)
-- [React Redux 8.0](https://react-redux.js.org/)
+- [Redux Toolkit 1.8](https://redux-toolkit.js.org/)
 - [Firebase 9](https://firebase.google.com/)
 - [react-firebase-hooks](https://www.npmjs.com/package/react-firebase-hooks)
 - [Tailwind CSS 3.1](https://tailwindcss.com/)
