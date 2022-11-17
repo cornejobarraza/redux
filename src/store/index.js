@@ -24,6 +24,13 @@ const userMiddleware = (store) => (next) => (action) => {
     const data = JSON.parse(localStorage.getItem("currentUser"));
     if (data) {
       localStorage.setItem("previousUser", JSON.stringify(data.user));
+    } else {
+      const user = {
+        avatar: "https://avatars.dicebear.com/api/adventurer-neutral/59.svg",
+        email: "john.doe@email.com",
+        name: "John Doe",
+      };
+      localStorage.setItem("previousUser", JSON.stringify(user));
     }
   }
 
