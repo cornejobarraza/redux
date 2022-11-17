@@ -1,11 +1,14 @@
+import { useDispatch } from "react-redux";
 import { getAuth, reauthenticateWithPopup, deleteUser } from "firebase/auth";
 import { doc, deleteDoc } from "firebase/firestore";
 import { db, googleProvider } from "firebase.js";
 import { useGoogleSignOut } from "hooks";
+import { userActions } from "store";
 
 export { DeleteGoogleAccount };
 
 function DeleteGoogleAccount() {
+  const dispatch = useDispatch();
   const googleSignOut = useGoogleSignOut();
 
   const auth = getAuth();
@@ -19,6 +22,7 @@ function DeleteGoogleAccount() {
       await deleteDoc(docRef);
       await deleteUser(user);
       googleSignOut();
+      dispatch(userActions.logOutAsync());
     } catch (err) {
       console.error(err);
     }
