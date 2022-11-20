@@ -74,14 +74,14 @@ function Menu() {
 
   const Links = [
     { icon: <HomeOutlined />, text: "Main", route: "/" },
-    { icon: <List />, text: "Lists", route: "lists" },
+    { icon: <List />, text: "Lists" },
     { icon: <ShoppingCartOutlined />, text: "Products" },
     { icon: <GroupOutlined />, text: "Groups" },
     { icon: <FileCopyOutlined />, text: "Pages" },
     { icon: <PhotoSizeSelectActualOutlined />, text: "Photos" },
     { icon: <MovieCreationOutlined />, text: "Videos" },
     { icon: <ScheduleOutlined />, text: "Schedule" },
-    { icon: <BookmarkBorderOutlined />, text: "Wishlist" },
+    { icon: <BookmarkBorderOutlined />, text: "Wishlist", route: "wishlist" },
     { icon: <SettingsOutlined />, text: "Settings", route: "settings" },
     {
       icon: <ExitToAppOutlined />,
@@ -110,13 +110,11 @@ function Menu() {
               handler={link.handler}
             />
           ))}
-          {!pending.login && !pending.logout && !authUser && !authLoading && (
-            <button className="button w-max m-0 text-xs" onClick={googleSignIn}>
+          {!authUser && !authLoading && (
+            <button className="button w-max text-xs m-0 mt-auto" onClick={googleSignIn}>
               Sign in with Google
             </button>
           )}
-          {pending.login && <span className="text-sm mt-0">Signing In...</span>}
-          {pending.logout && <span className="text-sm mt-0">Signing Out...</span>}
           {error.logout && <span className="status mt-0">Something went wrong</span>}
         </>
       ) : (
