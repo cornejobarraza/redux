@@ -10,5 +10,6 @@ This project was created with:
 - [Firebase 9](https://firebase.google.com/)
 - [react-firebase-hooks](https://www.npmjs.com/package/react-firebase-hooks)
 - [Tailwind CSS 3.1](https://tailwindcss.com/)
+- [lottie-react](https://www.npmjs.com/package/lottie-react)
 
 Deployed to GitHub Pages using the [gh-pages](https://www.npmjs.com/package/gh-pages) package.
