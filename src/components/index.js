@@ -5,4 +5,3 @@ export * from "./ErrorBoundary";
 export * from "./PrivateRoute";
 export * from "./Account";
 export * from "./DeleteGoogleAccount";
-export * from "./NotFound";
