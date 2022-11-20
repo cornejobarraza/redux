@@ -1,9 +1,7 @@
 import { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
-import { ErrorBoundary, PrivateRoute } from "components";
+import { ErrorBoundary, PrivateRoute, Loading } from "components";
 import { useSelector } from "react-redux";
-import Lottie from "lottie-react";
-import loading from "../loading.json";
 
 const Login = lazy(() => import("pages/Login"));
 const Landing = lazy(() => import("pages/Landing"));
@@ -19,14 +17,9 @@ function Content() {
 
   return (
     <div className="content">
-      {(pending.login || pending.update || pending.logout) && (
-        <>
-          <div className="backdrop"></div>
-          <Lottie className="lottie" animationData={loading} />
-        </>
-      )}
       <ErrorBoundary>
         <Suspense fallback={<div className="md:text-center">Loading...</div>}>
+          {(pending.login || pending.update || pending.logout) && <Loading />}
           <Routes>
             <Route path="*" element={<div className="md:text-center">Sorry, this page doesn't exist :(</div>} />
             <Route path="login" element={<Login />} />
