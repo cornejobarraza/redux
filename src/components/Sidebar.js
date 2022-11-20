@@ -86,7 +86,6 @@ function Menu() {
     {
       icon: <ExitToAppOutlined />,
       text: "Log Out",
-      name: user?.name,
       state: pending.logout,
       handler: handleLogOut,
     },
@@ -105,7 +104,6 @@ function Menu() {
               icon={link.icon}
               text={link.text}
               route={link.route}
-              name={link.name}
               state={link.state}
               handler={link.handler}
             />
