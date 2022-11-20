@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { userActions } from "store";
 import { useLogInUser } from "hooks";
 import { defaultUser } from "helpers";
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
 import isEqual from "lodash.isequal";
 
 export { Account };
@@ -19,7 +19,7 @@ function Account({ auth, user, pending }) {
     <div className="user">
       {!auth && !pending.logout && user && !isEqual(user, defaultUser) && (
         <span className="reset" title="Reset account" onClick={handleReset}>
-          <TrashIcon />
+          <ArrowUturnLeftIcon />
         </span>
       )}
       <h1 className="font-bold text-lg">{user?.name || defaultUser.name}</h1>
