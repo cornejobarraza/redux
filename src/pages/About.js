@@ -10,9 +10,7 @@ function About() {
   return (
     <div className="about">
       <div className="us">
-        <p className="text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl md:text-center">
-          Who are we?
-        </p>
+        <p className="text-3xl font-bold leading-8 tracking-tight text-gray-900 -4xl md:text-center">Who are we?</p>
         <p className="mt-4 max-w-xl lg:max-w-2xl xl:max-w-3xl text-lg text-gray-500 md:mx-auto md:text-center">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sed tincidunt sem. Proin tempor, arcu sed
           congue volutpat, turpis est pharetra nibh, in suscipit neque arcu a nibh. Nullam id ullamcorper tortor, in
@@ -21,9 +19,7 @@ function About() {
         </p>
       </div>
       <div className="vision">
-        <p className="text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl md:text-center">
-          Our vision
-        </p>
+        <p className="text-3xl font-bold leading-8 tracking-tight text-gray-900 -4xl md:text-center">Our vision</p>
         <p className="mt-4 max-w-xl lg:max-w-2xl xl:max-w-3xl text-lg text-gray-500 md:mx-auto md:text-center">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eleifend, lorem ac euismod sollicitudin, elit
           quam posuere enim, in laoreet sem mauris condimentum ipsum. Class aptent taciti sociosqu ad litora torquent

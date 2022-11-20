@@ -129,7 +129,6 @@ function Settings() {
           <button className="button" disabled={pending.update} type="submit" form="detailsForm">
             Update
           </button>
-          {pending.update && <span className="status">Updating...</span>}
           {pending.update === false && !error.update && <span className="status">Account has been updated!</span>}
           {error.update && <span className="status">Something went wrong</span>}
         </div>

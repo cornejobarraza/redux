@@ -22,9 +22,7 @@ function Login() {
   return (
     <div className="login">
       <div className="description">
-        <p className="text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl md:text-center">
-          Please Log In
-        </p>
+        <p className="text-3xl font-bold leading-8 tracking-tight text-gray-900 -4xl md:text-center">Please Log In</p>
         <p className="mt-4 max-w-2xl text-xl text-gray-500 md:mx-auto md:text-center">
           Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
           accusamus quisquam.
@@ -60,13 +58,11 @@ function Login() {
           <span className="text">Sign in with Google</span>
         </button>
       )}
-      {!pending.login && !pending.logout && !error.login && authUser && (
+      {authUser && (
         <span className="text-link text-center" onClick={googleSignOut}>
           Remove Google account
         </span>
       )}
-      {pending.logout && !authUser && <span className="text-sm text-center">Removing...</span>}
-      {pending.login && <span className="text-sm text-center">Signing In...</span>}
       {error.login && <span className="text-sm text-center">Something went wrong</span>}
     </div>
   );

@@ -10,7 +10,7 @@ function Contact() {
   return (
     <div className="contact">
       <div className="header">
-        <p className="text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl xl:mr-8">Get in touch</p>
+        <p className="text-3xl font-bold leading-8 tracking-tight text-gray-900 -4xl xl:mr-8">Get in touch</p>
       </div>
       <div className="departments">
         <div className="w-56">
