@@ -70,7 +70,7 @@
   }
 
   .sidebar {
-    @apply bg-slate-200 w-64 min-w-[256px] border-r-0 fixed top-[3.25rem] bg-transparent lg:left-0 h-full lg:top-[4.05rem] flex flex-col gap-6 px-8 pt-6 pb-20 lg:border-r lg:border-gray-300 lg:pb-[5.75rem];
+    @apply bg-slate-200 w-64 min-w-[256px] border-r-0 fixed top-[3.25rem] bg-transparent lg:left-0 h-full lg:top-[4.05rem] flex flex-col gap-6 px-8 pt-6 pb-20 lg:border-r lg:border-gray-300 lg:pb-[5.75rem] overflow-y-auto;
   }
 
   .sidebar-link {
@@ -153,9 +153,31 @@
 }
 /* End of Tailwind layer */
 
+/* Start of scrollbar style */
+/* width */
+::-webkit-scrollbar {
+  width: 1px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: transparent;
+}
+/* End of scrollbar style */
+
 /* Start of Lottie animation */
 .backdrop {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -173,6 +195,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 40;
+  user-select: none;
 }
 
 .lottie svg {
@@ -249,7 +272,7 @@
 .active {
   font-weight: bold;
   color: #764abc;
-  background-color: white;
+  background-color: #f8fafc;
   border-radius: 9999px;
   padding: 0.25rem 0.75rem;
 }
@@ -267,6 +290,7 @@
 }
 
 .active-d {
+  background-color: white;
   border-radius: 0;
   padding: 0.5rem 1rem;
 }
