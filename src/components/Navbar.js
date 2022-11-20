@@ -51,9 +51,6 @@ function Navbar() {
 function Pages() {
   return (
     <div className="pages">
-      <a href="https://cornejobarraza.dev" target="_blank" rel="noreferrer" className="link" data-text="Portfolio">
-        Portfolio
-      </a>
       <NavLink className="link" data-text="About" to="about">
         About
       </NavLink>
@@ -117,17 +114,12 @@ function DropDown() {
         <Menu.Items className="absolute right-9 top-20 w-32 z-20 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
             <Menu.Item>
-              <a href="https://cornejobarraza.dev" target="_blank" rel="noreferrer" className="block px-4 py-2 text-sm">
-                Portfolio
-              </a>
-            </Menu.Item>
-            <Menu.Item>
-              <NavLink className="block px-4 py-2 text-sm" to="about">
+              <NavLink className="block px-4 py-2 text-sm active-d" to="about">
                 About
               </NavLink>
             </Menu.Item>
             <Menu.Item>
-              <NavLink className="block px-4 py-2 text-sm" to="contact">
+              <NavLink className="block px-4 py-2 text-sm active-d" to="contact">
                 Contact
               </NavLink>
             </Menu.Item>
