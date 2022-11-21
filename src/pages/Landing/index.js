@@ -15,15 +15,14 @@ function Landing() {
         <p className="text-3xl font-bold leading-8 tracking-tight text-gray-900 md:text-center">
           Centralized state application
         </p>
-        <p className="mt-4 max-w-2xl text-xl text-gray-500 md:mx-auto md:text-center">
+        <p className="mt-4 max-w-2xl text-lg text-gray-500 md:mx-auto md:text-center">
           Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
           accusamus quisquam.
         </p>
       </div>
-
       <dl className="features">
-        {features.map((feature) => (
-          <div key={feature.name} className="relative">
+        {features.map((feature, index) => (
+          <div key={index} className="relative">
             <dt>
               <div className="absolute flex h-12 w-12 items-center justify-center rounded-md bg-redux-500 text-white">
                 <feature.icon className="h-6 w-6" aria-hidden="true" />

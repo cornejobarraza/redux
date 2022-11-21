@@ -57,6 +57,10 @@
     @apply w-6 h-6 active:text-redux-500 lg:hover:text-redux-500 lg:hover:active:text-current transition-colors mx-auto inline-block;
   }
 
+  .details {
+    @apply flex flex-col gap-8;
+  }
+
   .name {
     @apply hidden font-medium lg:inline-block;
   }
@@ -93,12 +97,8 @@
     @apply space-y-12 md:grid md:grid-cols-2 md:gap-12 md:space-y-0;
   }
 
-  .users {
-    @apply flex flex-col md:flex-row gap-16 justify-center items-center;
-  }
-
   .user {
-    @apply relative border rounded-2xl bg-slate-100 px-6 py-5 w-fit min-w-[13rem] text-center shadow-md;
+    @apply relative border rounded-2xl bg-slate-100 mx-auto px-6 py-5 w-fit min-w-[13rem] text-center shadow-md;
   }
 
   .reset {
@@ -112,7 +112,7 @@
   }
 
   .contact {
-    @apply flex flex-col xl:flex-row md:items-center xl:items-start lg:justify-center gap-12 xl:gap-16;
+    @apply flex flex-col xl:flex-row md:items-center xl:items-start lg:justify-center gap-8 xl:gap-16;
   }
 
   .header {
@@ -144,7 +144,7 @@
   }
 
   .status {
-    @apply text-[0.95rem] block mt-8;
+    @apply text-sm block;
   }
 
   .text-link {
@@ -211,6 +211,10 @@
 
 /* Start of Google Identity button */
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap");
+
+.google-signin {
+  text-align: center;
+}
 
 .google-identity {
   width: max-content;

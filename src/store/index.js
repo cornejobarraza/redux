@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { userReducer } from "./user.slice";
 
-import { history } from "helpers";
+import { history } from "utils";
 
 export * from "./user.slice";
 
@@ -15,28 +15,9 @@ const userMiddleware = (store) => (next) => (action) => {
 
   // Update user in localStorage after every successful action
   if (action.type.endsWith("fulfilled")) {
-    const user = store.getState().user;
-    localStorage.setItem("currentUser", JSON.stringify(user));
-  }
-
-  // Backup previous user when adding Google account
-  if (action.type.startsWith("user/google/login/pending")) {
-    const data = JSON.parse(localStorage.getItem("currentUser"));
-    if (data) {
-      localStorage.setItem("previousUser", JSON.stringify(data.user));
-    } else {
-      const user = {
-        avatar: "https://avatars.dicebear.com/api/adventurer-neutral/59.svg",
-        email: "john.doe@email.com",
-        name: "John Doe",
-      };
-      localStorage.setItem("previousUser", JSON.stringify(user));
-    }
-  }
-
-  // Remove previous user after Google account is logged out
-  if (action.type.match("user/google/logout/fulfilled")) {
-    localStorage.removeItem("previousUser");
+    const state = store.getState().user;
+    const currentUser = { user: state.user, logged: state.logged };
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
   }
 
   // Return to previous page or default to home page after login

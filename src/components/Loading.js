@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Lottie from "lottie-react";
-import loading from "../loading.json";
+import loading from "data/loading.json";
 
 export { Loading };
 

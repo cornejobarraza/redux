@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fakeBackend } from "helpers";
+import { fakeBackend } from "utils";
+import defaultUser from "data/user.json";
 
 // Create slice
 const name = "user";
@@ -15,52 +16,75 @@ export const userReducer = slice.reducer;
 
 // Implementation
 function createInitialState() {
-  const data = JSON.parse(localStorage.getItem("currentUser"));
+  let local;
+  const data = localStorage.getItem("currentUser");
+  if (data && data.startsWith("{") && data.endsWith("}")) local = JSON.parse(data);
+
   return {
-    user: data?.user,
-    logged: data?.logged,
+    user: local?.user || defaultUser,
+    logged: local?.logged || false,
     pending: {
       login: null,
       update: null,
       logout: null,
+      delete: null,
     },
-    error: { login: null, update: null, logout: null },
+    error: { login: null, update: null, logout: null, delete: null },
   };
 }
 
 function createReducers() {
   return {
-    reset,
-    clear,
+    resetState,
+    clearStatus,
+    deleteGoogleStart,
+    deleteGoogleSuccess,
+    deleteGoogleError,
+    loginGoogleStart,
+    loginGoogleError,
   };
 
-  function reset(state) {
-    state.user = null;
+  function resetState(state) {
+    state.user = defaultUser;
     state.logged = null;
   }
 
-  function clear(state) {
-    state.pending = { login: null, update: null, logout: null };
-    state.error = { login: null, update: null, logout: null };
+  function clearStatus(state) {
+    state.pending = { login: null, update: null, logout: null, delete: null };
+    state.error = { login: null, update: null, logout: null, delete: null };
+  }
+
+  function loginGoogleStart(state) {
+    state.error = { ...state, login: false };
+    state.pending = { ...state, login: true };
+  }
+
+  function loginGoogleError(state) {
+    state.pending = { ...state, login: false };
+    state.error = { ...state, login: true };
+  }
+
+  function deleteGoogleStart(state) {
+    state.error = { ...state, delete: false };
+    state.pending = { ...state, delete: true };
+  }
+
+  function deleteGoogleSuccess(state) {
+    state.pending = { ...state, delete: false };
+  }
+
+  function deleteGoogleError(state) {
+    state.pending = { ...state, delete: false };
+    state.error = { ...state, delete: true };
   }
 }
 
 function createExtraActions() {
   return {
-    updateGoogleAsync: updateGoogleAsync(),
     updateAsync: updateAsync(),
-    logInGoogleAsync: logInGoogleAsync(),
     logInAsync: logInAsync(),
-    logOutGoogleAsync: logOutGoogleAsync(),
     logOutAsync: logOutAsync(),
   };
-
-  function updateGoogleAsync() {
-    return createAsyncThunk(`${name}/google/update`, async (user) => {
-      const response = await fakeBackend(user);
-      return response.data;
-    });
-  }
 
   function updateAsync() {
     return createAsyncThunk(`${name}/update`, async (user) => {
@@ -69,22 +93,8 @@ function createExtraActions() {
     });
   }
 
-  function logInGoogleAsync() {
-    return createAsyncThunk(`${name}/google/login`, async (user) => {
-      const response = await fakeBackend(user);
-      return response.data;
-    });
-  }
-
   function logInAsync() {
     return createAsyncThunk(`${name}/login`, async (user) => {
-      const response = await fakeBackend(user);
-      return response.data;
-    });
-  }
-
-  function logOutGoogleAsync() {
-    return createAsyncThunk(`${name}/google/logout`, async (user) => {
       const response = await fakeBackend(user);
       return response.data;
     });
@@ -100,30 +110,10 @@ function createExtraActions() {
 
 function createExtraReducers() {
   return {
-    ...updateGoogleAsync(),
     ...updateAsync(),
-    ...logInGoogleAsync(),
     ...logInAsync(),
-    ...logOutGoogleAsync(),
     ...logOutAsync(),
   };
-
-  function updateGoogleAsync() {
-    const { pending, fulfilled, rejected } = extraActions.updateGoogleAsync;
-    return {
-      [pending]: (state) => {
-        state.pending.update = true;
-      },
-      [fulfilled]: (state, action) => {
-        state.pending.update = false;
-        state.user = action.payload;
-      },
-      [rejected]: (state) => {
-        state.pending.update = false;
-        state.error.update = true;
-      },
-    };
-  }
 
   function updateAsync() {
     const { pending, fulfilled, rejected } = extraActions.updateAsync;
@@ -142,24 +132,6 @@ function createExtraReducers() {
     };
   }
 
-  function logInGoogleAsync() {
-    const { pending, fulfilled, rejected } = extraActions.logInGoogleAsync;
-    return {
-      [pending]: (state) => {
-        state.pending.login = true;
-      },
-      [fulfilled]: (state, action) => {
-        state.pending.login = false;
-        state.logged = true;
-        state.user = action.payload;
-      },
-      [rejected]: (state) => {
-        state.pending.login = false;
-        state.error.login = true;
-      },
-    };
-  }
-
   function logInAsync() {
     const { pending, fulfilled, rejected } = extraActions.logInAsync;
     return {
@@ -174,24 +146,6 @@ function createExtraReducers() {
       [rejected]: (state) => {
         state.pending.login = false;
         state.error.login = true;
-      },
-    };
-  }
-
-  function logOutGoogleAsync() {
-    const { pending, fulfilled, rejected } = extraActions.logOutGoogleAsync;
-    return {
-      [pending]: (state) => {
-        state.pending.logout = true;
-      },
-      [fulfilled]: (state, action) => {
-        state.pending.logout = false;
-        state.logged = false;
-        state.user = action.payload;
-      },
-      [rejected]: (state) => {
-        state.pending.logout = false;
-        state.error.logout = true;
       },
     };
   }

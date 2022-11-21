@@ -3,6 +3,4 @@ export * from "./Sidebar";
 export * from "./Content";
 export * from "./ErrorBoundary";
 export * from "./PrivateRoute";
-export * from "./Account";
-export * from "./DeleteGoogleAccount";
 export * from "./Loading";

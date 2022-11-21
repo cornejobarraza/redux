@@ -21,7 +21,7 @@ import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { userActions } from "store";
 import { useGoogleSignIn } from "hooks";
-import { history } from "helpers";
+import { history } from "utils";
 
 export { Sidebar };
 
@@ -108,12 +108,12 @@ function Menu() {
               handler={link.handler}
             />
           ))}
+          {(error.logout || error.login) && <span className="status">Something went wrong :(</span>}
           {!authUser && !authLoading && (
-            <button className="button w-max text-xs m-0 mt-auto" onClick={googleSignIn}>
+            <button className="button w-max text-xs mt-auto mx-0" onClick={googleSignIn}>
               Sign in with Google
             </button>
           )}
-          {error.logout && <span className="status mt-0">Something went wrong</span>}
         </>
       ) : (
         <SideBarLinkEmpty />

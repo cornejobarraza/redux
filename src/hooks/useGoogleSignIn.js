@@ -1,25 +1,15 @@
-import { getAuth, signInWithPopup } from "firebase/auth";
 import { db, googleProvider } from "firebase.js";
+import { getAuth, signInWithPopup } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { useState, useEffect, useRef } from "react";
-import { useLogInUser } from "hooks";
+import { useDispatch } from "react-redux";
+import { userActions } from "store";
 
 export { useGoogleSignIn };
 
 function useGoogleSignIn() {
-  const [googleUser, setGoogleUser] = useState(null);
-  const logInUser = useLogInUser(googleUser);
-  const isFirstCall = useRef(true);
+  const dispatch = useDispatch();
 
   const auth = getAuth();
-
-  useEffect(() => {
-    // Log in once Google user is set
-    if (googleUser && isFirstCall.current) {
-      isFirstCall.current = false;
-      logInUser();
-    }
-  });
 
   const handleSignUp = async () => {
     await signInWithGoogle();
@@ -31,6 +21,7 @@ function useGoogleSignIn() {
     googleProvider.addScope("https://www.googleapis.com/auth/userinfo.profile");
 
     try {
+      dispatch(userActions.loginGoogleStart());
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
 
@@ -40,7 +31,7 @@ function useGoogleSignIn() {
 
       if (docSnap.exists()) {
         const data = docSnap.data();
-        setGoogleUser(data);
+        dispatch(userActions.logInAsync({ name: data.name, email: data.email, avatar: data.avatar }));
       } else {
         const newUser = {
           name: user.displayName,
@@ -48,9 +39,10 @@ function useGoogleSignIn() {
           avatar: user.photoURL,
         };
         await setDoc(docRef, newUser);
-        setGoogleUser(newUser);
+        dispatch(userActions.logInAsync(newUser));
       }
     } catch (error) {
+      dispatch(userActions.loginGoogleError());
       console.error(error);
     }
   };
