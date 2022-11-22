@@ -10,7 +10,13 @@ function useUpdateGoogleAccount(data) {
 
   async function updateAccount() {
     const userRef = doc(db, "users", user.uid);
-    await updateDoc(userRef, { name: data.name, email: data.email, avatar: data.avatar });
+    await updateDoc(userRef, {
+      name: data.name,
+      email: data.email,
+      avatar: data.avatar,
+      address: data.address,
+      website: data.website,
+    });
   }
 
   return () => {

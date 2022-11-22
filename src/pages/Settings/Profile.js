@@ -8,7 +8,13 @@ export { Profile };
 
 function Profile({ authUser }) {
   const { user, pending, error } = useSelector((state) => state.user);
-  const [data, setData] = useState({ name: user?.name, email: user?.email, avatar: user?.avatar });
+  const [data, setData] = useState({
+    name: user?.name,
+    email: user?.email,
+    avatar: user?.avatar,
+    address: user?.address,
+    website: user?.website,
+  });
   const [isSwapperSpinning, setIsSwapperSpinning] = useState(false);
   const updateGoogleAccount = useUpdateGoogleAccount(data);
   const dispatch = useDispatch();
@@ -45,68 +51,115 @@ function Profile({ authUser }) {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    if (data.name !== user?.name || data.email !== user?.email || data.avatar !== user?.avatar) {
+    if (
+      data.name !== user?.name ||
+      data.email !== user?.email ||
+      data.avatar !== user?.avatar ||
+      data.address !== user?.address ||
+      data.website !== user?.website
+    ) {
       if (authUser) {
         updateGoogleAccount();
       }
-      dispatch(userActions.updateAsync({ name: data.name, email: data.email, avatar: data.avatar }));
+      dispatch(
+        userActions.updateAsync({
+          name: data.name,
+          email: data.email,
+          avatar: data.avatar,
+          address: data.address,
+          website: data.website,
+        })
+      );
     }
     e.target.reset();
   };
 
   return (
     <div className="profile">
-      <div className="picture md:text-center">
-        <label className="block mb-4 md:mb-0 font-bold">Profile picture</label>
-        <img
-          className="avatar cursor-default md:my-7"
-          src={data.avatar}
-          alt=""
-          aria-label="Current user avatar"
-          width="64px"
-          height="64px"
-          referrerPolicy="no-referrer"
-        />
-        <span
-          className={`swapper${isSwapperSpinning ? " spin" : ""}`}
-          onClick={handleAvatar}
-          onAnimationEnd={() => setIsSwapperSpinning(!isSwapperSpinning)}
-        >
-          <ArrowPathIcon className="swapper-icon" />
-        </span>
-      </div>
-      <form id="detailsForm" className="details" onSubmit={handleUpdate}>
-        <div className="detail-input">
-          <label className="form-label">Full name</label>
-          <input
-            type="text"
-            name="name"
-            className="form-input"
-            disabled={pending.update}
-            placeholder={user?.name}
-            onChange={(e) => handleChange(e)}
-          ></input>
+      <h1 className="page-header">Update your account</h1>
+      <p className="mt-4 text-lg text-gray-500">
+        Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
+        accusamus quisquam.
+      </p>
+      <form id="detailsForm" className="details mt-8 md:max-w-md" onSubmit={handleUpdate}>
+        <div className="input-group md:flex-row md:gap-16 md:justify-between">
+          <div className="icon md:text-center">
+            <label className="block font-bold">Profile picture</label>
+            <img
+              className="avatar cursor-default my-4 md:my-7"
+              src={data.avatar}
+              alt=""
+              aria-label="Current user avatar"
+              width="64px"
+              height="64px"
+              referrerPolicy="no-referrer"
+            />
+            <span
+              className={`swapper${isSwapperSpinning ? " spin" : ""}`}
+              onClick={handleAvatar}
+              onAnimationEnd={() => setIsSwapperSpinning(!isSwapperSpinning)}
+            >
+              <ArrowPathIcon className="swapper-icon" />
+            </span>
+          </div>
+          <div className="input-row md:self-center">
+            <div className="detail-input">
+              <label className="form-label">Full name</label>
+              <input
+                type="text"
+                name="name"
+                className="form-input"
+                disabled={pending.update}
+                placeholder={user?.name}
+                onChange={(e) => handleChange(e)}
+              ></input>
+            </div>
+            <div className="detail-input">
+              <label className="form-label">Email address</label>
+              <input
+                type="email"
+                name="email"
+                className="form-input"
+                disabled={pending.update}
+                placeholder={user?.email}
+                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                onChange={(e) => handleChange(e)}
+              ></input>
+            </div>
+          </div>
         </div>
-        <div className="detail-input">
-          <label className="form-label">Email address</label>
-          <input
-            type="email"
-            name="email"
-            className="form-input"
-            disabled={pending.update}
-            placeholder={user?.email}
-            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
-            onChange={(e) => handleChange(e)}
-          ></input>
+        <div className="input-group">
+          <div className="detail-input">
+            <label className="form-label">Address</label>
+            <input
+              type="text"
+              name="address"
+              className="form-input"
+              disabled={pending.update}
+              placeholder={user?.address}
+              onChange={(e) => handleChange(e)}
+            ></input>
+          </div>
+          <div className="detail-input">
+            <label className="form-label">Website</label>
+            <input
+              type="text"
+              name="website"
+              className="form-input"
+              disabled={pending.update}
+              placeholder={user?.website}
+              onChange={(e) => handleChange(e)}
+            ></input>
+          </div>
         </div>
         <div className="detail-input">
           <button className="button" disabled={pending.update} type="submit" form="detailsForm">
             Update
           </button>
         </div>
+        {pending.update === false && !error.update && <span className="status w-full">Account has been updated!</span>}
+        {error.update && <span className="status w-full">Something went wrong :(</span>}
       </form>
-      {pending.update === false && !error.update && <span className="status w-full">Account has been updated!</span>}
-      {error.update && <span className="status w-full">Something went wrong :(</span>}
     </div>
   );
 }

@@ -18,10 +18,10 @@ function Content() {
   return (
     <div className="content">
       <ErrorBoundary>
-        <Suspense fallback={<div className="md:text-center">Loading...</div>}>
+        <Suspense fallback={<div>Loading...</div>}>
           {(pending.login || pending.update || pending.logout || pending.delete) && <Loading />}
           <Routes>
-            <Route path="*" element={<div className="md:text-center">Sorry, this page doesn't exist :(</div>} />
+            <Route path="*" element={<div>Sorry, this page doesn't exist :(</div>} />
             <Route path="login" element={<Login />} />
             <Route
               path="/"

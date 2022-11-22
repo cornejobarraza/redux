@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { userActions } from "store";
-import defaultUser from "data/user.json";
+import { userActions, userDefault } from "store";
 import { ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
 import isEqual from "lodash.isequal";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -25,12 +24,12 @@ function Account() {
 
   return (
     <div className="user">
-      {!authUser && !authLoading && user && !isEqual(user, defaultUser) && (
+      {!authUser && !authLoading && user && !isEqual(user, userDefault) && (
         <span className="reset" title="Reset account" onClick={handleReset}>
           <ArrowUturnLeftIcon />
         </span>
       )}
-      <h1 className="font-bold text-lg">{user?.name}</h1>
+      <h1 className="font-bold text-lg mb-1">{user?.name}</h1>
       <span className="block text-sm">{user?.email}</span>
       <img
         className="avatar mx-auto my-8"

@@ -30,7 +30,7 @@ function DeleteGoogleAccount({ auth, authUser }) {
   return (
     <div className="delete">
       <h1 className="page-header">Delete your account</h1>
-      <p className="mt-4 max-w-2xl text-lg text-gray-500 md:mx-auto md:text-center">
+      <p className="mt-4 text-lg text-gray-500">
         This will permanently erase your information from our database and all data will be lost, please proceed with
         caution.
       </p>

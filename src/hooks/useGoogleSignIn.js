@@ -31,12 +31,22 @@ function useGoogleSignIn() {
 
       if (docSnap.exists()) {
         const data = docSnap.data();
-        dispatch(userActions.logInAsync({ name: data.name, email: data.email, avatar: data.avatar }));
+        dispatch(
+          userActions.logInAsync({
+            name: data.name,
+            email: data.email,
+            avatar: data.avatar,
+            address: data.address,
+            website: data.website,
+          })
+        );
       } else {
         const newUser = {
           name: user.displayName,
           email: user.email,
           avatar: user.photoURL,
+          address: "Enter your address here",
+          website: "Add your website here",
         };
         await setDoc(docRef, newUser);
         dispatch(userActions.logInAsync(newUser));

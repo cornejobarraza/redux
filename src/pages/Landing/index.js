@@ -12,10 +12,8 @@ function Landing() {
   return (
     <div className="main">
       <div className="welcome">
-        <p className="text-3xl font-bold leading-8 tracking-tight text-gray-900 md:text-center">
-          Centralized state application
-        </p>
-        <p className="mt-4 max-w-2xl text-lg text-gray-500 md:mx-auto md:text-center">
+        <h1 className="page-header">Centralized state application</h1>
+        <p className="mt-4 max-w-2xl text-lg text-gray-500">
           Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
           accusamus quisquam.
         </p>
@@ -27,9 +25,9 @@ function Landing() {
               <div className="absolute flex h-12 w-12 items-center justify-center rounded-md bg-redux-500 text-white">
                 <feature.icon className="h-6 w-6" aria-hidden="true" />
               </div>
-              <p className="ml-16 text-lg font-medium leading-6 text-gray-900">{feature.name}</p>
+              <p className="ml-16 text-lg font-medium text-gray-900">{feature.name}</p>
             </dt>
-            <dd className="mt-2 ml-16 text-base text-gray-500">{feature.description}</dd>
+            <dd className="mt-2 ml-16 text-base text-gray-500 leading-7">{feature.description}</dd>
           </div>
         ))}
       </dl>

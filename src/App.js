@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Navbar, Sidebar, Content } from "components";
+import { Navbar, Sidebar, Content, ViewportProvider } from "components";
 import { userActions } from "store";
 import { history } from "utils";
 
@@ -23,9 +23,11 @@ function App() {
 
   return (
     <div className="redux">
-      <Navbar />
-      <Sidebar />
-      <Content />
+      <ViewportProvider>
+        <Navbar />
+        <Sidebar />
+        <Content />
+      </ViewportProvider>
     </div>
   );
 }

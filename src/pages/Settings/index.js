@@ -15,14 +15,7 @@ function Settings() {
   const [authUser] = useAuthState(auth);
 
   return (
-    <div className="settings">
-      <div className="description">
-        <h1 className="page-header">Update your account</h1>
-        <p className="mt-4 max-w-2xl text-lg text-gray-500 md:mx-auto md:text-center">
-          Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
-          accusamus quisquam.
-        </p>
-      </div>
+    <div className="settings max-w-xl gap-16">
       <Profile authUser={authUser} />
       {authUser && <DeleteGoogleAccount auth={auth} authUser={authUser} />}
     </div>

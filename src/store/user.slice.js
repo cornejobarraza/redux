@@ -1,6 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fakeBackend } from "utils";
-import defaultUser from "data/user.json";
+
+export const userDefault = {
+  avatar: "https://avatars.dicebear.com/api/adventurer-neutral/59.svg",
+  name: "John Doe",
+  email: "john.doe@email.com",
+  address: "8929 Valwood Pkwy, Billings, MI 63104",
+  website: "www.thejohndoe.com",
+};
 
 // Create slice
 const name = "user";
@@ -21,7 +28,7 @@ function createInitialState() {
   if (data && data.startsWith("{") && data.endsWith("}")) local = JSON.parse(data);
 
   return {
-    user: local?.user || defaultUser,
+    user: local?.user || userDefault,
     logged: local?.logged || false,
     pending: {
       login: null,
@@ -45,7 +52,7 @@ function createReducers() {
   };
 
   function resetState(state) {
-    state.user = defaultUser;
+    state.user = userDefault;
     state.logged = null;
   }
 
