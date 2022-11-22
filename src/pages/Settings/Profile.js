@@ -79,6 +79,7 @@ function Profile({ authUser }) {
         <div className="detail-input">
           <label className="form-label">Full name</label>
           <input
+            type="text"
             name="name"
             className="form-input"
             disabled={pending.update}
@@ -89,6 +90,7 @@ function Profile({ authUser }) {
         <div className="detail-input">
           <label className="form-label">Email address</label>
           <input
+            type="email"
             name="email"
             className="form-input"
             disabled={pending.update}
