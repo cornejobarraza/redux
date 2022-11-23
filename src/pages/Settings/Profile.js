@@ -9,11 +9,11 @@ export { Profile };
 function Profile({ authUser }) {
   const { user, pending, error } = useSelector((state) => state.user);
   const [data, setData] = useState({
-    name: user?.name,
-    email: user?.email,
-    avatar: user?.avatar,
-    address: user?.address,
-    website: user?.website,
+    avatar: user.avatar,
+    name: user.name,
+    email: user.email,
+    address: user.address,
+    website: user.website,
   });
   const [isSwapperSpinning, setIsSwapperSpinning] = useState(false);
   const updateGoogleAccount = useUpdateGoogleAccount(data);
@@ -43,29 +43,23 @@ function Profile({ authUser }) {
 
     // Checks if input is not empty
     if (input.length > 0) {
-      setData((prev) => ({ ...prev, [e.target.name]: input }));
+      setData((prev) => ({ ...prev, [source]: input }));
     } else {
-      setData((prev) => ({ ...prev, [e.target.name]: user[e.target.name] }));
+      setData((prev) => ({ ...prev, [source]: user[source] }));
     }
   };
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    if (
-      data.name !== user?.name ||
-      data.email !== user?.email ||
-      data.avatar !== user?.avatar ||
-      data.address !== user?.address ||
-      data.website !== user?.website
-    ) {
+    if (JSON.stringify(data) !== JSON.stringify(user)) {
       if (authUser) {
         updateGoogleAccount();
       }
       dispatch(
         userActions.updateAsync({
+          avatar: data.avatar,
           name: data.name,
           email: data.email,
-          avatar: data.avatar,
           address: data.address,
           website: data.website,
         })
@@ -110,7 +104,7 @@ function Profile({ authUser }) {
                 name="name"
                 className="form-input"
                 disabled={pending.update}
-                placeholder={user?.name}
+                placeholder={user.name}
                 onChange={(e) => handleChange(e)}
               ></input>
             </div>
@@ -121,7 +115,7 @@ function Profile({ authUser }) {
                 name="email"
                 className="form-input"
                 disabled={pending.update}
-                placeholder={user?.email}
+                placeholder={user.email}
                 pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
                 onChange={(e) => handleChange(e)}
               ></input>
@@ -136,7 +130,7 @@ function Profile({ authUser }) {
               name="address"
               className="form-input"
               disabled={pending.update}
-              placeholder={user?.address}
+              placeholder={user.address}
               onChange={(e) => handleChange(e)}
             ></input>
           </div>
@@ -147,7 +141,7 @@ function Profile({ authUser }) {
               name="website"
               className="form-input"
               disabled={pending.update}
-              placeholder={user?.website}
+              placeholder={user.website}
               onChange={(e) => handleChange(e)}
             ></input>
           </div>
