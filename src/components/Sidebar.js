@@ -26,6 +26,7 @@ import { history } from "utils";
 export { Sidebar };
 
 function Sidebar() {
+  const { user, logged, pending, error } = useSelector((state) => state.user);
   const [isSlideOverOpen, setIsSlideOverOpen] = useState(false);
   const { width } = useViewport();
 
@@ -42,109 +43,11 @@ function Sidebar() {
 
   return (
     <div className="menu">
-      {width < 1024 ? <SlideMenu open={isSlideOverOpen} handler={toggleSidebar} /> : <SideMenu />}
-    </div>
-  );
-}
-
-function SideMenu() {
-  const { user, logged, pending, error } = useSelector((state) => state.user);
-
-  return <div className="sidebar">{user && logged ? <Links pending={pending} error={error} /> : <EmptySidebar />}</div>;
-}
-
-function Links({ pending, error }) {
-  const dispatch = useDispatch();
-  const googleSignIn = useGoogleSignIn();
-
-  const auth = getAuth();
-  const [authUser, authLoading] = useAuthState(auth);
-
-  const handleLogOut = () => {
-    dispatch(userActions.logOutAsync());
-  };
-
-  const links = [
-    { icon: <HomeOutlined />, text: "Main", route: "/" },
-    { icon: <List />, text: "Lists" },
-    { icon: <ShoppingCartOutlined />, text: "Products" },
-    { icon: <GroupOutlined />, text: "Groups" },
-    { icon: <FileCopyOutlined />, text: "Pages" },
-    { icon: <PhotoSizeSelectActualOutlined />, text: "Photos" },
-    { icon: <MovieCreationOutlined />, text: "Videos" },
-    { icon: <ScheduleOutlined />, text: "Schedule" },
-    { icon: <BookmarkBorderOutlined />, text: "Wishlist", route: "wishlist" },
-    { icon: <SettingsOutlined />, text: "Settings", route: "settings" },
-    {
-      icon: <ExitToAppOutlined />,
-      text: "Log Out",
-      state: pending.logout,
-      handler: handleLogOut,
-    },
-  ];
-
-  return (
-    <div className="links">
-      {links.map((link, index) => (
-        <SidebarLink
-          key={index}
-          icon={link.icon}
-          text={link.text}
-          route={link.route}
-          state={link.state}
-          handler={link.handler}
-        />
-      ))}
-      {(error.logout || error.login) && <span className="status">Something went wrong :(</span>}
-      {!authUser && !authLoading && (
-        <button className="button w-max text-xs mt-2 mx-0" onClick={googleSignIn}>
-          Sign in with Google
-        </button>
+      {width < 1024 ? (
+        <SlideMenu open={isSlideOverOpen} handler={toggleSidebar} />
+      ) : (
+        <SideMenu user={user} logged={logged} pending={pending} error={error} />
       )}
-    </div>
-  );
-}
-
-function SidebarLink({ icon, text, name, route, state, handler }) {
-  return route ? (
-    <NavLink className="sidebar-link" to={route}>
-      {icon}
-      {text}
-    </NavLink>
-  ) : (
-    <button className="sidebar-link" type="button" disabled={state} onClick={handler}>
-      {icon}
-      {text}
-      {name && <span className="text-redux-500">({name.split(" ")[0]})</span>}
-    </button>
-  );
-}
-
-function EmptySidebar() {
-  return (
-    <div className="empty">
-      <svg width="100%" height="428" className="fill-slate-300">
-        <rect x="36" y="6" width="144" height="20" rx="10"></rect>
-        <circle cx="12" cy="16" r="12"></circle>
-        <rect x="36" y="50" width="144" height="20" rx="10" opacity="0.9"></rect>
-        <circle cx="12" cy="60" r="12" opacity="0.9"></circle>
-        <rect x="36" y="94" width="144" height="20" rx="10" opacity="0.8"></rect>
-        <circle cx="12" cy="104" r="12" opacity="0.8"></circle>
-        <rect x="36" y="138" width="144" height="20" rx="10" opacity="0.7"></rect>
-        <circle cx="12" cy="148" r="12" opacity="0.7"></circle>
-        <rect x="36" y="182" width="144" height="20" rx="10" opacity="0.6"></rect>
-        <circle cx="12" cy="192" r="12" opacity="0.6"></circle>
-        <rect x="36" y="226" width="144" height="20" rx="10" opacity="0.5"></rect>
-        <circle cx="12" cy="236" r="12" opacity="0.5"></circle>
-        <rect x="36" y="270" width="144" height="20" rx="10" opacity="0.4"></rect>
-        <circle cx="12" cy="280" r="12" opacity="0.4"></circle>
-        <rect x="36" y="314" width="144" height="20" rx="10" opacity="0.3"></rect>
-        <circle cx="12" cy="324" r="12" opacity="0.3"></circle>
-        <rect x="36" y="358" width="144" height="20" rx="10" opacity="0.2"></rect>
-        <circle cx="12" cy="368" r="12" opacity="0.2"></circle>
-        <rect x="36" y="402" width="144" height="20" rx="10" opacity="0.1"></rect>
-        <circle cx="12" cy="412" r="12" opacity="0.1"></circle>
-      </svg>
     </div>
   );
 }
@@ -190,7 +93,6 @@ function SlideMenu({ open, handler }) {
                     >
                       <div className="absolute top-0 right-0 -ml-8 flex pt-[1.3rem] pr-7">
                         <button
-                          type="button"
                           className="rounded-md text-gray-500 active:text-gray-600 focus:outline-none focus:ring-2 focus:ring-slate-200"
                           onClick={handler}
                         >
@@ -214,20 +116,98 @@ function SlideMenu({ open, handler }) {
           </div>
         </Dialog>
       </Transition.Root>
-      <SlideToggle handler={handler} />
+      <button id="slide-toggle" className="lg:hidden button p-3 fixed bottom-0 right-0 m-4 z-[5]" onClick={handler}>
+        <MenuOutlined />
+      </button>
     </div>
   );
 }
 
-function SlideToggle({ handler }) {
+function SideMenu({ user, logged, pending, error }) {
+  return <div className="sidebar">{user && logged ? <Links pending={pending} error={error} /> : <EmptySidebar />}</div>;
+}
+
+function Links({ pending, error }) {
+  const dispatch = useDispatch();
+  const googleSignIn = useGoogleSignIn();
+
+  const auth = getAuth();
+  const [authUser, authLoading] = useAuthState(auth);
+
+  const handleLogOut = () => {
+    dispatch(userActions.logOutAsync());
+  };
+
+  const links = [
+    { icon: <HomeOutlined />, text: "Main", route: "/" },
+    { icon: <List />, text: "Lists" },
+    { icon: <ShoppingCartOutlined />, text: "Products" },
+    { icon: <GroupOutlined />, text: "Groups" },
+    { icon: <FileCopyOutlined />, text: "Pages" },
+    { icon: <PhotoSizeSelectActualOutlined />, text: "Photos" },
+    { icon: <MovieCreationOutlined />, text: "Videos" },
+    { icon: <ScheduleOutlined />, text: "Schedule" },
+    { icon: <BookmarkBorderOutlined />, text: "Wishlist", route: "wishlist" },
+    { icon: <SettingsOutlined />, text: "Settings", route: "settings" },
+  ];
+
   return (
-    <button
-      id="slide-toggle"
-      type="button"
-      className="lg:hidden button p-3 fixed bottom-0 right-0 m-4 z-[5]"
-      onClick={handler}
-    >
-      <MenuOutlined />
-    </button>
+    <div className="links">
+      {links.map((link, index) => (
+        <SidebarLink key={index} icon={link.icon} text={link.text} route={link.route} />
+      ))}
+      <button className="sidebar-link" disabled={pending.logout} onClick={handleLogOut}>
+        <ExitToAppOutlined /> Log Out
+      </button>
+      {!authUser && !authLoading && (
+        <button className="button w-max text-xs" onClick={googleSignIn}>
+          Sign in with Google
+        </button>
+      )}
+      {(error.logout || error.login) && <span className="status">Something went wrong :(</span>}
+    </div>
+  );
+}
+
+function SidebarLink({ icon, text, route }) {
+  return route ? (
+    <NavLink className="sidebar-link" to={route}>
+      {icon}
+      {text}
+    </NavLink>
+  ) : (
+    <span className="sidebar-link">
+      {icon}
+      {text}
+    </span>
+  );
+}
+
+function EmptySidebar() {
+  return (
+    <div className="empty">
+      <svg width="100%" height="428" className="fill-slate-300">
+        <rect x="36" y="4" width="144" height="20" rx="10"></rect>
+        <circle cx="12" cy="14" r="12"></circle>
+        <rect x="36" y="54" width="144" height="20" rx="10" opacity="0.9"></rect>
+        <circle cx="12" cy="64" r="12" opacity="0.9"></circle>
+        <rect x="36" y="104" width="144" height="20" rx="10" opacity="0.8"></rect>
+        <circle cx="12" cy="114" r="12" opacity="0.8"></circle>
+        <rect x="36" y="154" width="144" height="20" rx="10" opacity="0.7"></rect>
+        <circle cx="12" cy="164" r="12" opacity="0.7"></circle>
+        <rect x="36" y="204" width="144" height="20" rx="10" opacity="0.6"></rect>
+        <circle cx="12" cy="204" r="12" opacity="0.6"></circle>
+        <rect x="36" y="254" width="144" height="20" rx="10" opacity="0.5"></rect>
+        <circle cx="12" cy="254" r="12" opacity="0.5"></circle>
+        <rect x="36" y="304" width="144" height="20" rx="10" opacity="0.4"></rect>
+        <circle cx="12" cy="304" r="12" opacity="0.4"></circle>
+        <rect x="36" y="354" width="144" height="20" rx="10" opacity="0.3"></rect>
+        <circle cx="12" cy="354" r="12" opacity="0.3"></circle>
+        <rect x="36" y="404" width="144" height="20" rx="10" opacity="0.2"></rect>
+        <circle cx="12" cy="404" r="12" opacity="0.2"></circle>
+        <rect x="36" y="454" width="144" height="20" rx="10" opacity="0.1"></rect>
+        <circle cx="12" cy="454" r="12" opacity="0.1"></circle>
+      </svg>
+    </div>
   );
 }
