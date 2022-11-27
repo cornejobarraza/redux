@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
-export const ViewportContext = React.createContext({});
+export const ViewportContext = createContext({});
 
 export { ViewportProvider };
 
@@ -13,7 +13,7 @@ function ViewportProvider({ children }) {
     setHeight(window.innerHeight);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener("resize", handleWindowResize);
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);

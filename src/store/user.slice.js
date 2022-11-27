@@ -1,13 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fakeBackend } from "utils";
-
-export const userDefault = {
-  avatar: "https://avatars.dicebear.com/api/adventurer-neutral/59.svg",
-  name: "John Doe",
-  email: "john.doe@email.com",
-  address: "8929 Valwood Pkwy, Billings, MI 63104",
-  website: "www.thejohndoe.com",
-};
+import userDefault from "data/user.json";
 
 // Create slice
 const name = "user";
