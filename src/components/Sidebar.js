@@ -26,105 +26,29 @@ import { history } from "utils";
 export { Sidebar };
 
 function Sidebar() {
-  const { user, logged, pending, error } = useSelector((state) => state.user);
-  const [isSlideOverOpen, setIsSlideOverOpen] = useState(false);
   const { width } = useViewport();
 
-  useEffect(() => {
-    if (window.innerWidth < 1024) {
-      setIsSlideOverOpen(false);
-    }
-    // eslint-disable-next-line
-  }, [history.location]);
-
-  const toggleSidebar = () => {
-    isSlideOverOpen ? setIsSlideOverOpen(false) : setIsSlideOverOpen(true);
-  };
-
-  return (
-    <div className="menu">
-      {width < 1024 ? (
-        <SlideMenu open={isSlideOverOpen} handler={toggleSidebar} />
-      ) : (
-        <SideMenu user={user} logged={logged} pending={pending} error={error} />
-      )}
-    </div>
-  );
+  return <div className="menu">{width < 1024 ? <SlideMenu /> : <SideMenu />}</div>;
 }
 
-function SlideMenu({ open, handler }) {
-  return (
-    <div className="slideover">
-      <Transition.Root show={open} as={Fragment}>
-        <Dialog as="div" className="relative z-10 lg:hidden" onClose={handler}>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-in-out duration-500"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in-out duration-500"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-          </Transition.Child>
+function SideMenu() {
+  const { logged, pending, error } = useSelector((state) => state.user);
 
-          <div className="fixed inset-0 overflow-hidden">
-            <div className="absolute inset-0 overflow-hidden">
-              <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-64 pl-10">
-                <Transition.Child
-                  as={Fragment}
-                  enter="transform transition ease-in-out duration-500"
-                  enterFrom="translate-x-full"
-                  enterTo="translate-x-0"
-                  leave="transform transition ease-in-out duration-500"
-                  leaveFrom="translate-x-0"
-                  leaveTo="translate-x-full"
-                >
-                  <Dialog.Panel className="pointer-events-auto relative w-64">
-                    <Transition.Child
-                      as={Fragment}
-                      enter="ease-in-out duration-500"
-                      enterFrom="opacity-0"
-                      enterTo="opacity-100"
-                      leave="ease-in-out duration-500"
-                      leaveFrom="opacity-100"
-                      leaveTo="opacity-0"
-                    >
-                      <div className="absolute top-0 right-0 -ml-8 flex pt-[1.3rem] pr-7">
-                        <button
-                          className="rounded-md text-gray-500 active:text-gray-600 focus:outline-none focus:ring-2 focus:ring-slate-200"
-                          onClick={handler}
-                        >
-                          <span className="sr-only">Close panel</span>
-                          <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-                        </button>
-                      </div>
-                    </Transition.Child>
-                    <div className="flex h-full flex-col bg-slate-200 py-5 shadow-xl">
-                      <div className="px-8">
-                        <Dialog.Title className="text-lg font-bold text-gray-900">Menu</Dialog.Title>
-                      </div>
-                      <div className="relative mt-6 flex-1">
-                        <SideMenu />
-                      </div>
-                    </div>
-                  </Dialog.Panel>
-                </Transition.Child>
-              </div>
-            </div>
-          </div>
-        </Dialog>
-      </Transition.Root>
-      <button id="slide-toggle" className="lg:hidden button p-3 fixed bottom-0 right-0 m-4 z-[5]" onClick={handler}>
-        <MenuOutlined />
-      </button>
-    </div>
-  );
+  return <div className="sidebar">{logged ? <Links pending={pending} error={error} /> : <EmptySidebar />}</div>;
 }
 
-function SideMenu({ user, logged, pending, error }) {
-  return <div className="sidebar">{user && logged ? <Links pending={pending} error={error} /> : <EmptySidebar />}</div>;
+function SidebarLink({ icon, text, route }) {
+  return route ? (
+    <NavLink className="sidebar-link" to={route}>
+      {icon}
+      {text}
+    </NavLink>
+  ) : (
+    <span className="sidebar-link">
+      {icon}
+      {text}
+    </span>
+  );
 }
 
 function Links({ pending, error }) {
@@ -169,20 +93,6 @@ function Links({ pending, error }) {
   );
 }
 
-function SidebarLink({ icon, text, route }) {
-  return route ? (
-    <NavLink className="sidebar-link" to={route}>
-      {icon}
-      {text}
-    </NavLink>
-  ) : (
-    <span className="sidebar-link">
-      {icon}
-      {text}
-    </span>
-  );
-}
-
 function EmptySidebar() {
   return (
     <div className="empty">
@@ -208,6 +118,94 @@ function EmptySidebar() {
         <rect x="36" y="454" width="144" height="20" rx="10" opacity="0.1"></rect>
         <circle cx="12" cy="454" r="12" opacity="0.1"></circle>
       </svg>
+    </div>
+  );
+}
+
+function SlideMenu() {
+  const [isSlideOverOpen, setIsSlideOverOpen] = useState(false);
+
+  useEffect(() => {
+    if (window.innerWidth < 1024) {
+      setIsSlideOverOpen(false);
+    }
+    // eslint-disable-next-line
+  }, [history.location]);
+
+  const toggleSidebar = () => {
+    isSlideOverOpen ? setIsSlideOverOpen(false) : setIsSlideOverOpen(true);
+  };
+
+  return (
+    <div className="slideover">
+      <Transition.Root show={isSlideOverOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10 lg:hidden" onClose={toggleSidebar}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-in-out duration-500"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in-out duration-500"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-hidden">
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-64 pl-10">
+                <Transition.Child
+                  as={Fragment}
+                  enter="transform transition ease-in-out duration-500"
+                  enterFrom="translate-x-full"
+                  enterTo="translate-x-0"
+                  leave="transform transition ease-in-out duration-500"
+                  leaveFrom="translate-x-0"
+                  leaveTo="translate-x-full"
+                >
+                  <Dialog.Panel className="pointer-events-auto relative w-64">
+                    <Transition.Child
+                      as={Fragment}
+                      enter="ease-in-out duration-500"
+                      enterFrom="opacity-0"
+                      enterTo="opacity-100"
+                      leave="ease-in-out duration-500"
+                      leaveFrom="opacity-100"
+                      leaveTo="opacity-0"
+                    >
+                      <div className="absolute top-0 right-0 -ml-8 flex pt-[1.3rem] pr-7">
+                        <button
+                          className="rounded-md text-gray-500 active:text-gray-600 focus:outline-none focus:ring-2 focus:ring-slate-200"
+                          onClick={toggleSidebar}
+                        >
+                          <span className="sr-only">Close panel</span>
+                          <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                        </button>
+                      </div>
+                    </Transition.Child>
+                    <div className="flex h-full flex-col bg-slate-200 py-5 shadow-xl">
+                      <div className="px-8">
+                        <Dialog.Title className="text-lg font-bold text-gray-900">Menu</Dialog.Title>
+                      </div>
+                      <div className="relative mt-6 flex-1">
+                        <SideMenu />
+                      </div>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </div>
+        </Dialog>
+      </Transition.Root>
+      <button
+        id="slide-toggle"
+        className="lg:hidden button p-3 fixed bottom-0 right-0 m-4 z-[5]"
+        onClick={toggleSidebar}
+      >
+        <MenuOutlined />
+      </button>
     </div>
   );
 }
