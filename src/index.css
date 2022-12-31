@@ -142,7 +142,7 @@
   }
 
   .status {
-    @apply text-sm block;
+    @apply text-sm font-semibold block;
   }
 
   .text-link {

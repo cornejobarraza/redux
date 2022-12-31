@@ -55,27 +55,27 @@ function createReducers() {
   }
 
   function loginGoogleStart(state) {
-    state.error = { ...state, login: false };
-    state.pending = { ...state, login: true };
+    state.error = { ...state.error, login: false };
+    state.pending = { ...state.pending, login: true };
   }
 
   function loginGoogleError(state) {
-    state.pending = { ...state, login: false };
-    state.error = { ...state, login: true };
+    state.pending = { ...state.pending, login: false };
+    state.error = { ...state.error, login: true };
   }
 
   function deleteGoogleStart(state) {
-    state.error = { ...state, delete: false };
-    state.pending = { ...state, delete: true };
+    state.error = { ...state.error, delete: false };
+    state.pending = { ...state.pending, delete: true };
   }
 
   function deleteGoogleSuccess(state) {
-    state.pending = { ...state, delete: false };
+    state.pending = { ...state.pending, delete: false };
   }
 
   function deleteGoogleError(state) {
-    state.pending = { ...state, delete: false };
-    state.error = { ...state, delete: true };
+    state.pending = { ...state.pending, delete: false };
+    state.error = { ...state.error, delete: true };
   }
 }
 
