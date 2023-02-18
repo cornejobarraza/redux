@@ -91,7 +91,7 @@ function Links() {
 function EmptySidebar() {
   return (
     <div className="empty">
-      <svg width="100%" height="428" className="fill-slate-400">
+      <svg width="100%" height="428" className="fill-slate-300">
         <rect x="36" y="4" width="144" height="20" rx="10"></rect>
         <circle cx="12" cy="14" r="12"></circle>
         <rect x="36" y="54" width="144" height="20" rx="10" opacity="0.9"></rect>
