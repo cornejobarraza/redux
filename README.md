@@ -11,5 +11,6 @@ This project was created with:
 - [react-firebase-hooks](https://www.npmjs.com/package/react-firebase-hooks)
 - [Tailwind CSS 3.1](https://tailwindcss.com/)
 - [lottie-react](https://www.npmjs.com/package/lottie-react)
+- [react-toastify](https://www.npmjs.com/package/react-toastify)
 
 Deployed to GitHub Pages using the [gh-pages](https://www.npmjs.com/package/gh-pages) package.
