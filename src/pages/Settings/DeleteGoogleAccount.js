@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 import { reauthenticateWithPopup, deleteUser, signOut } from "firebase/auth";
@@ -11,15 +10,7 @@ import { userActions } from "store";
 export { DeleteGoogleAccount };
 
 function DeleteGoogleAccount({ auth, authUser }) {
-  const { error } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (error.delete) {
-      toast("Something went wrong, please try again", { type: "error" });
-      dispatch(userActions.clearStatus());
-    }
-  }, [error.delete, dispatch]);
 
   const handleDeletion = async () => {
     try {
@@ -29,12 +20,13 @@ function DeleteGoogleAccount({ auth, authUser }) {
 
       await deleteDoc(docRef);
       await deleteUser(authUser);
-      signOut(auth);
+      await signOut(auth);
       dispatch(userActions.deleteGoogleSuccess());
       dispatch(userActions.resetState());
+      toast("Google account successfully deleted", { type: "success" });
     } catch (err) {
       dispatch(userActions.deleteGoogleError());
-      console.error(err);
+      toast("Something went wrong, please try again", { type: "error" });
     }
   };
 

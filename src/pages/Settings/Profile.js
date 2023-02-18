@@ -25,14 +25,12 @@ function Profile({ authUser }) {
   useEffect(() => {
     if (pending.update === false && !error.update) {
       toast("Account successfully updated!", { type: "success" });
-      dispatch(userActions.clearStatus());
     }
 
     if (error.update) {
       toast("Something went wrong, please try again", { type: "error" });
-      dispatch(userActions.clearStatus());
     }
-  }, [pending.update, error.update, dispatch]);
+  }, [pending.update, error.update]);
 
   const handleAvatar = () => {
     setIsSwapperSpinning(true);
@@ -65,10 +63,12 @@ function Profile({ authUser }) {
 
   const handleUpdate = (e) => {
     e.preventDefault();
+
     if (JSON.stringify(data) !== JSON.stringify(user)) {
       if (authUser) {
         updateGoogleAccount();
       }
+
       dispatch(
         userActions.updateAsync({
           avatar: data.avatar,
@@ -79,6 +79,7 @@ function Profile({ authUser }) {
         })
       );
     }
+
     e.target.reset();
   };
 

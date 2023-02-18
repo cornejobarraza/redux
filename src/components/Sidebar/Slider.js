@@ -1,5 +1,4 @@
 import { Fragment, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 
 import { Dialog, Transition } from "@headlessui/react";
 import { Menu } from "components/Sidebar/Menu";
@@ -7,12 +6,14 @@ import { Menu } from "components/Sidebar/Menu";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { MenuOutlined } from "@material-ui/icons";
 
+import { history } from "utils";
+
 export { Slider };
 
 function Slider() {
   const [isSlideOverOpen, setIsSlideOverOpen] = useState(false);
 
-  const location = useLocation();
+  const location = history.location;
 
   useEffect(() => {
     if (window.innerWidth < 1024) {

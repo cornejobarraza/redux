@@ -1,43 +1,30 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 import { Account } from "pages/Login/Account";
 import { GoogleSignIn } from "pages/Login/GoogleSignIn";
 
-import { getAuth, signOut } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
-
-import { userActions } from "store";
 import { history } from "utils";
 
 export { Login as default };
 
 function Login() {
-  const { pending, logged, error } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
+  const { logged, error } = useSelector((state) => state.user);
 
   useEffect(() => {
     document.title = "Redux - Login";
-    if (logged) history.navigate("/");
+
+    if (logged) {
+      history.navigate("/");
+    }
   }, [logged]);
 
   useEffect(() => {
     if (error.login) {
       toast("Something went wrong, please try again", { type: "error" });
-      dispatch(userActions.clearStatus());
     }
-  }, [error.login, dispatch]);
-
-  const auth = getAuth();
-  const [authUser] = useAuthState(auth);
-
-  useEffect(() => {
-    const localUser = localStorage.getItem("currentUser");
-    if ((!localUser || !localUser.startsWith("{") || !localUser.endsWith("}")) && !pending.login && authUser) {
-      signOut(auth);
-    }
-  }, [auth, authUser, pending]);
+  }, [error.login]);
 
   return (
     <div className="login gap-12">

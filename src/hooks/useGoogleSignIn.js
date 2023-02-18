@@ -1,7 +1,9 @@
+import { useDispatch } from "react-redux";
+
 import { db, googleProvider } from "firebase.js";
 import { getAuth, signInWithPopup } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { useDispatch } from "react-redux";
+
 import { userActions } from "store";
 
 export { useGoogleSignIn };
@@ -53,7 +55,6 @@ function useGoogleSignIn() {
       }
     } catch (error) {
       dispatch(userActions.loginGoogleError());
-      console.error(error);
     }
   };
 

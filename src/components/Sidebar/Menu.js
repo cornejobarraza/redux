@@ -60,9 +60,8 @@ function Links() {
   useEffect(() => {
     if (error.logout || error.login) {
       toast("Something went wrong, please try again", { type: "error" });
-      dispatch(userActions.clearStatus());
     }
-  }, [error.logout, error.login, dispatch]);
+  }, [error.logout, error.login]);
 
   return (
     <div className="links">

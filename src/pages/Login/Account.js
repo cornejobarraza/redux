@@ -1,10 +1,13 @@
-import { ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
-import { userActions } from "store";
-import { getAuth } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
 import isEqual from "lodash.isequal";
+
+import { getAuth, signOut } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+
+import { ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
+
 import userDefault from "data/user.json";
+import { userActions } from "store";
 
 export { Account };
 
@@ -12,16 +15,20 @@ function Account() {
   const { user, pending } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  const handleReset = () => {
+  const auth = getAuth();
+  const [authUser, authLoading] = useAuthState(auth);
+
+  const handleReset = async () => {
     dispatch(userActions.resetState());
+
+    if (authUser) {
+      await signOut(auth);
+    }
   };
 
   const handleLogin = () => {
     dispatch(userActions.logInAsync({ ...user }));
   };
-
-  const auth = getAuth();
-  const [authUser, authLoading] = useAuthState(auth);
 
   return (
     <div className="user">
