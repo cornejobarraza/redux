@@ -72,7 +72,7 @@ function SlideOver({ isOpen, handler }) {
                   >
                     <div className="absolute top-0 right-0 -ml-8 flex pt-[1.3rem] pr-7">
                       <button
-                        className="rounded-md text-gray-500 active:text-gray-600 focus:outline-none focus:ring-2 focus:ring-slate-300"
+                        className="rounded-md text-gray-500 active:text-gray-600 focus:outline-none focus:ring-2 focus:ring-slate-200"
                         onClick={handler}
                       >
                         <span className="sr-only">Close panel</span>
@@ -80,7 +80,7 @@ function SlideOver({ isOpen, handler }) {
                       </button>
                     </div>
                   </Transition.Child>
-                  <div className="flex h-full flex-col bg-slate-300 py-5 shadow-xl">
+                  <div className="flex h-full flex-col bg-slate-200 py-5 shadow-xl">
                     <div className="px-8">
                       <Dialog.Title className="text-lg font-bold text-gray-900">Menu</Dialog.Title>
                     </div>
