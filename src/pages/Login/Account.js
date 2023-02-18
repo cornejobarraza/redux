@@ -12,7 +12,7 @@ import { userActions } from "store";
 export { Account };
 
 function Account() {
-  const { user, pending } = useSelector((state) => state.user);
+  const { user, pending } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const auth = getAuth();

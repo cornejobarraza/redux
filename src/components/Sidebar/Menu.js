@@ -26,7 +26,7 @@ import { userActions } from "store";
 export { Menu };
 
 function Menu() {
-  const { logged } = useSelector((state) => state.user);
+  const { logged } = useSelector((state) => state.auth);
 
   return <div className="menu">{logged ? <Links /> : <EmptySidebar />}</div>;
 }
@@ -46,7 +46,7 @@ function MenuLink({ icon, text, route }) {
 }
 
 function Links() {
-  const { pending, error } = useSelector((state) => state.user);
+  const { pending, error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const googleSignIn = useGoogleSignIn();
 

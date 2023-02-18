@@ -15,7 +15,7 @@ const userMiddleware = (store) => (next) => (action) => {
 
   // Update user in localStorage after every successful action
   if (action.type.endsWith("fulfilled")) {
-    const state = store.getState().user;
+    const state = store.getState().auth;
     const currentUser = { user: state.user, logged: state.logged };
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
   }
@@ -31,7 +31,7 @@ const userMiddleware = (store) => (next) => (action) => {
 
 export const store = configureStore({
   reducer: {
-    user: userReducer,
+    auth: userReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(userMiddleware),
 });

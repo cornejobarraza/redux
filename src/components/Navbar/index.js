@@ -7,7 +7,7 @@ import { useViewport } from "hooks";
 export { Navbar };
 
 function Navbar() {
-  const { user, logged } = useSelector((state) => state.user);
+  const { user, logged } = useSelector((state) => state.auth);
   const { width } = useViewport();
 
   return (

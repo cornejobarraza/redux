@@ -10,7 +10,7 @@ import { userActions } from "store";
 export { Profile };
 
 function Profile({ authUser }) {
-  const { user, pending, error } = useSelector((state) => state.user);
+  const { user, pending, error } = useSelector((state) => state.auth);
   const [data, setData] = useState({
     avatar: user.avatar,
     name: user.name,

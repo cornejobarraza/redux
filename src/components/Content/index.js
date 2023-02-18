@@ -7,7 +7,7 @@ import { Routing } from "components/Content/Routing";
 export { Content };
 
 function Content() {
-  const { pending } = useSelector((state) => state.user);
+  const { pending } = useSelector((state) => state.auth);
 
   return (
     <div className="content">
