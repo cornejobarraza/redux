@@ -1,7 +1,7 @@
 {
-  "avatar": "https://avatars.dicebear.com/api/adventurer-neutral/59.svg",
+  "avatar": "assets/avatars/1.svg",
   "name": "John Doe",
   "email": "john.doe@email.com",
   "address": "8929 Valwood Pkwy, Billings, MI 63104",
-  "website": "www.thejohndoe.com"
+  "website": "thejohndoe.com"
 }

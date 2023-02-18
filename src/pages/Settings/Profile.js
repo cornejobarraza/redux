@@ -18,7 +18,9 @@ function Profile({ authUser }) {
     address: user.address,
     website: user.website,
   });
+  const [seed, setSeed] = useState(2);
   const [isSwapperSpinning, setIsSwapperSpinning] = useState(false);
+
   const updateGoogleAccount = useUpdateGoogleAccount(data);
   const dispatch = useDispatch();
 
@@ -34,12 +36,14 @@ function Profile({ authUser }) {
 
   const handleAvatar = () => {
     setIsSwapperSpinning(true);
-    const seed = Math.round(Math.random() * 99);
-    if (seed === 59) {
-      handleAvatar();
+
+    if (seed === 10) {
+      setSeed(1);
     } else {
-      setData((prev) => ({ ...prev, avatar: `https://avatars.dicebear.com/api/adventurer-neutral/${seed}.svg` }));
+      setSeed((seed) => seed + 1);
     }
+
+    setData((prev) => ({ ...prev, avatar: `assets/avatars/${seed}.svg` }));
   };
 
   const handleChange = (e) => {
@@ -106,7 +110,7 @@ function Profile({ authUser }) {
             <span
               className={`swapper${isSwapperSpinning ? " spin" : ""}`}
               onClick={handleAvatar}
-              onAnimationEnd={() => setIsSwapperSpinning(!isSwapperSpinning)}
+              onAnimationEnd={() => setIsSwapperSpinning(false)}
             >
               <ArrowPathIcon className="swapper-icon" />
             </span>

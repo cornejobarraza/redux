@@ -16,7 +16,7 @@ function GoogleSignIn() {
   const auth = getAuth();
   const [authUser, authLoading] = useAuthState(auth);
 
-  const handleRemoveGoogleAccount = async () => {
+  const handleGoogleSignOut = async () => {
     try {
       await signOut(auth);
       dispatch(userActions.resetState());
@@ -35,8 +35,8 @@ function GoogleSignIn() {
         </button>
       )}
       {authUser && (
-        <span className="text-link text-center" onClick={handleRemoveGoogleAccount}>
-          Remove Google account
+        <span className="text-link text-center" onClick={handleGoogleSignOut}>
+          Sign Out from Google
         </span>
       )}
     </div>
