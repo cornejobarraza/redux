@@ -1,3 +1,8 @@
+import { useEffect } from "react";
+import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+
 import {
   HomeOutlined,
   ExitToAppOutlined,
@@ -11,10 +16,10 @@ import {
   ShoppingCartOutlined,
   BookmarkBorderOutlined,
 } from "@material-ui/icons";
-import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
+
 import { useGoogleSignIn } from "hooks";
 import { userActions } from "store";
 
@@ -52,6 +57,13 @@ function Links() {
     dispatch(userActions.logOutAsync());
   };
 
+  useEffect(() => {
+    if (error.logout || error.login) {
+      toast("Something went wrong, please try again", { type: "error" });
+      dispatch(userActions.clearStatus());
+    }
+  }, [error.logout, error.login, dispatch]);
+
   return (
     <div className="links">
       <MenuLink icon={<HomeOutlined />} text="Main" route="/" />
@@ -72,7 +84,6 @@ function Links() {
           Sign in with Google
         </button>
       )}
-      {(error.logout || error.login) && <span className="status">Something went wrong :(</span>}
     </div>
   );
 }
@@ -80,7 +91,7 @@ function Links() {
 function EmptySidebar() {
   return (
     <div className="empty">
-      <svg width="100%" height="428" className="fill-slate-300">
+      <svg width="100%" height="428" className="fill-slate-400">
         <rect x="36" y="4" width="144" height="20" rx="10"></rect>
         <circle cx="12" cy="14" r="12"></circle>
         <rect x="36" y="54" width="144" height="20" rx="10" opacity="0.9"></rect>

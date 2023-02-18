@@ -1,7 +1,10 @@
-import { getAuth, signOut } from "firebase/auth";
-import { useGoogleSignIn } from "hooks";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+
+import { getAuth, signOut } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+
+import { useGoogleSignIn } from "hooks";
 import { userActions } from "store";
 
 export { GoogleSignIn };
@@ -13,6 +16,16 @@ function GoogleSignIn() {
   const auth = getAuth();
   const [authUser, authLoading] = useAuthState(auth);
 
+  const handleRemoveGoogleAccount = async () => {
+    try {
+      await signOut(auth);
+      dispatch(userActions.resetState());
+      toast("Google account successfully removed!", { type: "success" });
+    } catch (error) {
+      toast("Something went wrong, please try again", { type: "error" });
+    }
+  };
+
   return (
     <div className="google-signin">
       {!authUser && !authLoading && (
@@ -22,13 +35,7 @@ function GoogleSignIn() {
         </button>
       )}
       {authUser && (
-        <span
-          className="text-link text-center"
-          onClick={() => {
-            signOut(auth);
-            dispatch(userActions.resetState());
-          }}
-        >
+        <span className="text-link text-center" onClick={handleRemoveGoogleAccount}>
           Remove Google account
         </span>
       )}

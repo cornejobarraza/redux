@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { userActions } from "store";
-import { useUpdateGoogleAccount } from "hooks";
+import { toast } from "react-toastify";
+
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
+
+import { useUpdateGoogleAccount } from "hooks";
+import { userActions } from "store";
 
 export { Profile };
 
@@ -19,6 +22,18 @@ function Profile({ authUser }) {
   const updateGoogleAccount = useUpdateGoogleAccount(data);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (pending.update === false && !error.update) {
+      toast("Account successfully updated!", { type: "success" });
+      dispatch(userActions.clearStatus());
+    }
+
+    if (error.update) {
+      toast("Something went wrong, please try again", { type: "error" });
+      dispatch(userActions.clearStatus());
+    }
+  }, [pending.update, error.update, dispatch]);
+
   const handleAvatar = () => {
     setIsSwapperSpinning(true);
     const seed = Math.round(Math.random() * 99);
@@ -34,8 +49,7 @@ function Profile({ authUser }) {
     const source = e.target.name;
 
     if (source === "email") {
-      // eslint-disable-next-line
-      const mailRegEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      const mailRegEx = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
       if (!mailRegEx.test(input)) {
         return;
       }
@@ -96,7 +110,7 @@ function Profile({ authUser }) {
               <ArrowPathIcon className="swapper-icon" />
             </span>
           </div>
-          <div className="input-row md:self-center">
+          <div className="input-row md:self-center flex-grow">
             <div className="detail-input">
               <label className="form-label">Full name</label>
               <input
@@ -106,7 +120,7 @@ function Profile({ authUser }) {
                 disabled={pending.update}
                 placeholder={user.name}
                 onChange={(e) => handleChange(e)}
-              ></input>
+              />
             </div>
             <div className="detail-input">
               <label className="form-label">Email address</label>
@@ -118,7 +132,7 @@ function Profile({ authUser }) {
                 placeholder={user.email}
                 pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
                 onChange={(e) => handleChange(e)}
-              ></input>
+              />
             </div>
           </div>
         </div>
@@ -132,7 +146,7 @@ function Profile({ authUser }) {
               disabled={pending.update}
               placeholder={user.address}
               onChange={(e) => handleChange(e)}
-            ></input>
+            />
           </div>
           <div className="detail-input">
             <label className="form-label">Website</label>
@@ -142,8 +156,9 @@ function Profile({ authUser }) {
               className="form-input"
               disabled={pending.update}
               placeholder={user.website}
+              pattern="^[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{2,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&//=]*)$"
               onChange={(e) => handleChange(e)}
-            ></input>
+            />
           </div>
         </div>
         <div className="detail-input">
@@ -151,8 +166,6 @@ function Profile({ authUser }) {
             Update
           </button>
         </div>
-        {pending.update === false && !error.update && <span className="status w-full">Account has been updated!</span>}
-        {error.update && <span className="status w-full">Something went wrong :(</span>}
       </form>
     </div>
   );

@@ -1,29 +1,22 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+
 import { Navbar, Sidebar, Content, ViewportProvider } from "components";
-import { userActions } from "store";
+
 import { history } from "utils";
 
-function App() {
-  const dispatch = useDispatch();
+import "react-toastify/dist/ReactToastify.min.css";
 
+function App() {
   // Init custom history object to allow navigation from
   // anywhere in the react app (inside or outside components)
   history.navigate = useNavigate();
   history.location = useLocation();
 
-  useEffect(() => {
-    // Reset pending and error statuses after leaving pages
-    return () => {
-      dispatch(userActions.clearStatus());
-    };
-    // eslint-disable-next-line
-  }, [dispatch, history.location]);
-
   return (
     <div className="redux">
       <ViewportProvider>
+        <ToastContainer theme="dark" style={{ fontSize: "0.875rem", lineHeight: "1.25rem" }} pauseOnFocusLoss />
         <Navbar />
         <Sidebar />
         <Content />
