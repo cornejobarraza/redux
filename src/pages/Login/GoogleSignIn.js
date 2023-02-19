@@ -20,7 +20,7 @@ function GoogleSignIn() {
     try {
       await signOut(auth);
       dispatch(userActions.resetState());
-      toast("Google account successfully removed!", { type: "success" });
+      toast("Signed out successfully", { type: "success" });
     } catch (error) {
       toast("Something went wrong, please try again", { type: "error" });
     }

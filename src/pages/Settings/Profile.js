@@ -26,7 +26,7 @@ function Profile({ authUser }) {
 
   useEffect(() => {
     if (pending.update === false && !error.update) {
-      toast("Account successfully updated!", { type: "success" });
+      toast("Account successfully updated", { type: "success" });
     }
 
     if (error.update) {
