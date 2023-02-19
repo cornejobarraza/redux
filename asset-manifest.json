@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/redux/static/css/main.c7769906.css",
-    "main.js": "/redux/static/js/main.04be7df5.js",
-    "static/js/267.b449d975.chunk.js": "/redux/static/js/267.b449d975.chunk.js",
+    "main.js": "/redux/static/js/main.c471757f.js",
+    "static/js/267.c1876b1d.chunk.js": "/redux/static/js/267.c1876b1d.chunk.js",
     "static/js/536.6278c805.chunk.js": "/redux/static/js/536.6278c805.chunk.js",
     "static/js/231.6a1fe31c.chunk.js": "/redux/static/js/231.6a1fe31c.chunk.js",
     "static/js/848.933ac46b.chunk.js": "/redux/static/js/848.933ac46b.chunk.js",
     "static/js/652.cbdc934e.chunk.js": "/redux/static/js/652.cbdc934e.chunk.js",
-    "static/js/515.5c4ca08a.chunk.js": "/redux/static/js/515.5c4ca08a.chunk.js",
+    "static/js/515.1db29cb3.chunk.js": "/redux/static/js/515.1db29cb3.chunk.js",
     "static/js/932.af6b87f4.chunk.js": "/redux/static/js/932.af6b87f4.chunk.js",
     "index.html": "/redux/index.html"
   },
   "entrypoints": [
     "static/css/main.c7769906.css",
-    "static/js/main.04be7df5.js"
+    "static/js/main.c471757f.js"
   ]
 }
