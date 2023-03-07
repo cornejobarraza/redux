@@ -154,6 +154,7 @@
 /* Start of custom Toastify styles */
 :root {
   --toastify-font-family: "Inter var";
+  --toastify-color-success: #764abc;
 }
 /* End of custom Toastify styles */
 

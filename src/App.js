@@ -30,7 +30,7 @@ function App() {
   return (
     <div className="redux">
       <ViewportProvider>
-        <ToastContainer theme="dark" style={{ fontSize: "0.875rem", lineHeight: "1.25rem" }} pauseOnFocusLoss />
+        <ToastContainer theme="dark" style={{ fontSize: "0.875rem", lineHeight: "1.25rem" }} />
         <Navbar />
         <Sidebar />
         <Content />
