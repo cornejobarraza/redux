@@ -20,7 +20,7 @@ function GoogleSignIn() {
     try {
       await signOut(auth);
       dispatch(userActions.resetState());
-      toast("Google account successfully signed out", { type: "success" });
+      toast("Signed out successfully", { type: "success" });
     } catch (error) {
       toast("Something went wrong, please try again", { type: "error" });
     }
@@ -36,7 +36,7 @@ function GoogleSignIn() {
       )}
       {authUser && (
         <span className="text-link text-center" onClick={handleGoogleSignOut}>
-          Sign Out from Google
+          Sign out from Google
         </span>
       )}
     </div>
