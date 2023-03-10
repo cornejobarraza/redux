@@ -153,6 +153,7 @@
 
 /* Start of custom Toastify styles */
 :root {
+  --toastify-toast-width: 350px;
   --toastify-font-family: "Inter var";
   --toastify-color-success: #8f6bc8;
 }
