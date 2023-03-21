@@ -10,6 +10,9 @@ import { userActions } from "store";
 export { Profile };
 
 function Profile({ authUser }) {
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const currentAvatar = Number(currentUser.user.avatar.replace(/\D/g, ""));
+
   const { user, pending, error } = useSelector((state) => state.auth);
   const [data, setData] = useState({
     avatar: user.avatar,
@@ -18,7 +21,7 @@ function Profile({ authUser }) {
     address: user.address,
     website: user.website,
   });
-  const [seed, setSeed] = useState(2);
+  const [seed, setSeed] = useState(currentAvatar);
   const [isSwapperSpinning, setIsSwapperSpinning] = useState(false);
 
   const updateGoogleAccount = useUpdateGoogleAccount(data);
@@ -37,13 +40,15 @@ function Profile({ authUser }) {
   const handleAvatar = () => {
     setIsSwapperSpinning(true);
 
+    const newSeed = currentAvatar === seed ? currentAvatar + 1 : seed + 1;
+
     if (seed === 10) {
       setSeed(1);
+      setData((prev) => ({ ...prev, avatar: `assets/avatars/${1}.svg` }));
     } else {
-      setSeed((seed) => seed + 1);
+      setSeed(newSeed);
+      setData((prev) => ({ ...prev, avatar: `assets/avatars/${newSeed}.svg` }));
     }
-
-    setData((prev) => ({ ...prev, avatar: `assets/avatars/${seed}.svg` }));
   };
 
   const handleChange = (e) => {
