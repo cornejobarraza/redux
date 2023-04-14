@@ -28,7 +28,11 @@ export { Menu };
 function Menu() {
   const { logged } = useSelector((state) => state.auth);
 
-  return <div className="menu">{logged ? <Links /> : <EmptySidebar />}</div>;
+  return (
+    <div className="menu">
+      <div className="sidebar">{logged ? <Links /> : <EmptyMenu />}</div>
+    </div>
+  );
 }
 
 function MenuLink({ icon, text, route }) {
@@ -87,7 +91,7 @@ function Links() {
   );
 }
 
-function EmptySidebar() {
+function EmptyMenu() {
   return (
     <div className="empty">
       <svg width="100%" height="428" className="fill-slate-300">
@@ -100,17 +104,17 @@ function EmptySidebar() {
         <rect x="36" y="154" width="144" height="20" rx="10" opacity="0.7"></rect>
         <circle cx="12" cy="164" r="12" opacity="0.7"></circle>
         <rect x="36" y="204" width="144" height="20" rx="10" opacity="0.6"></rect>
-        <circle cx="12" cy="204" r="12" opacity="0.6"></circle>
+        <circle cx="12" cy="214" r="12" opacity="0.6"></circle>
         <rect x="36" y="254" width="144" height="20" rx="10" opacity="0.5"></rect>
-        <circle cx="12" cy="254" r="12" opacity="0.5"></circle>
+        <circle cx="12" cy="264" r="12" opacity="0.5"></circle>
         <rect x="36" y="304" width="144" height="20" rx="10" opacity="0.4"></rect>
-        <circle cx="12" cy="304" r="12" opacity="0.4"></circle>
+        <circle cx="12" cy="314" r="12" opacity="0.4"></circle>
         <rect x="36" y="354" width="144" height="20" rx="10" opacity="0.3"></rect>
-        <circle cx="12" cy="354" r="12" opacity="0.3"></circle>
+        <circle cx="12" cy="364" r="12" opacity="0.3"></circle>
         <rect x="36" y="404" width="144" height="20" rx="10" opacity="0.2"></rect>
-        <circle cx="12" cy="404" r="12" opacity="0.2"></circle>
+        <circle cx="12" cy="414" r="12" opacity="0.2"></circle>
         <rect x="36" y="454" width="144" height="20" rx="10" opacity="0.1"></rect>
-        <circle cx="12" cy="454" r="12" opacity="0.1"></circle>
+        <circle cx="12" cy="464" r="12" opacity="0.1"></circle>
       </svg>
     </div>
   );

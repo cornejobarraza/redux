@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { DesktopNav } from "components/Navbar/DesktopNav";
-import { MobileNav } from "components/Navbar/MobileNav";
+
+import { Mobile } from "components/Navbar/Mobile";
+import { Desktop } from "components/Navbar/Desktop";
+
 import { useViewport } from "hooks";
 
 export { Navbar };
@@ -18,7 +20,7 @@ function Navbar() {
         </Link>{" "}
         App
       </span>
-      {logged && <>{width > 768 ? <DesktopNav user={user} /> : <MobileNav user={user} />}</>}
+      {logged && <>{width > 768 ? <Desktop user={user} /> : <Mobile user={user} />}</>}
     </div>
   );
 }

@@ -1,28 +1,45 @@
-import { SearchOutlined, MoreVertOutlined } from "@material-ui/icons";
-import { useState, Fragment } from "react";
-import { NavLink } from "react-router-dom";
-import { Account } from "components/Navbar/Account";
-import { SearchBar } from "components/Navbar/SearchBar";
+import { useState, Fragment, useEffect } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 
-export { MobileNav };
+import { SearchOutlined, MoreVertOutlined } from "@material-ui/icons";
 
-function MobileNav({ user }) {
+import { history } from "utils";
+
+export { Mobile };
+
+function Mobile({ user }) {
   const [toggled, setToggled] = useState(false);
 
-  const handleToggle = () => {
-    if (toggled) {
+  const location = history.location;
+
+  useEffect(() => {
+    if (window.innerWidth < 1024) {
       setToggled(false);
-    } else {
-      setToggled(true);
     }
-  };
+  }, [location]);
 
   return (
     <>
-      <Account user={user} />
+      <div className="account">
+        <Link className="group" to="settings">
+          <img
+            className="avatar"
+            src={user?.avatar}
+            alt=""
+            aria-label="User avatar"
+            width="32px"
+            height="32px"
+            referrerPolicy="no-referrer"
+          />
+          <small className="info-tooltip">
+            <span className="block font-bold">{user?.name}</span>
+            <span className="block">{user?.email}</span>
+          </small>
+        </Link>
+      </div>
       <div className="search">
-        <button type="button" onClick={handleToggle}>
+        <button type="button" onClick={() => setToggled((toggled) => !toggled)}>
           <SearchOutlined />
         </button>
       </div>
@@ -56,7 +73,7 @@ function MobileNav({ user }) {
           </Menu.Items>
         </Transition>
       </Menu>
-      {toggled && <SearchBar user={user} />}
+      {toggled && <input className="searchbar" placeholder={`Search here ${user?.name.split(" ")[0]}`} />}
     </>
   );
 }

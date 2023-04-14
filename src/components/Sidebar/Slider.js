@@ -26,10 +26,10 @@ function Slider() {
   };
 
   return (
-    <>
+    <div className="slider">
       <SlideOver isOpen={isSlideOverOpen} handler={handleToggle} />
       <Toggle handler={handleToggle} />
-    </>
+    </div>
   );
 }
 
@@ -61,7 +61,7 @@ function SlideOver({ isOpen, handler }) {
                 leaveFrom="translate-x-0"
                 leaveTo="translate-x-full"
               >
-                <Dialog.Panel className="pointer-events-auto relative w-64">
+                <Dialog.Panel className="pointer-events-auto relative w-64 border-l border-gray-500">
                   <Transition.Child
                     as={Fragment}
                     enter="ease-in-out duration-500"

@@ -5,7 +5,7 @@
 /* Start of Tailwind layer */
 @layer components {
   body {
-    @apply bg-slate-200;
+    @apply bg-slate-100;
   }
 
   .content p {
@@ -17,7 +17,7 @@
   }
 
   .navbar {
-    @apply lg:fixed flex flex-wrap gap-5 items-center px-8 py-4 border-b border-gray-300 w-full bg-slate-200 lg:z-20 min-h-[65px];
+    @apply lg:fixed flex flex-wrap gap-5 items-center px-8 py-4 border-b border-gray-400 w-full bg-slate-200 lg:z-20 min-h-[65px];
   }
 
   .logo {
@@ -33,7 +33,7 @@
   }
 
   .searchbar {
-    width: clamp(20%, 22rem, 100%);
+    width: clamp(20%, 23rem, 100%);
     @apply inline-block focus-visible:outline-none px-3 py-0.5 mx-auto border border-gray-300 rounded-2xl bg-white order-last md:order-1 lg:order-none;
   }
 
@@ -80,7 +80,7 @@
   }
 
   .menu {
-    @apply bg-slate-200 w-64 min-w-[256px] border-r-0 fixed top-[3.25rem] lg:left-0 h-[93.3vh] lg:top-[4.05rem] px-8 py-6 lg:border-r lg:border-gray-300 overflow-y-auto;
+    @apply bg-slate-200 w-64 min-w-[256px] border-r-0 fixed top-[3.25rem] lg:left-0 h-[93.3vh] lg:top-[4.05rem] px-8 py-6 lg:border-r lg:border-gray-400 overflow-y-auto;
   }
 
   .links {
@@ -230,7 +230,7 @@
   border-radius: 0.25rem;
   margin-left: auto;
   margin-right: auto;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 
 .google-identity:disabled {
