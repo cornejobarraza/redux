@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -13,7 +13,7 @@ function Profile({ authUser }) {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const currentAvatar = Number(currentUser.user.avatar.replace(/\D/g, ""));
 
-  const { user, pending, error } = useSelector((state) => state.auth);
+  const { user, pending } = useSelector((state) => state.auth);
   const [data, setData] = useState({
     avatar: user.avatar,
     name: user.name,
@@ -26,16 +26,6 @@ function Profile({ authUser }) {
 
   const updateGoogleAccount = useUpdateGoogleAccount(data);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (pending.update === false && !error.update) {
-      toast("Account successfully updated", { type: "success" });
-    }
-
-    if (error.update) {
-      toast("Something went wrong, please try again", { type: "error" });
-    }
-  }, [pending.update, error.update]);
 
   const handleAvatar = () => {
     setIsSwapperSpinning(true);
@@ -70,7 +60,7 @@ function Profile({ authUser }) {
     }
   };
 
-  const handleUpdate = (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
 
     if (JSON.stringify(data) !== JSON.stringify(user)) {
@@ -78,7 +68,7 @@ function Profile({ authUser }) {
         updateGoogleAccount();
       }
 
-      dispatch(
+      await dispatch(
         userActions.updateAsync({
           avatar: data.avatar,
           name: data.name,
@@ -87,6 +77,8 @@ function Profile({ authUser }) {
           website: data.website,
         })
       );
+
+      toast("Account successfully updated", { type: "success" });
     }
 
     e.target.reset();

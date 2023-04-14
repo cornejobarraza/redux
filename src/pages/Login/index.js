@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
 
 import { Account } from "pages/Login/Account";
 import { GoogleSignIn } from "pages/Login/GoogleSignIn";
@@ -10,7 +9,7 @@ import { history } from "utils";
 export { Login as default };
 
 function Login() {
-  const { logged, error } = useSelector((state) => state.auth);
+  const { logged } = useSelector((state) => state.auth);
 
   useEffect(() => {
     document.title = "Redux - Login";
@@ -19,12 +18,6 @@ function Login() {
       history.navigate("/");
     }
   }, [logged]);
-
-  useEffect(() => {
-    if (error.login) {
-      toast("Something went wrong, please try again", { type: "error" });
-    }
-  }, [error.login]);
 
   return (
     <div className="login gap-12">

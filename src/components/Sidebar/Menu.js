@@ -1,7 +1,5 @@
-import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
 
 import {
   HomeOutlined,
@@ -50,7 +48,7 @@ function MenuLink({ icon, text, route }) {
 }
 
 function Links() {
-  const { pending, error } = useSelector((state) => state.auth);
+  const { pending } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const googleSignIn = useGoogleSignIn();
 
@@ -60,12 +58,6 @@ function Links() {
   const handleLogOut = () => {
     dispatch(userActions.logOutAsync());
   };
-
-  useEffect(() => {
-    if (error.logout || error.login) {
-      toast("Something went wrong, please try again", { type: "error" });
-    }
-  }, [error.logout, error.login]);
 
   return (
     <div className="links">

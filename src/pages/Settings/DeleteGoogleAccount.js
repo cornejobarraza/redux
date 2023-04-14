@@ -26,7 +26,6 @@ function DeleteGoogleAccount({ auth, authUser }) {
       toast("Account successfully deleted", { type: "success" });
     } catch (err) {
       dispatch(userActions.deleteGoogleError());
-      toast("Something went wrong, please try again", { type: "error" });
     }
   };
 
