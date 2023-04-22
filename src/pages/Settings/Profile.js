@@ -89,7 +89,7 @@ function Profile({ authUser }) {
       <h1 className="page-header">Update your account</h1>
       <p className="mt-4 text-lg text-gray-500">
         Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
-        accusamus quisquam.
+        accusamus quisquam
       </p>
       <form id="detailsForm" className="details mt-8 md:max-w-md" onSubmit={handleUpdate}>
         <div className="input-group md:flex-row md:gap-16 md:justify-between">
@@ -132,7 +132,7 @@ function Profile({ authUser }) {
                 className="form-input"
                 disabled={pending.update}
                 placeholder={user.email}
-                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                pattern="\w+([\.\-]?\w+)*@\w+([\.\-]?\w+)*(\.\w{2,3})"
                 onChange={(e) => handleChange(e)}
               />
             </div>
@@ -158,7 +158,7 @@ function Profile({ authUser }) {
               className="form-input"
               disabled={pending.update}
               placeholder={user.website}
-              pattern="^[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{2,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&//=]*)$"
+              pattern="[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&//=]*)"
               onChange={(e) => handleChange(e)}
             />
           </div>

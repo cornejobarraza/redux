@@ -15,7 +15,7 @@ function Landing() {
         <h1 className="page-header">Centralized state application</h1>
         <p className="mt-4 max-w-2xl text-lg text-gray-500">
           Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
-          accusamus quisquam.
+          accusamus quisquam
         </p>
       </div>
       <dl className="features">
@@ -39,19 +39,19 @@ const features = [
   {
     name: "1. User data is shared across components here",
     description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.",
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione",
     icon: UserIcon,
   },
   {
     name: "2. Go to settings on the sidebar or click the user avatar",
     description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.",
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione",
     icon: Cog6ToothIcon,
   },
   {
     name: "3. Update anything and watch the magic happen!",
     description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.",
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione",
     icon: IdentificationIcon,
   },
   {
@@ -81,7 +81,7 @@ const features = [
       </span>
     ),
     description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.",
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione",
     icon: CodeBracketIcon,
   },
 ];

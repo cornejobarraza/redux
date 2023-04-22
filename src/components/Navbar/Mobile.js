@@ -1,23 +1,30 @@
-import { useState, Fragment, useEffect } from "react";
+import { useState, Fragment, useEffect, useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 
 import { SearchOutlined, MoreVertOutlined } from "@material-ui/icons";
 
-import { history } from "utils";
-
 export { Mobile };
 
 function Mobile({ user }) {
   const [toggled, setToggled] = useState(false);
-
-  const location = history.location;
+  const searchbarRef = useRef(null);
 
   useEffect(() => {
-    if (window.innerWidth < 1024) {
-      setToggled(false);
-    }
-  }, [location]);
+    const handleClickOutside = (e) => {
+      // Hide searchbar when clicking outside of it
+      if (toggled && !searchbarRef?.current.contains(e.target)) {
+        setToggled(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Cleanup to remove event listener
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [toggled]);
 
   return (
     <>
@@ -73,7 +80,17 @@ function Mobile({ user }) {
           </Menu.Items>
         </Transition>
       </Menu>
-      {toggled && <input className="searchbar" placeholder={`Search here ${user?.name.split(" ")[0]}`} />}
+      {toggled && (
+        <form
+          className="lookup"
+          onSubmit={(e) => {
+            e.preventDefault();
+            searchbarRef.current.value = "";
+          }}
+        >
+          <input className="searchbar" placeholder={`Search here ${user?.name.split(" ")[0]}`} ref={searchbarRef} />
+        </form>
+      )}
     </>
   );
 }

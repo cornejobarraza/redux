@@ -1,8 +1,11 @@
+import { useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 export { Desktop };
 
 function Desktop({ user }) {
+  const searchbarRef = useRef(null);
+
   return (
     <>
       <div className="pages">
@@ -13,7 +16,15 @@ function Desktop({ user }) {
           Contact
         </NavLink>
       </div>
-      <input className="searchbar" placeholder={`Search here ${user?.name.split(" ")[0]}`} />
+      <form
+        className="lookup"
+        onSubmit={(e) => {
+          e.preventDefault();
+          searchbarRef.current.value = "";
+        }}
+      >
+        <input className="searchbar" placeholder={`Search here ${user?.name.split(" ")[0]}`} ref={searchbarRef} />
+      </form>
       <span className="name">
         Hello, <span className="text-redux-500">{user?.name.split(" ")[0]}</span>
       </span>

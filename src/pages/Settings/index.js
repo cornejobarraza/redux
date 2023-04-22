@@ -15,7 +15,7 @@ function Settings() {
   const [authUser] = useAuthState(auth);
 
   return (
-    <div className="settings max-w-xl gap-12">
+    <div className="settings max-w-2xl gap-12">
       <Profile authUser={authUser} />
       {authUser && <DeleteGoogleAccount auth={auth} authUser={authUser} />}
     </div>

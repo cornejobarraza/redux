@@ -14,7 +14,7 @@ export { Routing };
 function Routing() {
   return (
     <Routes>
-      <Route path="*" element={<div>Sorry, this page doesn't exist :(</div>} />
+      <Route path="*" element={<div>Sorry, the page you were looking for doesn't exist</div>} />
       <Route path="login" element={<Login />} />
       <Route
         path="/"
