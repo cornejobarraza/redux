@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/redux/static/css/main.a144acbe.css",
-    "main.js": "/redux/static/js/main.72676d33.js",
+    "main.css": "/redux/static/css/main.f06209e0.css",
+    "main.js": "/redux/static/js/main.8da5434a.js",
     "static/js/267.b7093f78.chunk.js": "/redux/static/js/267.b7093f78.chunk.js",
     "static/js/536.397c011f.chunk.js": "/redux/static/js/536.397c011f.chunk.js",
     "static/js/231.347bd2a7.chunk.js": "/redux/static/js/231.347bd2a7.chunk.js",
@@ -12,7 +12,7 @@
     "index.html": "/redux/index.html"
   },
   "entrypoints": [
-    "static/css/main.a144acbe.css",
-    "static/js/main.72676d33.js"
+    "static/css/main.f06209e0.css",
+    "static/js/main.8da5434a.js"
   ]
 }
