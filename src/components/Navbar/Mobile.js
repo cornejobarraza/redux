@@ -8,12 +8,13 @@ export { Mobile };
 
 function Mobile({ user }) {
   const [toggled, setToggled] = useState(false);
+  const searchToggleRef = useRef(null);
   const searchbarRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
       // Hide searchbar when clicking outside of it
-      if (toggled && !searchbarRef?.current.contains(e.target)) {
+      if (toggled && !searchbarRef.current?.contains(e.target) && !searchToggleRef.current?.contains(e.target)) {
         setToggled(false);
       }
     };
@@ -45,7 +46,7 @@ function Mobile({ user }) {
           </small>
         </Link>
       </div>
-      <div className="search">
+      <div className="search" ref={searchToggleRef}>
         <button type="button" onClick={() => setToggled((toggled) => !toggled)}>
           <SearchOutlined />
         </button>
