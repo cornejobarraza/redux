@@ -97,7 +97,7 @@
   }
 
   .content {
-    @apply grow p-8 lg:py-10 lg:px-14 lg:ml-64 lg:mt-[65px];
+    @apply grow p-8 lg:py-10 lg:px-14 lg:ml-64 lg:mt-[65px] overflow-y-scroll;
   }
 
   .page-header {
@@ -167,7 +167,7 @@
 /* Start of scrollbar style */
 /* width */
 ::-webkit-scrollbar {
-  width: 1px;
+  width: 8px;
 }
 
 /* Track */
@@ -177,12 +177,13 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background-color: transparent;
+  background-color: #764abc;
+  border-radius: 4px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background-color: transparent;
+  background-color: #5e399a;
 }
 /* End of scrollbar style */
 
@@ -216,6 +217,10 @@
 @media only screen and (min-width: 1024px) {
   .lottie {
     margin-left: 8rem;
+  }
+
+  .content {
+    height: calc(100vh - 65px);
   }
 }
 /* End of Lottie animation */
