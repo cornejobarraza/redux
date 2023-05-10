@@ -2,7 +2,7 @@ import { useState, Fragment, useEffect, useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 
-import { SearchOutlined, MoreVertOutlined } from "@material-ui/icons";
+import { SearchOutlined, MoreVertOutlined } from "@mui/icons-material";
 
 export { Mobile };
 

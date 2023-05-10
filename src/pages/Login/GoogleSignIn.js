@@ -18,19 +18,21 @@ function GoogleSignIn() {
 
   const handleGoogleSignOut = async () => {
     try {
+      dispatch(userActions.logoutGoogleStart());
       await signOut(auth);
       dispatch(userActions.resetState());
+      dispatch(userActions.clearStatus());
       toast("Signed out successfully", { type: "success" });
     } catch (error) {
-      toast("Something went wrong, please try again", { type: "error" });
+      dispatch(userActions.logoutGoogleError());
     }
   };
 
   return (
     <div className="google-signin">
       {!authUser && !authLoading && (
-        <button className="google-identity" onClick={googleSignIn}>
-          <Logo />
+        <button className="google-identity shadow-md" onClick={googleSignIn}>
+          <GoogleLogo />
           <span className="text">Sign in with Google</span>
         </button>
       )}
@@ -43,7 +45,7 @@ function GoogleSignIn() {
   );
 }
 
-function Logo() {
+export function GoogleLogo() {
   return (
     <span className="google-logo">
       <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg">

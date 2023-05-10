@@ -1,8 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { userReducer } from "./user.slice";
 
-import { history } from "utils";
-
 export * from "./user.slice";
 
 const userMiddleware = (store) => (next) => (action) => {
@@ -18,12 +16,6 @@ const userMiddleware = (store) => (next) => (action) => {
     const state = store.getState().auth;
     const currentUser = { user: state.user, logged: state.logged };
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
-  }
-
-  // Return to previous page or default to home page after login
-  if (action.type.endsWith("login/fulfilled")) {
-    const { from } = history.location.state || { from: { pathname: "/" } };
-    history.navigate(from);
   }
 
   return result;

@@ -16,6 +16,10 @@
     @apply flex flex-wrap;
   }
 
+  .outlined {
+    @apply outline outline-1 outline-gray-300;
+  }
+
   .navbar {
     @apply lg:fixed flex flex-wrap gap-5 items-center px-8 py-4 border-b border-gray-400 w-full bg-slate-200 lg:z-20 min-h-[65px];
   }
@@ -55,7 +59,7 @@
   }
 
   .swapper {
-    @apply inline-block text-sm cursor-pointer md:block ml-7 md:ml-0;
+    @apply inline-block w-fit text-sm cursor-pointer ml-7 md:block md:mx-auto;
   }
 
   .swapper-icon {
@@ -85,15 +89,25 @@
   }
 
   .menu {
-    @apply bg-slate-200 w-64 min-w-[256px] border-r-0 fixed top-[3.25rem] lg:left-0 h-[93.3vh] lg:top-[4.05rem] px-8 py-6 lg:border-r lg:border-gray-400 overflow-y-auto;
+    height: calc(100vh - 52px);
+
+    @apply bg-slate-200 w-64 min-w-[256px] border-r-0 fixed top-[3.25rem] lg:left-0 lg:top-[4.05rem] px-8 py-6 lg:border-r lg:border-gray-400 overflow-y-auto;
+  }
+
+  .sidebar {
+    @apply h-full;
   }
 
   .links {
-    @apply flex flex-col gap-7;
+    @apply flex flex-col gap-7 h-full;
   }
 
   .sidebar-link {
     @apply inline-flex flex-wrap items-center cursor-pointer gap-3 active:font-bold lg:hover:bg-white lg:hover:rounded-full lg:hover:px-3 lg:hover:py-1 disabled:cursor-not-allowed disabled:font-normal disabled:text-gray-500 disabled:hover:font-normal transition-all;
+  }
+
+  .sidebar-link.active {
+    @apply lg:hover:bg-[#fcfcfc] outlined;
   }
 
   .content {
@@ -219,6 +233,10 @@
     margin-left: 8rem;
   }
 
+  .menu {
+    height: calc(100vh - 65px);
+  }
+
   .content {
     height: calc(100vh - 65px);
   }
@@ -237,10 +255,9 @@
   display: flex;
   align-items: center;
   background: #ffffff;
-  border-radius: 0.25rem;
+  border-radius: 0.5rem;
   margin-left: auto;
   margin-right: auto;
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 
 .google-identity:disabled {
@@ -292,7 +309,7 @@
 .active {
   font-weight: bold;
   color: #764abc;
-  background-color: #f8fafc;
+  background-color: white;
   border-radius: 9999px;
   padding: 0.25rem 0.75rem;
 }

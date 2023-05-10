@@ -40,6 +40,7 @@ function useGoogleSignIn() {
             avatar: data.avatar,
             address: data.address,
             website: data.website,
+            wishlist: data.wishlist,
           })
         );
       } else {
@@ -49,6 +50,7 @@ function useGoogleSignIn() {
           avatar: user.photoURL,
           address: "Enter your address here",
           website: "Add your website here",
+          wishlist: null,
         };
         await setDoc(docRef, newUser);
         dispatch(userActions.logInAsync(newUser));

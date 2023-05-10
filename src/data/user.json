@@ -3,5 +3,6 @@
   "name": "John Doe",
   "email": "john.doe@email.com",
   "address": "8929 Valwood Pkwy, Billings, MI 63104",
-  "website": "thejohndoe.com"
+  "website": "thejohndoe.com",
+  "wishlist": []
 }

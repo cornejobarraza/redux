@@ -29,7 +29,7 @@ function createInitialState() {
       logout: null,
       delete: null,
     },
-    error: { login: null, update: null, logout: null, delete: null },
+    error: { login: null, update: null, logout: null, delete: null, wishlist: null },
   };
 }
 
@@ -42,6 +42,9 @@ function createReducers() {
     deleteGoogleError,
     loginGoogleStart,
     loginGoogleError,
+    setWishlistError,
+    logoutGoogleStart,
+    logoutGoogleError,
   };
 
   function resetState(state) {
@@ -64,6 +67,20 @@ function createReducers() {
     state.error = { ...state.error, login: true };
   }
 
+  function setWishlistError(state) {
+    state.error = { ...state.error, wishlist: true };
+  }
+
+  function logoutGoogleStart(state) {
+    state.error = { ...state.error, logout: false };
+    state.pending = { ...state.pending, logout: true };
+  }
+
+  function logoutGoogleError(state) {
+    state.pending = { ...state.pending, logout: false };
+    state.error = { ...state.error, logout: true };
+  }
+
   function deleteGoogleStart(state) {
     state.error = { ...state.error, delete: false };
     state.pending = { ...state.pending, delete: true };
@@ -84,6 +101,7 @@ function createExtraActions() {
     updateAsync: updateAsync(),
     logInAsync: logInAsync(),
     logOutAsync: logOutAsync(),
+    setWishlistAsync: setWishlistAsync(),
   };
 
   function updateAsync() {
@@ -106,6 +124,12 @@ function createExtraActions() {
       return response.data;
     });
   }
+
+  function setWishlistAsync() {
+    return createAsyncThunk(`${name}/wishlist`, (user) => {
+      return user;
+    });
+  }
 }
 
 function createExtraReducers() {
@@ -113,6 +137,7 @@ function createExtraReducers() {
     ...updateAsync(),
     ...logInAsync(),
     ...logOutAsync(),
+    ...setWishlistAsync(),
   };
 
   function updateAsync() {
@@ -163,6 +188,15 @@ function createExtraReducers() {
       [rejected]: (state) => {
         state.pending.logout = false;
         state.error.logout = true;
+      },
+    };
+  }
+
+  function setWishlistAsync() {
+    const { fulfilled } = extraActions.setWishlistAsync;
+    return {
+      [fulfilled]: (state, action) => {
+        state.user.wishlist = action.payload;
       },
     };
   }

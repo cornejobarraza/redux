@@ -13,13 +13,14 @@ import {
   SettingsOutlined,
   ShoppingCartOutlined,
   BookmarkBorderOutlined,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import { useGoogleSignIn } from "hooks";
 import { userActions } from "store";
+import { GoogleLogo } from "pages/Login/GoogleSignIn";
 
 export { Menu };
 
@@ -75,8 +76,9 @@ function Links() {
         <ExitToAppOutlined /> Log Out
       </button>
       {!authUser && !authLoading && (
-        <button className="button w-max text-xs" onClick={googleSignIn}>
-          Sign in with Google
+        <button className="google-identity outlined mt-auto" onClick={googleSignIn}>
+          <GoogleLogo />
+          <span className="text">Sign in with Google</span>
         </button>
       )}
     </div>

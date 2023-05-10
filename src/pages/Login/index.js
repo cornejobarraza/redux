@@ -20,7 +20,7 @@ function Login() {
   }, [logged]);
 
   return (
-    <div className="login gap-12">
+    <div className="login gap-10">
       <div className="description">
         <h1 className="page-header md:text-center">Please log in</h1>
         <p className="mt-4 max-w-2xl text-lg text-gray-500 md:mx-auto md:text-center">

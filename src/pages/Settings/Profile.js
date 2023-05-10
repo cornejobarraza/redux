@@ -1,17 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-
-import { ArrowPathIcon } from "@heroicons/react/24/outline";
 
 import { useUpdateGoogleAccount } from "hooks";
 import { userActions } from "store";
 
+import { ArrowPathIcon } from "@heroicons/react/24/outline";
+
 export { Profile };
 
 function Profile({ authUser }) {
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  const currentAvatar = Number(currentUser.user.avatar.replace(/\D/g, ""));
+  const currentAuth = JSON.parse(localStorage.getItem("currentUser"));
+  const avatar = currentAuth?.user.avatar;
+  const currentAvatar = avatar?.startsWith("http") ? 0 : Number(avatar?.replace(/\D/g, ""));
 
   const { user, pending } = useSelector((state) => state.auth);
   const [data, setData] = useState({
@@ -27,14 +28,21 @@ function Profile({ authUser }) {
   const updateGoogleAccount = useUpdateGoogleAccount(data);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (data.avatar !== user.avatar) {
+      setSeed(0);
+      setData((prev) => ({ ...prev, avatar: user.avatar }));
+    }
+  }, [user.avatar]);
+
   const handleAvatar = () => {
     setIsSwapperSpinning(true);
 
     const newSeed = currentAvatar === seed ? currentAvatar + 1 : seed + 1;
 
     if (seed === 10) {
-      setSeed(1);
-      setData((prev) => ({ ...prev, avatar: `assets/avatars/${1}.svg` }));
+      setSeed(authUser ? 0 : 1);
+      setData((prev) => ({ ...prev, avatar: authUser ? authUser.photoURL : `assets/avatars/${1}.svg` }));
     } else {
       setSeed(newSeed);
       setData((prev) => ({ ...prev, avatar: `assets/avatars/${newSeed}.svg` }));
@@ -70,6 +78,7 @@ function Profile({ authUser }) {
 
       await dispatch(
         userActions.updateAsync({
+          ...user,
           avatar: data.avatar,
           name: data.name,
           email: data.email,
@@ -91,7 +100,7 @@ function Profile({ authUser }) {
         Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
         accusamus quisquam
       </p>
-      <form id="detailsForm" className="details mt-8 md:max-w-md" onSubmit={handleUpdate}>
+      <form id="detailsForm" className="details mt-10 md:max-w-md" onSubmit={handleUpdate}>
         <div className="input-group md:flex-row md:gap-16 md:justify-between">
           <div className="icon md:text-center">
             <label className="block font-bold">Profile picture</label>

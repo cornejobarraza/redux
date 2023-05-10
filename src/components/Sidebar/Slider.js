@@ -4,7 +4,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Menu } from "components/Sidebar/Menu";
 
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import { MenuOutlined } from "@material-ui/icons";
+import { MenuOutlined } from "@mui/icons-material";
 
 import { history } from "utils";
 
