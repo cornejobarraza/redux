@@ -107,7 +107,7 @@
   }
 
   .sidebar-link.active {
-    @apply lg:hover:bg-[#fcfcfc] outlined;
+    @apply lg:hover:bg-[#fcfcfc];
   }
 
   .content {
