@@ -16,10 +16,10 @@ export { Wishlist as default };
 
 function Wishlist() {
   const currentAuth = JSON.parse(localStorage.getItem("currentUser"));
-  const { user: stateUser } = useSelector((state) => state.auth);
+  const { user: stateUser, pending } = useSelector((state) => state.auth);
   const auth = getAuth();
 
-  const [authUser] = useAuthState(auth);
+  const [authUser, authLoading] = useAuthState(auth);
   const dispatch = useDispatch();
   const googleSignIn = useGoogleSignIn();
 
@@ -46,6 +46,7 @@ function Wishlist() {
     }
 
     wishInputRef.current.value = "";
+    wishInputRef.current.blur();
   };
 
   const handleAddWishlistItem = async (wish) => {
@@ -85,17 +86,23 @@ function Wishlist() {
   };
 
   return (
-    <div className="wishlist flex flex-col gap-10 max-w-2xl">
-      {authUser ? (
+    <div className="wishlist flex flex-col gap-8 max-w-2xl">
+      <div className="description">
+        <h1 className="page-header">Wishlist</h1>
+        <p className="mt-4 max-w-2xl text-lg text-gray-500">
+          {!authUser && !authLoading
+            ? "Sign in with Google to manage your wishlist"
+            : "Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in accusamus quisquam"}
+        </p>
+        {!authUser && !authLoading && (
+          <button className="button mt-8" onClick={googleSignIn}>
+            Sign in with Google
+          </button>
+        )}
+      </div>
+      {authUser && (
         <>
-          <div className="description">
-            <h1 className="page-header">Wishlist</h1>
-            <p className="mt-4 max-w-2xl text-lg text-gray-500">
-              Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
-              accusamus quisquam
-            </p>
-          </div>
-          {isLoadingList ? (
+          {isLoadingList || pending.login ? (
             <div>Loading list...</div>
           ) : (
             <div className="container flex flex-col gap-6">
@@ -143,14 +150,6 @@ function Wishlist() {
             </div>
           )}
         </>
-      ) : (
-        <div className="description">
-          <h1 className="page-header">Wishlist</h1>
-          <p className="mt-4 mb-8 max-w-2xl text-lg text-gray-500">Sign in with Google to manage your wishlist</p>
-          <button className="button" onClick={googleSignIn}>
-            Sign in with Google
-          </button>
-        </div>
       )}
     </div>
   );

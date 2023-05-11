@@ -91,7 +91,7 @@
   .menu {
     height: calc(100% - 52px);
 
-    @apply bg-slate-200 w-64 min-w-[256px] border-r-0 fixed top-[3.25rem] lg:left-0 lg:top-[4.05rem] px-8 py-6 lg:border-r lg:border-gray-400 overflow-y-auto;
+    @apply bg-slate-200 w-64 min-w-[256px] border-r-0 fixed top-[3.25rem] lg:left-0 lg:top-[4.05rem] px-8 pt-6 pb-7 lg:border-r lg:border-gray-400 overflow-y-auto;
   }
 
   .sidebar {

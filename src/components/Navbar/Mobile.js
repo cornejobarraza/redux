@@ -87,6 +87,7 @@ function Mobile({ user }) {
           onSubmit={(e) => {
             e.preventDefault();
             searchbarRef.current.value = "";
+            searchbarRef.current.blur();
           }}
         >
           <input className="searchbar" placeholder={`Search here ${user?.name.split(" ")[0]}`} ref={searchbarRef} />

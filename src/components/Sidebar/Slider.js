@@ -85,7 +85,7 @@ function SlideOver({ isOpen, handler }) {
                     <div className="px-8">
                       <Dialog.Title className="text-lg font-bold text-gray-900">Menu</Dialog.Title>
                     </div>
-                    <div className="relative mt-6 flex-1">
+                    <div className="relative mt-5 flex-1">
                       <Menu />
                     </div>
                   </div>
