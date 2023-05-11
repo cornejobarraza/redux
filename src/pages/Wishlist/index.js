@@ -10,7 +10,7 @@ import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { useGoogleSignIn } from "hooks";
 import { userActions } from "store";
 
-import { BookmarkAdd, Cancel, Delete } from "@mui/icons-material";
+import { AutoAwesome, BookmarkAdd, Delete } from "@mui/icons-material";
 
 export { Wishlist as default };
 
@@ -23,13 +23,32 @@ function Wishlist() {
   const dispatch = useDispatch();
   const googleSignIn = useGoogleSignIn();
 
-  const [toggleInput, setToggleInput] = useState(false);
+  const [isInputToggled, setIsInputToggled] = useState(false);
   const [isLoadingList, setIsLoadingList] = useState(false);
+  const wishDeleteRef = useRef(null);
+  const wishFormRef = useRef(null);
   const wishInputRef = useRef(null);
 
   useEffect(() => {
     document.title = "Redux - Wishlist";
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      // Hide searchbar when clicking outside of it
+      if (isInputToggled && !wishFormRef.current?.contains(e.target) && !wishDeleteRef.current?.contains(e.target)) {
+        wishInputRef.current.value = "";
+        setIsInputToggled(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Cleanup to remove event listener
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isInputToggled]);
 
   const handleWishInput = (e) => {
     e.preventDefault();
@@ -46,7 +65,7 @@ function Wishlist() {
     }
 
     wishInputRef.current.value = "";
-    wishInputRef.current.blur();
+    wishFormRef.current.focus();
   };
 
   const handleAddWishlistItem = async (wish) => {
@@ -105,27 +124,29 @@ function Wishlist() {
           {isLoadingList || pending.login ? (
             <div>Loading list...</div>
           ) : (
-            <div className="container flex flex-col gap-6">
+            <div className="container flex flex-col gap-8">
               {stateUser.wishlist?.length > 0 && (
-                <div className="list flex flex-col gap-2">
+                <div className="list flex flex-col gap-4">
                   {stateUser.wishlist.map((item, index) => (
-                    <div className="item flex items-center" key={index}>
-                      <span>✨</span>
-                      <p className="ml-1 mr-2">{item}</p>
-                      <button onClick={() => handleRemoveWishlistItem(item)}>
-                        <Delete />
+                    <div className="item flex items-center gap-3" key={index}>
+                      <span className="pt-[0.2rem] mb-auto">
+                        <AutoAwesome className="!fill-yellow-600" />
+                      </span>
+                      <p>{item}</p>
+                      <button onClick={() => handleRemoveWishlistItem(item)} ref={wishDeleteRef}>
+                        <Delete className="!fill-red-600 z-0" />
                       </button>
                     </div>
                   ))}
                 </div>
               )}
               <div className="new">
-                {!toggleInput ? (
-                  <button className="text-redux-500 w-fit hover:underline" onClick={() => setToggleInput(true)}>
+                {!isInputToggled ? (
+                  <button className="text-redux-500 w-fit hover:underline" onClick={() => setIsInputToggled(true)}>
                     Add an item to your wishlist
                   </button>
                 ) : (
-                  <form className="flex gap-3" onSubmit={handleWishInput}>
+                  <form className="flex gap-3" onSubmit={handleWishInput} ref={wishFormRef}>
                     <input
                       className="form-input w-full md:w-2/4"
                       type="text"
@@ -134,15 +155,7 @@ function Wishlist() {
                       ref={wishInputRef}
                     />
                     <button type="submit">
-                      <BookmarkAdd />
-                    </button>
-                    <button
-                      onClick={() => {
-                        wishInputRef.current.value = "";
-                        setToggleInput(false);
-                      }}
-                    >
-                      <Cancel />
+                      <BookmarkAdd className="!fill-redux-500" />
                     </button>
                   </form>
                 )}
