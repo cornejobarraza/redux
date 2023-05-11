@@ -1,8 +1,8 @@
 # React Redux App
 
-User dashboard with real-time updates on profile information changes.
+### User dashboard with real-time updates on profile information changes
 
-This project was created with:
+This project was created using:
 
 - [React 18.2](https://reactjs.org/)
 - [React Router 6.3](https://reactrouter.com/)
@@ -15,4 +15,4 @@ This project was created with:
 - [lottie-react](https://www.npmjs.com/package/lottie-react)
 - [react-toastify](https://www.npmjs.com/package/react-toastify)
 
-Deployed to GitHub Pages using the [gh-pages](https://www.npmjs.com/package/gh-pages) package.
+> Deployed to GitHub Pages using the [gh-pages](https://www.npmjs.com/package/gh-pages) package
