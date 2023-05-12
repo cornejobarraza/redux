@@ -38,6 +38,7 @@ function createReducers() {
     resetState,
     clearStatus,
     deleteGoogleStart,
+    deleteGoogleSuccess,
     deleteGoogleError,
     loginGoogleStart,
     loginGoogleSuccess,
@@ -88,6 +89,10 @@ function createReducers() {
   function deleteGoogleStart(state) {
     state.error = { ...state.error, delete: false };
     state.pending = { ...state.pending, delete: true };
+  }
+
+  function deleteGoogleSuccess(state) {
+    state.pending = { ...state.pending, delete: false };
   }
 
   function deleteGoogleError(state) {

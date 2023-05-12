@@ -21,6 +21,7 @@ function DeleteGoogleAccount({ auth, authUser }) {
       await deleteUser(authUser);
       await signOut(auth);
       dispatch(userActions.resetState());
+      dispatch(userActions.deleteGoogleSuccess());
       toast("Account successfully deleted", { type: "success" });
     } catch (err) {
       dispatch(userActions.deleteGoogleError());
