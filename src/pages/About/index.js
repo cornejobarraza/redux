@@ -8,7 +8,7 @@ function About() {
   }, []);
 
   return (
-    <div className="about gap-10">
+    <div className="about gap-8">
       <div className="us">
         <h1 className="page-header">Who are we?</h1>
         <p className="mt-4 lg:max-w-3xl text-gray-500 text-lg">

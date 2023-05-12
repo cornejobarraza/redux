@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
+import { getAuth } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+
 import { Account } from "pages/Login/Account";
 import { GoogleSignIn } from "pages/Login/GoogleSignIn";
 
@@ -10,16 +13,20 @@ export { Login as default };
 
 function Login() {
   const {
-    logged: { status: logged },
+    logged: { status: logged, gAuth },
   } = useSelector((state) => state.auth);
+
+  const auth = getAuth();
+  const [authUser, authLoading] = useAuthState(auth);
 
   useEffect(() => {
     document.title = "Redux - Login";
 
-    if (logged) {
-      history.navigate("/");
+    if ((logged && !gAuth) || (logged && authUser && !authLoading && gAuth)) {
+      const { from } = history.location.state || { from: { pathname: "/" } };
+      history.navigate(from);
     }
-  }, [logged]);
+  });
 
   return (
     <div className="login gap-10">

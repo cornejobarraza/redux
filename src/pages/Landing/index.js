@@ -14,7 +14,7 @@ function Landing() {
 
   const features = [
     {
-      name: `1. User data is shared across components ${user?.name.split(" ")[0]}`,
+      name: "1. User data is shared across components",
       description:
         "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione",
       icon: UserIcon,
@@ -84,7 +84,9 @@ function Landing() {
               <div className="absolute flex h-12 w-12 items-center justify-center rounded-md bg-redux-500 text-white">
                 <feature.icon className="h-6 w-6" aria-hidden="true" />
               </div>
-              <h1 className="ml-16 text-lg font-medium text-gray-900">{feature.name}</h1>
+              <h1 className="ml-16 text-lg font-medium text-gray-900">
+                {feature.name} {index === 0 && <span className="font-bold">{user.name.split(" ")[0]}</span>}
+              </h1>
             </dt>
             <dd className="mt-2 ml-16 text-base text-gray-500 leading-7">{feature.description}</dd>
           </div>

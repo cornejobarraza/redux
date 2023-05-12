@@ -12,6 +12,7 @@ function App() {
   // anywhere in the React app (inside or outside components)
   history.navigate = useNavigate();
   history.location = useLocation();
+  history.redirect = true;
 
   return (
     <div className="redux">

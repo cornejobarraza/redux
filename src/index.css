@@ -157,7 +157,7 @@
   }
 
   .button {
-    @apply rounded-full text-white text-sm font-semibold bg-redux-500 active:bg-redux-400 lg:hover:bg-redux-600 lg:hover:active:bg-redux-400 py-2 px-3 block cursor-pointer transition-colors disabled:cursor-not-allowed disabled:bg-gray-500 disabled:hover:bg-gray-500 disabled:hover:active:bg-gray-500;
+    @apply rounded-full text-white text-sm font-semibold bg-redux-500 active:bg-redux-400 lg:hover:bg-redux-600 lg:hover:active:bg-redux-400 py-2 px-3 block cursor-pointer transition-colors disabled:!cursor-not-allowed disabled:!bg-gray-500 disabled:hover:!bg-gray-500 disabled:hover:active:!bg-gray-500;
   }
 
   .status {

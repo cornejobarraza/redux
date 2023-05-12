@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import isPlainObject from "lodash.isplainobject";
+
 import { fakeBackend } from "utils";
-import userDefault from "data/user.json";
+import defaultUser from "data/user.json";
 
 // Create slice
 const name = "user";
@@ -18,11 +20,11 @@ export const userReducer = slice.reducer;
 function createInitialState() {
   let local;
   const data = localStorage.getItem("currentUser");
-  if (data && data.startsWith("{") && data.endsWith("}")) local = JSON.parse(data);
+  if (isPlainObject(JSON.parse(data))) local = JSON.parse(data);
 
   return {
-    user: local?.user || userDefault,
-    logged: local?.logged || { gAuth: false, status: false },
+    user: local?.user || defaultUser,
+    logged: local?.logged || { status: false, gAuth: false },
     pending: {
       login: null,
       update: null,
@@ -35,27 +37,25 @@ function createInitialState() {
 
 function createReducers() {
   return {
-    resetState,
-    clearStatus,
+    resetUser,
     deleteGoogleStart,
     deleteGoogleSuccess,
     deleteGoogleError,
     loginGoogleStart,
     loginGoogleSuccess,
     loginGoogleError,
-    setWishlistError,
     logoutGoogleStart,
+    logoutGoogleSuccess,
     logoutGoogleError,
+    setWishlistError,
   };
 
-  function resetState(state) {
-    state.user = userDefault;
-    state.logged = { gAuth: false, status: false };
-  }
+  function resetUser(state) {
+    let past;
+    const data = localStorage.getItem("pastUser");
+    if (isPlainObject(JSON.parse(data))) past = JSON.parse(data);
 
-  function clearStatus(state) {
-    state.pending = { login: null, update: null, logout: null, delete: null };
-    state.error = { login: null, update: null, logout: null, delete: null };
+    state.user = past?.user || defaultUser;
   }
 
   function loginGoogleStart(state) {
@@ -72,13 +72,14 @@ function createReducers() {
     state.error = { ...state.error, login: true };
   }
 
-  function setWishlistError(state) {
-    state.error = { ...state.error, wishlist: true };
-  }
-
   function logoutGoogleStart(state) {
     state.error = { ...state.error, logout: false };
     state.pending = { ...state.pending, logout: true };
+  }
+
+  function logoutGoogleSuccess(state) {
+    state.pending = { ...state.pending, logout: false };
+    state.logged = { status: false, gAuth: false };
   }
 
   function logoutGoogleError(state) {
@@ -93,11 +94,16 @@ function createReducers() {
 
   function deleteGoogleSuccess(state) {
     state.pending = { ...state.pending, delete: false };
+    state.logged = { status: false, gAuth: false };
   }
 
   function deleteGoogleError(state) {
     state.pending = { ...state.pending, delete: false };
     state.error = { ...state.error, delete: true };
+  }
+
+  function setWishlistError(state) {
+    state.error = { ...state.error, wishlist: true };
   }
 }
 
@@ -198,10 +204,13 @@ function createExtraReducers() {
   }
 
   function setWishlistAsync() {
-    const { fulfilled } = extraActions.setWishlistAsync;
+    const { fulfilled, rejected } = extraActions.setWishlistAsync;
     return {
       [fulfilled]: (state, action) => {
         state.user.wishlist = action.payload;
+      },
+      [rejected]: (state) => {
+        state.error.wishlist = true;
       },
     };
   }

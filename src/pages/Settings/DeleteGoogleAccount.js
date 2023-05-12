@@ -9,7 +9,7 @@ import { userActions } from "store";
 
 export { DeleteGoogleAccount };
 
-function DeleteGoogleAccount({ auth, authUser }) {
+function DeleteGoogleAccount({ auth, authUser, pending }) {
   const dispatch = useDispatch();
 
   const handleDeletion = async () => {
@@ -20,7 +20,7 @@ function DeleteGoogleAccount({ auth, authUser }) {
       await deleteDoc(docRef);
       await deleteUser(authUser);
       await signOut(auth);
-      dispatch(userActions.resetState());
+      dispatch(userActions.resetUser());
       dispatch(userActions.deleteGoogleSuccess());
       toast("Account successfully deleted", { type: "success" });
     } catch (err) {
@@ -35,7 +35,12 @@ function DeleteGoogleAccount({ auth, authUser }) {
         This will permanently erase your information from our database and all data will be lost, please proceed with
         caution
       </p>
-      <button className="button danger mt-8" type="button" onClick={handleDeletion}>
+      <button
+        className="button danger mt-8"
+        type="button"
+        onClick={handleDeletion}
+        disabled={pending.delete || pending.update}
+      >
         Delete
       </button>
     </div>

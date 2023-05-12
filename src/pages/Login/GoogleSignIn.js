@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 import { getAuth, signOut } from "firebase/auth";
@@ -10,6 +10,10 @@ import { userActions } from "store";
 export { GoogleSignIn };
 
 function GoogleSignIn() {
+  const {
+    logged: { gAuth },
+  } = useSelector((state) => state.auth);
+
   const googleSignIn = useGoogleSignIn();
   const dispatch = useDispatch();
 
@@ -20,8 +24,8 @@ function GoogleSignIn() {
     try {
       dispatch(userActions.logoutGoogleStart());
       await signOut(auth);
-      dispatch(userActions.clearStatus());
-      dispatch(userActions.resetState());
+      dispatch(userActions.resetUser());
+      dispatch(userActions.logoutGoogleSuccess());
       toast("Signed out successfully", { type: "success" });
     } catch (error) {
       dispatch(userActions.logoutGoogleError());
@@ -30,7 +34,7 @@ function GoogleSignIn() {
 
   return (
     <div className="google-signin">
-      {!authUser && !authLoading && (
+      {!authUser && !authLoading && !gAuth && (
         <button className="google-identity shadow-md" onClick={googleSignIn}>
           <GoogleLogo />
           <span className="text">Sign in with Google</span>

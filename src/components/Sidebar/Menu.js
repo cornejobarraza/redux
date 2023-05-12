@@ -1,6 +1,11 @@
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
+import { getAuth } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+
+import { GoogleLogo } from "pages/Login/GoogleSignIn";
+
 import {
   HomeOutlined,
   ExitToAppOutlined,
@@ -15,23 +20,33 @@ import {
   BookmarkBorderOutlined,
 } from "@mui/icons-material";
 
-import { getAuth } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
-
 import { useGoogleSignIn } from "hooks";
 import { userActions } from "store";
-import { GoogleLogo } from "pages/Login/GoogleSignIn";
 
 export { Menu };
 
 function Menu() {
   const {
-    logged: { status: logged },
+    logged: { status: logged, gAuth },
   } = useSelector((state) => state.auth);
+
+  const auth = getAuth();
+  const [authUser, authLoading] = useAuthState(auth);
+
+  const LinkProps = {
+    authUser,
+    authLoading,
+  };
 
   return (
     <div className="menu">
-      <div className="sidebar">{logged ? <Links /> : <EmptyMenu />}</div>
+      <div className="sidebar">
+        {(logged && gAuth) || (logged && !gAuth) || (logged && !authUser && !authLoading && !gAuth) ? (
+          <Links {...LinkProps} />
+        ) : (
+          <EmptyMenu />
+        )}
+      </div>
     </div>
   );
 }
@@ -50,13 +65,10 @@ function MenuLink({ icon, text, route }) {
   );
 }
 
-function Links() {
+function Links({ authUser, authLoading }) {
   const { pending } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const googleSignIn = useGoogleSignIn();
-
-  const auth = getAuth();
-  const [authUser, authLoading] = useAuthState(auth);
 
   const handleLogOut = () => {
     dispatch(userActions.logOutAsync());

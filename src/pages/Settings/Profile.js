@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import isEqual from "lodash.isequal";
 
 import { useUpdateGoogleAccount } from "hooks";
 import { userActions } from "store";
@@ -21,6 +22,7 @@ function Profile({ authUser }) {
     email: user.email,
     address: user.address,
     website: user.website,
+    wishlist: user.wishlist,
   });
   const [seed, setSeed] = useState(currentAvatar);
   const [isSwapperSpinning, setIsSwapperSpinning] = useState(false);
@@ -53,8 +55,18 @@ function Profile({ authUser }) {
     const input = e.target.value.trim();
     const source = e.target.name;
 
+    if (source === "name") {
+      const names = input.split(" ");
+
+      const capitalizedFirst = names[0].charAt(0).toUpperCase() + names[0].slice(1);
+      const capitalizedLast = names[1] ? names[1].charAt(0).toUpperCase() + names[1].slice(1) : "";
+
+      return setData((prev) => ({ ...prev, name: (capitalizedFirst + " " + capitalizedLast).trim() }));
+    }
+
     if (source === "email") {
       const mailRegEx = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+
       if (!mailRegEx.test(input)) {
         return;
       }
@@ -71,7 +83,7 @@ function Profile({ authUser }) {
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    if (JSON.stringify(data) !== JSON.stringify(user)) {
+    if (!isEqual(data, user)) {
       if (authUser) {
         updateGoogleAccount();
       }
@@ -141,7 +153,7 @@ function Profile({ authUser }) {
                 className="form-input"
                 disabled={pending.update}
                 placeholder={user.email}
-                pattern="\w+([\.\-]?\w+)*@\w+([\.\-]?\w+)*(\.\w{2,3})"
+                pattern="\w+([\.\-]?\w+)*@\w+([\.\-]?\w+)*(\.\w{2,63})"
                 onChange={(e) => handleChange(e)}
               />
             </div>
@@ -167,13 +179,13 @@ function Profile({ authUser }) {
               className="form-input"
               disabled={pending.update}
               placeholder={user.website}
-              pattern="[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&//=]*)"
+              pattern="(?:www\.|(?!www))[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{2,63}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&//=]*)"
               onChange={(e) => handleChange(e)}
             />
           </div>
         </div>
         <div className="detail-input">
-          <button className="button" disabled={pending.update} type="submit" form="detailsForm">
+          <button className="button" disabled={pending.update || pending.delete} type="submit" form="detailsForm">
             Update
           </button>
         </div>

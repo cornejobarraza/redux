@@ -6,7 +6,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 import { userActions } from "store";
 import { useGoogleSignIn } from "hooks";
-import userDefault from "data/user.json";
+import defaultUser from "data/user.json";
 
 import { PersonRemove } from "@mui/icons-material";
 
@@ -25,7 +25,7 @@ function Account() {
   const [authUser, authLoading] = useAuthState(auth);
 
   const handleReset = async () => {
-    dispatch(userActions.resetState());
+    dispatch(userActions.resetUser());
 
     if (authUser) {
       await signOut(auth);
@@ -42,7 +42,7 @@ function Account() {
 
   return (
     <div className="user">
-      {!authUser && !authLoading && !gAuth && user && !isEqual(user, userDefault) && (
+      {!authUser && !authLoading && !gAuth && user && !isEqual(user, defaultUser) && (
         <span className="reset" title="Reset account" onClick={handleReset}>
           <PersonRemove />
         </span>
