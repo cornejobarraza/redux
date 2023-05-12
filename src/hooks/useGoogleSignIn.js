@@ -33,6 +33,7 @@ function useGoogleSignIn() {
 
       if (docSnap.exists()) {
         const data = docSnap.data();
+
         dispatch(
           userActions.logInAsync({
             name: data.name,
@@ -52,9 +53,13 @@ function useGoogleSignIn() {
           website: "Add your website here",
           wishlist: null,
         };
+
         await setDoc(docRef, newUser);
+
         dispatch(userActions.logInAsync(newUser));
       }
+
+      dispatch(userActions.loginGoogleSuccess());
     } catch (error) {
       dispatch(userActions.loginGoogleError());
     }

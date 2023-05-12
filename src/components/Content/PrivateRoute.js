@@ -6,7 +6,9 @@ import { history } from "utils";
 export { PrivateRoute };
 
 function PrivateRoute({ children }) {
-  const { logged } = useSelector((state) => state.auth);
+  const {
+    logged: { status: logged },
+  } = useSelector((state) => state.auth);
 
   if (!logged) {
     // Not logged in so redirect to login page

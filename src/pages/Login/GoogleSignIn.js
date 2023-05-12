@@ -20,8 +20,8 @@ function GoogleSignIn() {
     try {
       dispatch(userActions.logoutGoogleStart());
       await signOut(auth);
-      dispatch(userActions.resetState());
       dispatch(userActions.clearStatus());
+      dispatch(userActions.resetState());
       toast("Signed out successfully", { type: "success" });
     } catch (error) {
       dispatch(userActions.logoutGoogleError());

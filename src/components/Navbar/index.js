@@ -9,7 +9,10 @@ import { useViewport } from "hooks";
 export { Navbar };
 
 function Navbar() {
-  const { user, logged } = useSelector((state) => state.auth);
+  const {
+    user,
+    logged: { status: logged },
+  } = useSelector((state) => state.auth);
   const { width } = useViewport();
 
   return (

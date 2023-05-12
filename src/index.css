@@ -131,7 +131,7 @@
   }
 
   .reset {
-    @apply h-5 w-5 absolute bottom-7 right-6 cursor-pointer;
+    @apply absolute bottom-[1.6rem] right-6 cursor-pointer;
   }
 
   .about,

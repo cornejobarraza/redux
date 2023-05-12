@@ -4,15 +4,21 @@ import isEqual from "lodash.isequal";
 import { getAuth, signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-import { ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
-
-import userDefault from "data/user.json";
 import { userActions } from "store";
+import { useGoogleSignIn } from "hooks";
+import userDefault from "data/user.json";
+
+import { PersonRemove } from "@mui/icons-material";
 
 export { Account };
 
 function Account() {
-  const { user, pending } = useSelector((state) => state.auth);
+  const {
+    user,
+    logged: { gAuth },
+    pending,
+  } = useSelector((state) => state.auth);
+  const googleSignIn = useGoogleSignIn();
   const dispatch = useDispatch();
 
   const auth = getAuth();
@@ -27,14 +33,18 @@ function Account() {
   };
 
   const handleLogin = () => {
-    dispatch(userActions.logInAsync({ ...user }));
+    if (!authUser && gAuth) {
+      googleSignIn();
+    } else {
+      dispatch(userActions.logInAsync({ ...user }));
+    }
   };
 
   return (
     <div className="user">
-      {!authUser && !authLoading && user && !isEqual(user, userDefault) && (
+      {!authUser && !authLoading && !gAuth && user && !isEqual(user, userDefault) && (
         <span className="reset" title="Reset account" onClick={handleReset}>
-          <ArrowUturnLeftIcon />
+          <PersonRemove />
         </span>
       )}
       <h1 className="font-bold text-lg mb-1">{user?.name}</h1>
@@ -48,7 +58,7 @@ function Account() {
         height="64px"
         referrerPolicy="no-referrer"
       />
-      <button className="button mx-auto" type="button" disabled={pending.login} onClick={handleLogin}>
+      <button className="button mx-auto" type="button" disabled={pending.login || authLoading} onClick={handleLogin}>
         Log In
       </button>
     </div>

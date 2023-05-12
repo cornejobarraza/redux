@@ -9,7 +9,9 @@ import { history } from "utils";
 export { Login as default };
 
 function Login() {
-  const { logged } = useSelector((state) => state.auth);
+  const {
+    logged: { status: logged },
+  } = useSelector((state) => state.auth);
 
   useEffect(() => {
     document.title = "Redux - Login";

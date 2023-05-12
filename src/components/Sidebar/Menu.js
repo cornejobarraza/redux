@@ -25,7 +25,9 @@ import { GoogleLogo } from "pages/Login/GoogleSignIn";
 export { Menu };
 
 function Menu() {
-  const { logged } = useSelector((state) => state.auth);
+  const {
+    logged: { status: logged },
+  } = useSelector((state) => state.auth);
 
   return (
     <div className="menu">

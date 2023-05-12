@@ -22,7 +22,7 @@ function createInitialState() {
 
   return {
     user: local?.user || userDefault,
-    logged: local?.logged || false,
+    logged: local?.logged || { gAuth: false, status: false },
     pending: {
       login: null,
       update: null,
@@ -38,9 +38,9 @@ function createReducers() {
     resetState,
     clearStatus,
     deleteGoogleStart,
-    deleteGoogleSuccess,
     deleteGoogleError,
     loginGoogleStart,
+    loginGoogleSuccess,
     loginGoogleError,
     setWishlistError,
     logoutGoogleStart,
@@ -49,7 +49,7 @@ function createReducers() {
 
   function resetState(state) {
     state.user = userDefault;
-    state.logged = null;
+    state.logged = { gAuth: false, status: false };
   }
 
   function clearStatus(state) {
@@ -60,6 +60,11 @@ function createReducers() {
   function loginGoogleStart(state) {
     state.error = { ...state.error, login: false };
     state.pending = { ...state.pending, login: true };
+  }
+
+  function loginGoogleSuccess(state) {
+    state.logged = { ...state.logged, gAuth: true };
+    state.pending = { ...state.pending, login: false };
   }
 
   function loginGoogleError(state) {
@@ -84,10 +89,6 @@ function createReducers() {
   function deleteGoogleStart(state) {
     state.error = { ...state.error, delete: false };
     state.pending = { ...state.pending, delete: true };
-  }
-
-  function deleteGoogleSuccess(state) {
-    state.pending = { ...state.pending, delete: false };
   }
 
   function deleteGoogleError(state) {
@@ -165,7 +166,7 @@ function createExtraReducers() {
       },
       [fulfilled]: (state, action) => {
         state.pending.login = false;
-        state.logged = true;
+        state.logged = { ...state.logged, status: true };
         state.user = action.payload;
       },
       [rejected]: (state) => {
@@ -183,7 +184,7 @@ function createExtraReducers() {
       },
       [fulfilled]: (state) => {
         state.pending.logout = false;
-        state.logged = false;
+        state.logged = { ...state.logged, status: false };
       },
       [rejected]: (state) => {
         state.pending.logout = false;
