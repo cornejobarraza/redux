@@ -64,7 +64,6 @@ function createReducers() {
 
   function loginGoogleSuccess(state) {
     state.logged = { ...state.logged, gAuth: true };
-    state.pending = { ...state.pending, login: false };
   }
 
   function loginGoogleError(state) {
