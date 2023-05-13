@@ -17,7 +17,12 @@ function Slider({ authUser, authLoading }) {
 
   useEffect(() => {
     if (window.innerWidth < 1024) {
-      setIsSlideOverOpen(false);
+      const timeout = setTimeout(() => toggleSlider(), 125);
+
+      const toggleSlider = () => {
+        clearTimeout(timeout);
+        setIsSlideOverOpen(false);
+      };
     }
   }, [authUser, location]);
 

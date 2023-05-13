@@ -5,6 +5,7 @@ import { getAuth, signInWithPopup } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
 import { userActions } from "store";
+import { history } from "utils";
 
 export { useGoogleSignIn };
 
@@ -17,6 +18,8 @@ function useGoogleSignIn() {
     await signInWithGoogle();
   };
 
+  const location = history.location;
+
   const signInWithGoogle = async () => {
     auth.useDeviceLanguage();
     googleProvider.addScope("https://www.googleapis.com/auth/userinfo.email");
@@ -25,6 +28,7 @@ function useGoogleSignIn() {
     try {
       dispatch(userActions.loginGoogleStart());
       const result = await signInWithPopup(auth, googleProvider);
+      location.state = { from: "" };
       const user = result.user;
 
       // Declare docRef and docSnap
