@@ -138,9 +138,12 @@ function Profile({ authUser }) {
           </div>
           <div className="input-row md:self-center flex-grow">
             <div className="detail-input">
-              <label className="form-label">Full name</label>
+              <label className="form-label" for="name">
+                Full name
+              </label>
               <input
                 type="text"
+                id="name"
                 name="name"
                 className="form-input"
                 disabled={pending.update}
@@ -149,9 +152,12 @@ function Profile({ authUser }) {
               />
             </div>
             <div className="detail-input">
-              <label className="form-label">Email address</label>
+              <label className="form-label" for="email">
+                Email address
+              </label>
               <input
                 type="email"
+                id="email"
                 name="email"
                 className="form-input"
                 disabled={pending.update}
@@ -164,9 +170,12 @@ function Profile({ authUser }) {
         </div>
         <div className="input-group">
           <div className="detail-input">
-            <label className="form-label">Address</label>
+            <label className="form-label" for="address">
+              Address
+            </label>
             <input
               type="text"
+              id="address"
               name="address"
               className="form-input"
               disabled={pending.update}
@@ -175,9 +184,12 @@ function Profile({ authUser }) {
             />
           </div>
           <div className="detail-input">
-            <label className="form-label">Website</label>
+            <label className="form-label" for="website">
+              Website
+            </label>
             <input
-              type="text"
+              type="url"
+              id="website"
               name="website"
               className="form-input"
               disabled={pending.update}
