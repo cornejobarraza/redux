@@ -7,6 +7,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Profile } from "pages/Settings/Profile";
 import { DeleteGoogleAccount } from "pages/Settings/DeleteGoogleAccount";
 
+import { history } from "utils";
+
 export { Settings as default };
 
 function Settings() {
@@ -19,10 +21,13 @@ function Settings() {
   const auth = getAuth();
   const [authUser] = useAuthState(auth);
 
+  const location = history.location;
+
   const DeleteGoogleAccountProps = {
     auth,
     authUser,
     pending,
+    location,
   };
 
   return (

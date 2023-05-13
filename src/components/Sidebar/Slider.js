@@ -10,7 +10,7 @@ import { history } from "utils";
 
 export { Slider };
 
-function Slider({ authUser }) {
+function Slider({ authUser, authLoading }) {
   const [isSlideOverOpen, setIsSlideOverOpen] = useState(false);
 
   const location = history.location;
@@ -25,18 +25,30 @@ function Slider({ authUser }) {
     isSlideOverOpen ? setIsSlideOverOpen(false) : setIsSlideOverOpen(true);
   };
 
+  const SlideOverProps = {
+    authUser,
+    authLoading,
+    isSlideOverOpen,
+    handleToggle,
+  };
+
   return (
     <div className="slider">
-      <SlideOver isOpen={isSlideOverOpen} handler={handleToggle} />
+      <SlideOver {...SlideOverProps} />
       <Toggle handler={handleToggle} />
     </div>
   );
 }
 
-function SlideOver({ isOpen, handler }) {
+function SlideOver({ authUser, authLoading, isSlideOverOpen, handleToggle }) {
+  const MenuProps = {
+    authUser,
+    authLoading,
+  };
+
   return (
-    <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10 lg:hidden" onClose={handler}>
+    <Transition.Root show={isSlideOverOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-10 lg:hidden" onClose={handleToggle}>
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-500"
@@ -74,7 +86,7 @@ function SlideOver({ isOpen, handler }) {
                     <div className="absolute top-0 right-0 -ml-8 flex pt-[1.3rem] pr-7">
                       <button
                         className="rounded-md text-gray-500 active:text-gray-600 focus:outline-none focus:ring-2 focus:ring-slate-200"
-                        onClick={handler}
+                        onClick={handleToggle}
                       >
                         <span className="sr-only">Close panel</span>
                         <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -86,7 +98,7 @@ function SlideOver({ isOpen, handler }) {
                       <Dialog.Title className="text-lg font-bold text-gray-900">Menu</Dialog.Title>
                     </div>
                     <div className="relative mt-5 flex-1">
-                      <Menu />
+                      <Menu {...MenuProps} />
                     </div>
                   </div>
                 </Dialog.Panel>

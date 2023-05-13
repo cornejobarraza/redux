@@ -65,7 +65,7 @@ function Links({ authUser, authLoading, location }) {
   const googleSignIn = useGoogleSignIn();
 
   const handleLogOut = () => {
-    location.state = { from: "/login" };
+    location.state = { from: "" };
     dispatch(userActions.logOutAsync());
   };
 

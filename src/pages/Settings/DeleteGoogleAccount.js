@@ -9,13 +9,14 @@ import { userActions } from "store";
 
 export { DeleteGoogleAccount };
 
-function DeleteGoogleAccount({ auth, authUser, pending }) {
+function DeleteGoogleAccount({ auth, authUser, pending, location }) {
   const dispatch = useDispatch();
 
   const handleDeletion = async () => {
     try {
       dispatch(userActions.deleteGoogleStart());
       await reauthenticateWithPopup(authUser, googleProvider);
+      location.state = { from: "" };
       const docRef = doc(db, "users", authUser.uid);
       await deleteDoc(docRef);
       await deleteUser(authUser);

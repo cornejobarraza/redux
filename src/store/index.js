@@ -23,7 +23,7 @@ const userMiddleware = (store) => (next) => (action) => {
     if (isPlainObject(JSON.parse(currentItem))) current = JSON.parse(currentItem);
     if (isPlainObject(JSON.parse(pastItem))) past = JSON.parse(pastItem);
 
-    if (!past && !isEqual(current.user, defaultUser)) {
+    if (!past && !isEqual(current?.user, defaultUser)) {
       const pastUser = { user: state.user };
 
       localStorage.setItem("pastUser", JSON.stringify(pastUser));

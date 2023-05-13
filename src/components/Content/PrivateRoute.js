@@ -20,7 +20,7 @@ function PrivateRoute({ children }) {
   const location = history.location;
 
   if (!logged || (!authUser && !authLoading && gAuth)) {
-    if (location.state?.from !== "/login") {
+    if (location.state?.from !== "") {
       toast("Please log in", { type: "warning" });
     }
 
