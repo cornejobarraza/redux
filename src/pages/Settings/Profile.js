@@ -138,7 +138,7 @@ function Profile({ authUser }) {
           </div>
           <div className="input-row md:self-center flex-grow">
             <div className="detail-input">
-              <label className="form-label" for="name">
+              <label className="form-label" htmlFor="name">
                 Full name
               </label>
               <input
@@ -152,7 +152,7 @@ function Profile({ authUser }) {
               />
             </div>
             <div className="detail-input">
-              <label className="form-label" for="email">
+              <label className="form-label" htmlFor="email">
                 Email address
               </label>
               <input
@@ -170,7 +170,7 @@ function Profile({ authUser }) {
         </div>
         <div className="input-group">
           <div className="detail-input">
-            <label className="form-label" for="address">
+            <label className="form-label" htmlFor="address">
               Address
             </label>
             <input
@@ -184,11 +184,11 @@ function Profile({ authUser }) {
             />
           </div>
           <div className="detail-input">
-            <label className="form-label" for="website">
+            <label className="form-label" htmlFor="website">
               Website
             </label>
             <input
-              type="url"
+              type="text"
               id="website"
               name="website"
               className="form-input"
@@ -196,6 +196,7 @@ function Profile({ authUser }) {
               placeholder={user.website}
               pattern="(?:www\.|(?!www))[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{2,63}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&//=]*)"
               onChange={(e) => handleChange(e)}
+              autoCapitalize="off"
             />
           </div>
         </div>
