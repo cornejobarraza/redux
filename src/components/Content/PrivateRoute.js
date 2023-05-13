@@ -6,6 +6,7 @@ import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import { history } from "utils";
+import { useEffect } from "react";
 
 export { PrivateRoute };
 
@@ -17,12 +18,14 @@ function PrivateRoute({ children }) {
   const auth = getAuth();
   const [authUser, authLoading] = useAuthState(auth);
 
-  if (!logged || (!authUser && !authLoading && gAuth)) {
-    // Not logged in so redirect to login page
-    if (history.redirect) {
+  useEffect(() => {
+    if (!logged && history.redirect) {
       toast("Please log in", { type: "warning" });
     }
+  }, [logged]);
 
+  if (!logged || (!authUser && !authLoading && gAuth)) {
+    // Not logged in so redirect to login page
     return <Navigate to="/login" state={{ from: history.location }} />;
   }
 

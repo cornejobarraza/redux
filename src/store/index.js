@@ -18,7 +18,7 @@ const userMiddleware = (store) => (next) => (action) => {
   }
 
   // Disable history redirect after log out
-  if (action.type.match("user/logout/fulfilled") || action.type.match("user/logOut")) {
+  if (action.type.match("user/logout/fulfilled") || action.type.match("user/deleteGoogleStart")) {
     history.redirect = false;
   }
 

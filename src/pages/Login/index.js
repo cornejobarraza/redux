@@ -31,7 +31,7 @@ function Login() {
   return (
     <div className="login gap-10">
       <div className="description">
-        <h1 className="page-header md:text-center">Please log in</h1>
+        <h1 className="page-header md:text-center">Log into Redux</h1>
         <p className="mt-4 max-w-2xl text-lg text-gray-500 md:mx-auto md:text-center">
           Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
           accusamus quisquam

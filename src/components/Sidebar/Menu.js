@@ -1,9 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getAuth } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
-
 import { GoogleLogo } from "pages/Login/GoogleSignIn";
 
 import {
@@ -25,13 +22,10 @@ import { userActions } from "store";
 
 export { Menu };
 
-function Menu() {
+function Menu({ authUser, authLoading }) {
   const {
     logged: { status: logged, gAuth },
   } = useSelector((state) => state.auth);
-
-  const auth = getAuth();
-  const [authUser, authLoading] = useAuthState(auth);
 
   const LinkProps = {
     authUser,

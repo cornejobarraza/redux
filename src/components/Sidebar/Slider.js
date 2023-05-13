@@ -10,7 +10,7 @@ import { history } from "utils";
 
 export { Slider };
 
-function Slider() {
+function Slider({ authUser }) {
   const [isSlideOverOpen, setIsSlideOverOpen] = useState(false);
 
   const location = history.location;
@@ -19,7 +19,7 @@ function Slider() {
     if (window.innerWidth < 1024) {
       setIsSlideOverOpen(false);
     }
-  }, [location]);
+  }, [authUser, location]);
 
   const handleToggle = () => {
     isSlideOverOpen ? setIsSlideOverOpen(false) : setIsSlideOverOpen(true);

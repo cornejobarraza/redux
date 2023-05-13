@@ -61,7 +61,10 @@ function Profile({ authUser }) {
       const capitalizedFirst = names[0].charAt(0).toUpperCase() + names[0].slice(1);
       const capitalizedLast = names[1] ? names[1].charAt(0).toUpperCase() + names[1].slice(1) : "";
 
-      return setData((prev) => ({ ...prev, name: (capitalizedFirst + " " + capitalizedLast).trim() }));
+      return setData((prev) => ({
+        ...prev,
+        name: names[1] ? (capitalizedFirst + " " + capitalizedLast).trim() : names[0],
+      }));
     }
 
     if (source === "email") {
