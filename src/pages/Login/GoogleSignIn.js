@@ -34,11 +34,17 @@ function GoogleSignIn() {
 
   return (
     <div className="google-signin">
-      {!authUser && !authLoading && !gAuth && (
-        <button className="google-identity shadow-md" onClick={googleSignIn}>
-          <GoogleLogo />
-          <span className="text">Sign in with Google</span>
-        </button>
+      {!authUser && !gAuth && (
+        <>
+          {authLoading ? (
+            <div>Connecting to Google...</div>
+          ) : (
+            <button className="google-identity shadow-md" onClick={googleSignIn}>
+              <GoogleLogo />
+              <span className="text">Sign in with Google</span>
+            </button>
+          )}
+        </>
       )}
       {authUser && (
         <span className="text-link text-center" onClick={handleGoogleSignOut}>

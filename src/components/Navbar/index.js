@@ -29,7 +29,7 @@ function Navbar() {
         </Link>{" "}
         App
       </span>
-      {((logged && gAuth) || (logged && !gAuth) || (logged && !authUser && !authLoading && !gAuth)) && (
+      {((logged && !gAuth) || (authUser && !authLoading && gAuth)) && (
         <>{width > 768 ? <Desktop user={user} /> : <Mobile user={user} />}</>
       )}
     </div>

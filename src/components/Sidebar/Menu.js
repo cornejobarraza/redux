@@ -35,11 +35,7 @@ function Menu({ authUser, authLoading }) {
   return (
     <div className="menu">
       <div className="sidebar">
-        {(logged && gAuth) || (logged && !gAuth) || (logged && !authUser && !authLoading && !gAuth) ? (
-          <Links {...LinkProps} />
-        ) : (
-          <EmptyMenu />
-        )}
+        {(logged && !gAuth) || (authUser && !authLoading && gAuth) ? <Links {...LinkProps} /> : <EmptyMenu />}
       </div>
     </div>
   );
