@@ -127,11 +127,12 @@
   }
 
   .user {
-    @apply relative border rounded-2xl bg-white mx-auto px-6 py-5 w-fit min-w-[13rem] shadow-md text-center;
+    @apply relative border rounded-2xl bg-white mx-auto px-6 py-5 w-fit min-w-[13rem] max-w-[15rem] shadow-md text-center;
   }
 
-  .reset {
-    @apply absolute bottom-[1.6rem] right-6 cursor-pointer;
+  .reset,
+  .type {
+    @apply absolute bottom-[1.6rem] right-6;
   }
 
   .about,

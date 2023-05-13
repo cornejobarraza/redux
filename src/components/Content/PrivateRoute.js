@@ -15,15 +15,17 @@ function PrivateRoute({ children }) {
   } = useSelector((state) => state.auth);
 
   const auth = getAuth();
-  const [authUser] = useAuthState(auth);
+  const [authUser, authLoading] = useAuthState(auth);
 
-  if (!logged || (!authUser && gAuth)) {
-    if (history.location.pathname !== "/login" && history.redirect) {
+  const location = history.location;
+
+  if (!logged || (!authUser && !authLoading && gAuth)) {
+    if (location.state?.from !== "/login") {
       toast("Please log in", { type: "warning" });
     }
 
     // Not logged in so redirect to login page
-    return <Navigate to="/login" state={{ from: history.location }} />;
+    return <Navigate to="/login" state={{ from: location.pathname }} />;
   }
 
   // Logged in so return child components

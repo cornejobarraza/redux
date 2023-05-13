@@ -8,7 +8,7 @@ import { userActions } from "store";
 import { useGoogleSignIn } from "hooks";
 import defaultUser from "data/user.json";
 
-import { PersonRemove } from "@mui/icons-material";
+import { Google, PersonRemove } from "@mui/icons-material";
 
 export { Account };
 
@@ -42,13 +42,25 @@ function Account() {
 
   return (
     <div className="user">
-      {!authUser && !authLoading && !gAuth && user && !isEqual(user, defaultUser) && (
-        <span className="reset" title="Reset account" onClick={handleReset}>
-          <PersonRemove />
-        </span>
+      {!authUser && !authLoading && !gAuth ? (
+        <>
+          {user && !isEqual(user, defaultUser) && (
+            <span className="reset cursor-pointer" title="Reset account" onClick={handleReset}>
+              <PersonRemove className="!fill-[#424242]" />
+            </span>
+          )}
+        </>
+      ) : (
+        <>
+          {gAuth && (
+            <span className="type">
+              <Google className="!fill-[#616161]" />
+            </span>
+          )}
+        </>
       )}
       <h1 className="font-bold text-lg mb-1">{user?.name}</h1>
-      <span className="block text-sm">{user?.email}</span>
+      <span className="block text-sm overflow-hidden text-ellipsis">{user?.email}</span>
       <img
         className="avatar mx-auto my-8"
         src={user?.avatar}

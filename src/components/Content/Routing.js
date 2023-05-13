@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import { PrivateRoute } from "components/Content/PrivateRoute";
 
 const Login = lazy(() => import("pages/Login"));
@@ -14,7 +14,17 @@ export { Routing };
 function Routing() {
   return (
     <Routes>
-      <Route path="*" element={<div>Sorry, the page you were looking for doesn't exist</div>} />
+      <Route
+        path="*"
+        element={
+          <div className="flex flex-col gap-4">
+            <p>Sorry, the page you were looking for doesn't exist</p>
+            <Link className="text-redux-500" to="/">
+              Go back
+            </Link>
+          </div>
+        }
+      />
       <Route path="login" element={<Login />} />
       <Route
         path="/"

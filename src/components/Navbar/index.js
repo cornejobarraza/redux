@@ -24,12 +24,15 @@ function Navbar() {
   return (
     <div className="navbar">
       <span className="logo">
-        <Link className="text-redux-500" to="/">
+        <Link
+          className="text-redux-500"
+          to={(logged && !gAuth) || (logged && authUser && !authLoading && gAuth) ? "/" : "/login"}
+        >
           Redux
         </Link>{" "}
         App
       </span>
-      {((logged && !gAuth) || (authUser && !authLoading && gAuth)) && (
+      {((logged && !gAuth) || (logged && authUser && !authLoading && gAuth)) && (
         <>{width > 768 ? <Desktop user={user} /> : <Mobile user={user} />}</>
       )}
     </div>

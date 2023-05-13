@@ -19,6 +19,7 @@ import {
 
 import { useGoogleSignIn } from "hooks";
 import { userActions } from "store";
+import { history } from "utils";
 
 export { Menu };
 
@@ -27,15 +28,18 @@ function Menu({ authUser, authLoading }) {
     logged: { status: logged, gAuth },
   } = useSelector((state) => state.auth);
 
+  const location = history.location;
+
   const LinkProps = {
     authUser,
     authLoading,
+    location,
   };
 
   return (
     <div className="menu">
       <div className="sidebar">
-        {(logged && !gAuth) || (authUser && !authLoading && gAuth) ? <Links {...LinkProps} /> : <EmptyMenu />}
+        {(logged && !gAuth) || (logged && authUser && !authLoading && gAuth) ? <Links {...LinkProps} /> : <EmptyMenu />}
       </div>
     </div>
   );
@@ -55,12 +59,13 @@ function MenuLink({ icon, text, route }) {
   );
 }
 
-function Links({ authUser, authLoading }) {
+function Links({ authUser, authLoading, location }) {
   const { pending } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const googleSignIn = useGoogleSignIn();
 
   const handleLogOut = () => {
+    location.state = { from: "/login" };
     dispatch(userActions.logOutAsync());
   };
 

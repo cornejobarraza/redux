@@ -21,7 +21,9 @@ function Login() {
 
   useEffect(() => {
     document.title = "Redux - Login";
+  }, []);
 
+  useEffect(() => {
     if ((logged && !gAuth) || (logged && authUser && !authLoading && gAuth)) {
       const { from } = history.location.state || { from: { pathname: "/" } };
       history.navigate(from);
