@@ -36,7 +36,11 @@ function Wishlist() {
   useEffect(() => {
     const handleClickOutside = (e) => {
       // Hide searchbar when clicking outside of it
-      if (isInputToggled && !wishFormRef.current?.contains(e.target) && !wishDeleteRef.current?.contains(e.target)) {
+      if (
+        isInputToggled &&
+        !wishFormRef.current?.contains(e.target) &&
+        !wishDeleteRef.current?.contains(e.target)
+      ) {
         wishInputRef.current.value = "";
         setIsInputToggled(false);
       }
@@ -54,7 +58,9 @@ function Wishlist() {
     e.preventDefault();
 
     const wish = e.target.wishItem.value.trim();
-    const existingWish = currentAuth.user.wishlist?.some((item) => item.toLowerCase() === wish.toLowerCase());
+    const existingWish = currentAuth.user.wishlist?.some(
+      (item) => item.toLowerCase() === wish.toLowerCase()
+    );
 
     if (!!wish && !existingWish) {
       handleAddWishlistItem(wish.charAt(0).toUpperCase() + wish.slice(1));
@@ -77,7 +83,11 @@ function Wishlist() {
 
       await updateDoc(docRef, { wishlist: arrayUnion(wish) });
 
-      dispatch(userActions.setWishlistAsync(stateUser.wishlist ? [...stateUser.wishlist, wish] : [wish]));
+      dispatch(
+        userActions.setWishlistAsync(
+          stateUser.wishlist ? [...stateUser.wishlist, wish] : [wish]
+        )
+      );
 
       setIsLoadingList(false);
     } catch (err) {
@@ -95,7 +105,11 @@ function Wishlist() {
 
       await updateDoc(docRef, { wishlist: arrayRemove(wish) });
 
-      dispatch(userActions.setWishlistAsync(stateUser.wishlist.filter((item) => item !== wish)));
+      dispatch(
+        userActions.setWishlistAsync(
+          stateUser.wishlist.filter((item) => item !== wish)
+        )
+      );
 
       setIsLoadingList(false);
     } catch (err) {
@@ -105,7 +119,7 @@ function Wishlist() {
   };
 
   return (
-    <div className="wishlist flex flex-col gap-8 max-w-2xl">
+    <div className="wishlist flex flex-col gap-10 max-w-2xl">
       {!authLoading && (
         <div className="description">
           <h1 className="page-header">Wishlist</h1>
@@ -135,7 +149,10 @@ function Wishlist() {
                         <AutoAwesome className="!fill-yellow-600" />
                       </span>
                       <p>{item}</p>
-                      <button onClick={() => handleRemoveWishlistItem(item)} ref={wishDeleteRef}>
+                      <button
+                        onClick={() => handleRemoveWishlistItem(item)}
+                        ref={wishDeleteRef}
+                      >
                         <Delete className="!fill-red-600 z-0" />
                       </button>
                     </div>
@@ -144,11 +161,18 @@ function Wishlist() {
               )}
               <div className="new">
                 {!isInputToggled ? (
-                  <button className="text-redux-500 w-fit hover:underline" onClick={() => setIsInputToggled(true)}>
+                  <button
+                    className="text-redux-500 w-fit hover:underline"
+                    onClick={() => setIsInputToggled(true)}
+                  >
                     Add an item to your wishlist
                   </button>
                 ) : (
-                  <form className="flex gap-3" onSubmit={handleWishInput} ref={wishFormRef}>
+                  <form
+                    className="flex gap-3"
+                    onSubmit={handleWishInput}
+                    ref={wishFormRef}
+                  >
                     <input
                       className="form-input w-full md:w-2/4"
                       type="text"
