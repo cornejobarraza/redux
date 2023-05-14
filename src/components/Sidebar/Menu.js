@@ -52,7 +52,7 @@ function MenuLink({ icon, text, route }) {
       {text}
     </NavLink>
   ) : (
-    <span className="sidebar-link">
+    <span className="sidebar-link disabled">
       {icon}
       {text}
     </span>
