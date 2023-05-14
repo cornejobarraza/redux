@@ -19,7 +19,7 @@ function Settings() {
   }, []);
 
   const auth = getAuth();
-  const [authUser] = useAuthState(auth);
+  const [authUser, authLoading] = useAuthState(auth);
 
   const location = history.location;
 
@@ -32,8 +32,12 @@ function Settings() {
 
   return (
     <div className="settings max-w-2xl gap-10">
-      <Profile authUser={authUser} />
-      {authUser && <DeleteGoogleAccount {...DeleteGoogleAccountProps} />}
+      {!authLoading && (
+        <>
+          <Profile authUser={authUser} />
+          {authUser && <DeleteGoogleAccount {...DeleteGoogleAccountProps} />}
+        </>
+      )}
     </div>
   );
 }

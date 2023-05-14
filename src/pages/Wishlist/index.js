@@ -106,19 +106,21 @@ function Wishlist() {
 
   return (
     <div className="wishlist flex flex-col gap-8 max-w-2xl">
-      <div className="description">
-        <h1 className="page-header">Wishlist</h1>
-        <p className="mt-4 max-w-2xl text-lg text-gray-500">
-          {!authUser && !authLoading
-            ? "Sign in with Google to manage your wishlist"
-            : "Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in accusamus quisquam"}
-        </p>
-        {!authUser && !authLoading && (
-          <button className="button mt-8" onClick={googleSignIn}>
-            Sign in with Google
-          </button>
-        )}
-      </div>
+      {!authLoading && (
+        <div className="description">
+          <h1 className="page-header">Wishlist</h1>
+          <p className="mt-4 max-w-2xl text-lg text-gray-500">
+            {!authUser
+              ? "Sign in with Google to manage your wishlist"
+              : "Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in accusamus quisquam"}
+          </p>
+          {!authUser && (
+            <button className="button mt-8" onClick={googleSignIn}>
+              Sign in with Google
+            </button>
+          )}
+        </div>
+      )}
       {authUser && (
         <>
           {isLoadingList || pending.login ? (
