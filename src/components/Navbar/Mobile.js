@@ -1,21 +1,27 @@
 import { useState, Fragment, useEffect, useRef } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+
 import { Menu, Transition } from "@headlessui/react";
+import { Profile } from "./Profile";
 
 import { SearchOutlined, MoreVertOutlined } from "@mui/icons-material";
 
 export { Mobile };
 
 function Mobile({ user }) {
-  const [toggled, setToggled] = useState(false);
+  const [isSearchToggled, setIsSearchToggled] = useState(false);
   const searchToggleRef = useRef(null);
   const searchbarRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
       // Hide searchbar when clicking outside of it
-      if (toggled && !searchbarRef.current?.contains(e.target) && !searchToggleRef.current?.contains(e.target)) {
-        setToggled(false);
+      if (
+        isSearchToggled &&
+        !searchbarRef.current?.contains(e.target) &&
+        !searchToggleRef.current?.contains(e.target)
+      ) {
+        setIsSearchToggled(false);
       }
     };
 
@@ -25,29 +31,13 @@ function Mobile({ user }) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [toggled]);
+  }, [isSearchToggled]);
 
   return (
     <>
-      <div className="account">
-        <Link className="group" to="settings">
-          <img
-            className="avatar"
-            src={user?.avatar}
-            alt=""
-            aria-label="User avatar"
-            width="32px"
-            height="32px"
-            referrerPolicy="no-referrer"
-          />
-          <small className="info-tooltip">
-            <span className="block font-bold">{user?.name}</span>
-            <span className="block">{user?.email}</span>
-          </small>
-        </Link>
-      </div>
+      <Profile user={user} />
       <div className="search" ref={searchToggleRef}>
-        <button type="button" onClick={() => setToggled((toggled) => !toggled)}>
+        <button type="button" onClick={() => setIsSearchToggled((toggled) => !toggled)}>
           <SearchOutlined />
         </button>
       </div>
@@ -81,7 +71,7 @@ function Mobile({ user }) {
           </Menu.Items>
         </Transition>
       </Menu>
-      {toggled && (
+      {isSearchToggled && (
         <form
           className="lookup"
           onSubmit={(e) => {
