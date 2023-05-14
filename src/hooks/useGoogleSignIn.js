@@ -28,7 +28,7 @@ function useGoogleSignIn() {
     try {
       dispatch(userActions.loginGoogleStart());
       const result = await signInWithPopup(auth, googleProvider);
-      location.state = { from: "" };
+      location.pathname === "/login" && (location.state = { from: "" });
       const user = result.user;
 
       // Declare docRef and docSnap
