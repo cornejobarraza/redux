@@ -55,7 +55,7 @@
   }
 
   .info-tooltip {
-    @apply invisible lg:visible scale-0 right-6 top-16 lg:top-20 lg:z-20 absolute transition-all text-white bg-redux-500 p-3 rounded-md shadow-xl lg:group-hover:scale-100;
+    @apply scale-0 top-14 right-8 z-20 absolute transition-all delay-75 text-white bg-redux-500 p-3 rounded-md shadow-xl lg:group-hover:scale-100;
   }
 
   .swapper {
@@ -103,11 +103,15 @@
   }
 
   .sidebar-link {
-    @apply inline-flex flex-wrap items-center cursor-pointer gap-3 active:font-bold lg:hover:bg-white lg:hover:rounded-full lg:hover:px-3 lg:hover:py-1 disabled:cursor-not-allowed disabled:font-normal disabled:text-gray-500 disabled:hover:font-normal transition-all;
+    @apply inline-flex flex-wrap items-center cursor-pointer gap-3 active:font-bold lg:hover:bg-white lg:hover:rounded-full lg:hover:px-3 lg:hover:py-1 transition-all;
   }
 
   .sidebar-link.active {
     @apply lg:hover:bg-[#fcfcfc];
+  }
+
+  .sidebar-link.disabled {
+    @apply lg:hover:bg-transparent lg:hover:rounded-none lg:hover:p-0 hover:font-normal cursor-default;
   }
 
   .content {
@@ -308,15 +312,16 @@
 
 /* Active link styles */
 .active {
-  font-weight: bold;
   color: #764abc;
   background-color: white;
+  font-weight: bold;
   border-radius: 9999px;
   padding: 0.25rem 0.75rem;
 }
 
 .active:active {
   color: black;
+  font-weight: bold;
 }
 
 .active:hover {
@@ -325,6 +330,7 @@
 
 .active:hover:active {
   color: black;
+  font-weight: bold;
 }
 
 .active-d {
