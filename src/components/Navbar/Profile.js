@@ -40,14 +40,6 @@ function Profile({ user }) {
         }
       },
       threshold: 200,
-      //   onFinish: () => {
-      //     const timeout = setTimeout(() => toggleTooltip(), 400);
-
-      //     const toggleTooltip = () => {
-      //       clearTimeout(timeout);
-      //       tooltipRef.current.classList.remove("scale-100");
-      //     };
-      //   },
     }
   );
 
