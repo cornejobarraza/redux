@@ -15,17 +15,19 @@ import {
   BookmarkBorderOutlined,
 } from "@mui/icons-material";
 
+import { getCurrentTimestamp, history } from "utils";
 import { useGoogleSignIn } from "hooks";
 import { userActions } from "store";
-import { history } from "utils";
 
 export { Menu };
 
 function Menu({ authUser, authLoading }) {
   const {
-    logged: { status: logged, gAuth },
+    logged: { status: logged, gAuth, timestamp },
   } = useSelector((state) => state.auth);
 
+  const currentTimestamp = getCurrentTimestamp();
+  const sessionExpired = currentTimestamp - timestamp > 3600;
   const location = history.location;
 
   const LinkProps = {
@@ -37,7 +39,8 @@ function Menu({ authUser, authLoading }) {
   return (
     <div className="menu">
       <div className="sidebar">
-        {(logged && !gAuth) || (logged && authUser && !authLoading && gAuth) ? (
+        {(logged && !gAuth && !sessionExpired) ||
+        (logged && authUser && !authLoading && gAuth && !sessionExpired) ? (
           <Links {...LinkProps} />
         ) : (
           <EmptyMenu />

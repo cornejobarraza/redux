@@ -8,13 +8,13 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Account } from "pages/Login/Account";
 import { GoogleSignIn } from "pages/Login/GoogleSignIn";
 
-import { history } from "utils";
+import { getCurrentTimestamp, history } from "utils";
 
 export { Login as default };
 
 function Login() {
   const {
-    logged: { status: logged, gAuth },
+    logged: { status: logged, gAuth, timestamp },
   } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -24,13 +24,16 @@ function Login() {
   const auth = getAuth();
   const [authUser, authLoading] = useAuthState(auth);
 
+  const currentTimestamp = getCurrentTimestamp();
   const { from } = history.location.state || { from: { pathname: "/" } };
+
+  const sessionExpired = currentTimestamp - timestamp > 3600;
 
   if (authLoading) return;
 
   return (
     <>
-      {(logged && !gAuth) || (logged && authUser && gAuth) ? (
+      {(logged && !gAuth && !sessionExpired) || (logged && authUser && gAuth && !sessionExpired) ? (
         <Navigate to={from} />
       ) : (
         <div className="login gap-10">

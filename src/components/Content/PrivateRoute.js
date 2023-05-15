@@ -5,23 +5,26 @@ import { toast } from "react-toastify";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-import { history } from "utils";
+import { getCurrentTimestamp, history } from "utils";
 
 export { PrivateRoute };
 
 function PrivateRoute({ children }) {
   const {
-    logged: { status: logged, gAuth },
+    logged: { status: logged, gAuth, timestamp },
   } = useSelector((state) => state.auth);
 
   const auth = getAuth();
   const [authUser, authLoading] = useAuthState(auth);
 
+  const currentTimestamp = getCurrentTimestamp();
   const location = history.location;
+
+  const sessionExpired = currentTimestamp - timestamp > 3600;
 
   if (authLoading) return;
 
-  if (!logged || (!authUser && gAuth)) {
+  if (!logged || (!authUser && gAuth) || sessionExpired) {
     if (location.state?.from !== "") {
       toast("Please log in", { type: "warning" });
     }

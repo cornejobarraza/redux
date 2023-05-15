@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import isPlainObject from "lodash.isplainobject";
 
-import { fakeBackend } from "utils";
+import { getCurrentTimestamp, fakeBackend } from "utils";
 import defaultUser from "data/user.json";
 
 // Create slice
@@ -24,7 +24,7 @@ function createInitialState() {
 
   return {
     user: local?.user || defaultUser,
-    logged: local?.logged || { status: false, gAuth: false },
+    logged: local?.logged || { status: false, gAuth: false, timestamp: undefined },
     pending: {
       login: null,
       update: null,
@@ -176,7 +176,7 @@ function createExtraReducers() {
       },
       [fulfilled]: (state, action) => {
         state.pending.login = false;
-        state.logged = { ...state.logged, status: true };
+        state.logged = { ...state.logged, status: true, timestamp: getCurrentTimestamp() };
         state.user = action.payload;
       },
       [rejected]: (state) => {
