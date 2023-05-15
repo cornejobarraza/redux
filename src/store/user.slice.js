@@ -18,12 +18,12 @@ export const sessionTime = 3600;
 
 // Implementation
 function createInitialState() {
-  const data = localStorage.getItem("currentUser");
-  const local = JSON.parse(data);
+  const item = localStorage.getItem("currentUser");
+  const current = JSON.parse(item);
 
   return {
-    user: local?.user || defaultUser,
-    logged: local?.logged || { status: false, gAuth: false, timestamp: undefined },
+    user: current?.user || defaultUser,
+    logged: current?.logged || { status: false, gAuth: false, timestamp: undefined },
     pending: {
       login: null,
       update: null,
@@ -50,8 +50,8 @@ function createReducers() {
   };
 
   function resetUser(state) {
-    const data = localStorage.getItem("pastUser");
-    const past = JSON.parse(data);
+    const item = localStorage.getItem("pastUser");
+    const past = JSON.parse(item);
 
     state.user = past?.user || defaultUser;
   }
