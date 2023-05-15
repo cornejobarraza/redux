@@ -84,9 +84,7 @@ function Wishlist() {
       await updateDoc(docRef, { wishlist: arrayUnion(wish) });
 
       dispatch(
-        userActions.setWishlistAsync(
-          stateUser.wishlist ? [...stateUser.wishlist, wish] : [wish]
-        )
+        userActions.setWishlistAsync(stateUser.wishlist ? [...stateUser.wishlist, wish] : [wish])
       );
 
       setIsLoadingList(false);
@@ -105,11 +103,7 @@ function Wishlist() {
 
       await updateDoc(docRef, { wishlist: arrayRemove(wish) });
 
-      dispatch(
-        userActions.setWishlistAsync(
-          stateUser.wishlist.filter((item) => item !== wish)
-        )
-      );
+      dispatch(userActions.setWishlistAsync(stateUser.wishlist.filter((item) => item !== wish)));
 
       setIsLoadingList(false);
     } catch (err) {
@@ -149,10 +143,7 @@ function Wishlist() {
                         <AutoAwesome className="!fill-yellow-600" />
                       </span>
                       <p>{item}</p>
-                      <button
-                        onClick={() => handleRemoveWishlistItem(item)}
-                        ref={wishDeleteRef}
-                      >
+                      <button onClick={() => handleRemoveWishlistItem(item)} ref={wishDeleteRef}>
                         <Delete className="!fill-red-600 z-0" />
                       </button>
                     </div>
@@ -168,11 +159,7 @@ function Wishlist() {
                     Add an item to your wishlist
                   </button>
                 ) : (
-                  <form
-                    className="flex gap-3"
-                    onSubmit={handleWishInput}
-                    ref={wishFormRef}
-                  >
+                  <form className="flex gap-3" onSubmit={handleWishInput} ref={wishFormRef}>
                     <input
                       className="form-input w-full md:w-2/4"
                       type="text"

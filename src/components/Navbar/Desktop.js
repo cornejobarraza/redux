@@ -25,7 +25,11 @@ function Desktop({ user }) {
           searchbarRef.current.value = "";
         }}
       >
-        <input className="searchbar" placeholder={`Search here ${user?.name.split(" ")[0]}`} ref={searchbarRef} />
+        <input
+          className="searchbar"
+          placeholder={`Search here ${user?.name.split(" ")[0]}`}
+          ref={searchbarRef}
+        />
       </form>
       <span className="name">
         Hello, <span className="text-redux-500">{user?.name.split(" ")[0]}</span>

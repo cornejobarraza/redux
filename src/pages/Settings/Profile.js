@@ -44,7 +44,10 @@ function Profile({ authUser }) {
 
     if (seed === 10) {
       setSeed(authUser ? 0 : 1);
-      setData((prev) => ({ ...prev, avatar: authUser ? authUser.photoURL : `assets/avatars/${1}.svg` }));
+      setData((prev) => ({
+        ...prev,
+        avatar: authUser ? authUser.photoURL : `assets/avatars/${1}.svg`,
+      }));
     } else {
       setSeed(newSeed);
       setData((prev) => ({ ...prev, avatar: `assets/avatars/${newSeed}.svg` }));
@@ -112,8 +115,8 @@ function Profile({ authUser }) {
     <div className="profile">
       <h1 className="page-header">Update your account</h1>
       <p className="mt-4 text-lg text-gray-500">
-        Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
-        accusamus quisquam
+        Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate
+        veritatis in accusamus quisquam
       </p>
       <form id="detailsForm" className="details mt-10 md:max-w-md" onSubmit={handleUpdate}>
         <div className="input-group md:flex-row md:gap-16 md:justify-between">
@@ -201,7 +204,12 @@ function Profile({ authUser }) {
           </div>
         </div>
         <div className="detail-input">
-          <button className="button" disabled={pending.update || pending.delete} type="submit" form="detailsForm">
+          <button
+            className="button"
+            disabled={pending.update || pending.delete}
+            type="submit"
+            form="detailsForm"
+          >
             Update
           </button>
         </div>

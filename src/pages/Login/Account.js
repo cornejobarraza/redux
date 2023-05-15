@@ -70,7 +70,12 @@ function Account() {
         height="64px"
         referrerPolicy="no-referrer"
       />
-      <button className="button mx-auto" type="button" disabled={pending.login} onClick={handleLogin}>
+      <button
+        className="button mx-auto"
+        type="button"
+        disabled={pending.login}
+        onClick={handleLogin}
+      >
         Log In
       </button>
     </div>

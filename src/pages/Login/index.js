@@ -33,8 +33,8 @@ function Login() {
           <div className="description">
             <h1 className="page-header md:text-center">Log into Redux</h1>
             <p className="mt-4 max-w-2xl text-lg text-gray-500 md:mx-auto md:text-center">
-              Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
-              accusamus quisquam
+              Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum
+              cupiditate veritatis in accusamus quisquam
             </p>
           </div>
           <Account />

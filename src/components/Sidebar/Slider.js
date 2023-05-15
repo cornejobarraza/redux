@@ -48,11 +48,7 @@ function SlideOver({ authUser, authLoading, isSlideOverOpen, handleToggle }) {
 
   return (
     <Transition.Root show={isSlideOverOpen} as={Fragment}>
-      <Dialog
-        as="div"
-        className="relative z-10 lg:hidden"
-        onClose={handleToggle}
-      >
+      <Dialog as="div" className="relative z-10 lg:hidden" onClose={handleToggle}>
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-500"
@@ -99,9 +95,7 @@ function SlideOver({ authUser, authLoading, isSlideOverOpen, handleToggle }) {
                   </Transition.Child>
                   <div className="flex h-full flex-col bg-slate-200 py-5 shadow-xl">
                     <div className="px-8">
-                      <Dialog.Title className="text-lg font-bold text-gray-900">
-                        Menu
-                      </Dialog.Title>
+                      <Dialog.Title className="text-lg font-bold text-gray-900">Menu</Dialog.Title>
                     </div>
                     <div className="relative mt-5 flex-1">
                       <Menu {...MenuProps} />

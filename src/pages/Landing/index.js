@@ -1,7 +1,12 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import { IdentificationIcon, CodeBracketIcon, UserIcon, Cog6ToothIcon } from "@heroicons/react/24/outline";
+import {
+  IdentificationIcon,
+  CodeBracketIcon,
+  UserIcon,
+  Cog6ToothIcon,
+} from "@heroicons/react/24/outline";
 
 export { Landing as default };
 
@@ -73,8 +78,8 @@ function Landing() {
       <div className="welcome">
         <h1 className="page-header">Centralized state application</h1>
         <p className="mt-4 max-w-2xl text-lg text-gray-500">
-          Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
-          accusamus quisquam
+          Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate
+          veritatis in accusamus quisquam
         </p>
       </div>
       <dl className="features">
@@ -85,7 +90,8 @@ function Landing() {
                 <feature.icon className="h-6 w-6" aria-hidden="true" />
               </div>
               <h1 className="ml-16 text-lg font-medium text-gray-900">
-                {feature.name} {index === 0 && <span className="font-bold">{user.name.split(" ")[0]}</span>}
+                {feature.name}{" "}
+                {index === 0 && <span className="font-bold">{user.name.split(" ")[0]}</span>}
               </h1>
             </dt>
             <dd className="mt-2 ml-16 text-base text-gray-500 leading-7">{feature.description}</dd>

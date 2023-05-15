@@ -33,8 +33,8 @@ function DeleteGoogleAccount({ auth, authUser, pending, location }) {
     <div className="delete">
       <h1 className="page-header">Delete your account</h1>
       <p className="mt-4 text-lg text-gray-500">
-        This will permanently erase your information from our database and all data will be lost, please proceed with
-        caution
+        This will permanently erase your information from our database and all data will be lost,
+        please proceed with caution
       </p>
       <button
         className="button danger mt-8"

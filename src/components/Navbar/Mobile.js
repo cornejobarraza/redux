@@ -37,10 +37,7 @@ function Mobile({ user }) {
     <>
       <Profile user={user} />
       <div className="search" ref={searchToggleRef}>
-        <button
-          type="button"
-          onClick={() => setIsSearchToggled((toggled) => !toggled)}
-        >
+        <button type="button" onClick={() => setIsSearchToggled((toggled) => !toggled)}>
           <SearchOutlined />
         </button>
       </div>
@@ -61,18 +58,12 @@ function Mobile({ user }) {
           <Menu.Items className="absolute right-8 top-20 w-32 z-10 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="py-1">
               <Menu.Item>
-                <NavLink
-                  className="block px-4 py-2 text-sm active-d"
-                  to="about"
-                >
+                <NavLink className="block px-4 py-2 text-sm active-d" to="about">
                   About
                 </NavLink>
               </Menu.Item>
               <Menu.Item>
-                <NavLink
-                  className="block px-4 py-2 text-sm active-d"
-                  to="contact"
-                >
+                <NavLink className="block px-4 py-2 text-sm active-d" to="contact">
                   Contact
                 </NavLink>
               </Menu.Item>
