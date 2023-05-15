@@ -55,7 +55,7 @@
   }
 
   .info-tooltip {
-    @apply scale-0 top-14 right-8 z-10 absolute transition-all delay-75 text-white bg-redux-500 p-3 rounded-md shadow-xl lg:group-hover:scale-100;
+    @apply scale-0 top-14 right-8 z-20 absolute transition-all delay-75 text-white bg-redux-500 p-3 rounded-md shadow-xl lg:group-hover:scale-100;
   }
 
   .swapper {
