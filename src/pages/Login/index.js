@@ -8,6 +8,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Account } from "pages/Login/Account";
 import { GoogleSignIn } from "pages/Login/GoogleSignIn";
 
+import { history } from "utils";
+
 export { Login as default };
 
 function Login() {
@@ -22,12 +24,14 @@ function Login() {
   const auth = getAuth();
   const [authUser, authLoading] = useAuthState(auth);
 
+  const { from } = history.location.state || { from: { pathname: "/" } };
+
   if (authLoading) return;
 
   return (
     <>
       {(logged && !gAuth) || (logged && authUser && gAuth) ? (
-        <Navigate to="/" />
+        <Navigate to={from} />
       ) : (
         <div className="login gap-10">
           <div className="description">
