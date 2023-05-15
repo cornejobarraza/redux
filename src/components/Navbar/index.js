@@ -9,6 +9,7 @@ import { Desktop } from "components/Navbar/Desktop";
 
 import { getCurrentTimestamp } from "utils";
 import { useViewport } from "hooks";
+import { sessionTime } from "store";
 
 export { Navbar };
 
@@ -23,7 +24,7 @@ function Navbar() {
   const [authUser, authLoading] = useAuthState(auth);
 
   const currentTimestamp = getCurrentTimestamp();
-  const sessionExpired = currentTimestamp - timestamp > 3600;
+  const sessionExpired = currentTimestamp - timestamp > sessionTime;
 
   return (
     <div className="navbar">

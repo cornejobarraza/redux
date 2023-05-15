@@ -6,6 +6,7 @@ import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import { getCurrentTimestamp, history } from "utils";
+import { sessionTime } from "store";
 
 export { PrivateRoute };
 
@@ -20,7 +21,7 @@ function PrivateRoute({ children }) {
   const currentTimestamp = getCurrentTimestamp();
   const location = history.location;
 
-  const sessionExpired = currentTimestamp - timestamp > 3600;
+  const sessionExpired = currentTimestamp - timestamp > sessionTime;
 
   if (authLoading) return;
 

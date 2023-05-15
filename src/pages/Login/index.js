@@ -9,6 +9,7 @@ import { Account } from "pages/Login/Account";
 import { GoogleSignIn } from "pages/Login/GoogleSignIn";
 
 import { getCurrentTimestamp, history } from "utils";
+import { sessionTime } from "store";
 
 export { Login as default };
 
@@ -27,7 +28,7 @@ function Login() {
   const currentTimestamp = getCurrentTimestamp();
   const { from } = history.location.state || { from: { pathname: "/" } };
 
-  const sessionExpired = currentTimestamp - timestamp > 3600;
+  const sessionExpired = currentTimestamp - timestamp > sessionTime;
 
   if (authLoading) return;
 

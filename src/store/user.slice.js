@@ -15,6 +15,7 @@ const slice = createSlice({ name, initialState, reducers, extraReducers });
 // Exports
 export const userActions = { ...slice.actions, ...extraActions };
 export const userReducer = slice.reducer;
+export const sessionTime = 3600;
 
 // Implementation
 function createInitialState() {

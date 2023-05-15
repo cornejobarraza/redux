@@ -18,6 +18,7 @@ import {
 import { getCurrentTimestamp, history } from "utils";
 import { useGoogleSignIn } from "hooks";
 import { userActions } from "store";
+import { sessionTime } from "store";
 
 export { Menu };
 
@@ -27,7 +28,7 @@ function Menu({ authUser, authLoading }) {
   } = useSelector((state) => state.auth);
 
   const currentTimestamp = getCurrentTimestamp();
-  const sessionExpired = currentTimestamp - timestamp > 3600;
+  const sessionExpired = currentTimestamp - timestamp > sessionTime;
   const location = history.location;
 
   const LinkProps = {
