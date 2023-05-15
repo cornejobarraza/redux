@@ -14,5 +14,7 @@ This project was created using:
 - [DiceBear Avatars](https://www.dicebear.com/)
 - [lottie-react](https://www.npmjs.com/package/lottie-react)
 - [react-toastify](https://www.npmjs.com/package/react-toastify)
+- [use-long-press](https://www.npmjs.com/package/use-long-press)
+- [react-idle-timer](https://www.npmjs.com/package/react-idle-timer)
 
 > Deployed to GitHub Pages using the [gh-pages](https://www.npmjs.com/package/gh-pages) package
