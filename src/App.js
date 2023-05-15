@@ -10,8 +10,8 @@ import { history } from "utils";
 
 import "react-toastify/dist/ReactToastify.min.css";
 
-// Convert 30 minutes to milliseconds
-const idleTimeout = 30 * 60_000;
+// Convert 15 minutes to milliseconds
+const idleTimeout = 15 * 60_000;
 
 function App() {
   const {
