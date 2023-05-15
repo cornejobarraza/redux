@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import isPlainObject from "lodash.isplainobject";
 
 import { getCurrentTimestamp, fakeBackend } from "utils";
 import defaultUser from "data/user.json";
@@ -19,9 +18,8 @@ export const sessionTime = 3600;
 
 // Implementation
 function createInitialState() {
-  let local;
   const data = localStorage.getItem("currentUser");
-  if (isPlainObject(JSON.parse(data))) local = JSON.parse(data);
+  const local = JSON.parse(data);
 
   return {
     user: local?.user || defaultUser,
@@ -52,9 +50,8 @@ function createReducers() {
   };
 
   function resetUser(state) {
-    let past;
     const data = localStorage.getItem("pastUser");
-    if (isPlainObject(JSON.parse(data))) past = JSON.parse(data);
+    const past = JSON.parse(data);
 
     state.user = past?.user || defaultUser;
   }

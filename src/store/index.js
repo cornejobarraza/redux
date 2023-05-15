@@ -1,6 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
 import isEqual from "lodash.isequal";
-import isPlainObject from "lodash.isplainobject";
 
 import { userReducer } from "./user.slice";
 import defaultUser from "data/user.json";
@@ -14,14 +13,11 @@ const userMiddleware = (store) => (next) => (action) => {
   if (action.type.match("user/loginGoogleSuccess")) {
     const state = store.getState().auth;
 
-    let current;
-    let past;
-
     const currentItem = localStorage.getItem("currentUser");
     const pastItem = localStorage.getItem("pastUser");
 
-    if (isPlainObject(JSON.parse(currentItem))) current = JSON.parse(currentItem);
-    if (isPlainObject(JSON.parse(pastItem))) past = JSON.parse(pastItem);
+    const current = JSON.parse(currentItem);
+    const past = JSON.parse(pastItem);
 
     if (!past && !isEqual(current?.user, defaultUser)) {
       const pastUser = { user: state.user };
@@ -32,8 +28,14 @@ const userMiddleware = (store) => (next) => (action) => {
 
   // Remove user from localStorage after resetting state
   if (action.type.match("user/reset")) {
-    localStorage.setItem("currentUser", localStorage.getItem("pastUser"));
-    localStorage.removeItem("pastUser");
+    const pastUser = localStorage.getItem("pastUser");
+
+    if (pastUser) {
+      localStorage.setItem("currentUser", pastUser);
+      localStorage.removeItem("pastUser");
+    } else {
+      localStorage.removeItem("currentUser");
+    }
   }
 
   // Update user in localStorage after every successful action
