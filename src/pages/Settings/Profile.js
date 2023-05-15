@@ -205,9 +205,10 @@ function Profile({ authUser }) {
         </div>
         <div className="detail-input">
           <button
-            className="button"
-            disabled={pending.update || pending.delete}
             type="submit"
+            className="button"
+            aria-label="Update account"
+            disabled={pending.update || pending.delete}
             form="detailsForm"
           >
             Update

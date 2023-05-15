@@ -38,7 +38,7 @@ function DeleteGoogleAccount({ auth, authUser, pending, location }) {
       </p>
       <button
         className="button danger mt-8"
-        type="button"
+        aria-label="Delete account"
         onClick={handleDeletion}
         disabled={pending.delete || pending.update}
       >

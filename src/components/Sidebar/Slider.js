@@ -86,6 +86,7 @@ function SlideOver({ authUser, authLoading, isSlideOverOpen, handleToggle }) {
                     <div className="absolute top-0 right-0 -ml-8 flex pt-[1.3rem] pr-7">
                       <button
                         className="rounded-md text-gray-500 active:text-gray-600 focus:outline-none focus:ring-2 focus:ring-slate-200"
+                        aria-label="Close menu"
                         onClick={handleToggle}
                       >
                         <span className="sr-only">Close panel</span>
@@ -116,6 +117,7 @@ function Toggle({ handler }) {
     <button
       id="slider-toggle"
       className="lg:hidden button p-3 fixed bottom-0 right-0 m-4 z-10"
+      aria-label="Open menu"
       onClick={handler}
     >
       <MenuOutlined />

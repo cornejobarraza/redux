@@ -123,7 +123,7 @@ function Wishlist() {
               : "Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in accusamus quisquam"}
           </p>
           {!authUser && (
-            <button className="button mt-8" onClick={googleSignIn}>
+            <button className="button mt-8" aria-label="Google sign in" onClick={googleSignIn}>
               Sign in with Google
             </button>
           )}
@@ -143,7 +143,11 @@ function Wishlist() {
                         <AutoAwesome className="!fill-yellow-600" />
                       </span>
                       <p>{item}</p>
-                      <button onClick={() => handleRemoveWishlistItem(item)} ref={wishDeleteRef}>
+                      <button
+                        aria-label="Delete wish"
+                        onClick={() => handleRemoveWishlistItem(item)}
+                        ref={wishDeleteRef}
+                      >
                         <Delete className="!fill-red-600 z-0" />
                       </button>
                     </div>
@@ -154,6 +158,7 @@ function Wishlist() {
                 {!isInputToggled ? (
                   <button
                     className="text-redux-500 w-fit hover:underline"
+                    aria-label="Toggle wish input"
                     onClick={() => setIsInputToggled(true)}
                   >
                     Add an item to your wishlist
@@ -167,7 +172,7 @@ function Wishlist() {
                       placeholder="Enter your wish here"
                       ref={wishInputRef}
                     />
-                    <button type="submit">
+                    <button type="submit" aria-label="Add wish">
                       <BookmarkAdd className="!fill-redux-500" />
                     </button>
                   </form>

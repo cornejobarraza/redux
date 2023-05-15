@@ -85,11 +85,20 @@ function Links({ authUser, authLoading, location }) {
       <MenuLink icon={<ScheduleOutlined />} text="Schedule" />
       <MenuLink icon={<BookmarkBorderOutlined />} text="Wishlist" route="wishlist" />
       <MenuLink icon={<SettingsOutlined />} text="Settings" route="settings" />
-      <button className="sidebar-link" disabled={pending.logout} onClick={handleLogOut}>
+      <button
+        className="sidebar-link"
+        aria-label="Log out"
+        disabled={pending.logout}
+        onClick={handleLogOut}
+      >
         <ExitToAppOutlined /> Log Out
       </button>
       {!authUser && !authLoading && (
-        <button className="google-identity outlined mt-auto" onClick={googleSignIn}>
+        <button
+          className="google-identity outlined mt-auto"
+          aria-label="Google sign in"
+          onClick={googleSignIn}
+        >
           <GoogleLogo />
           <span className="text">Sign in with Google</span>
         </button>

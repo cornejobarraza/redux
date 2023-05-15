@@ -37,7 +37,10 @@ function Mobile({ user }) {
     <>
       <Profile user={user} />
       <div className="search" ref={searchToggleRef}>
-        <button type="button" onClick={() => setIsSearchToggled((toggled) => !toggled)}>
+        <button
+          aria-label="Toggle search"
+          onClick={() => setIsSearchToggled((toggled) => !toggled)}
+        >
           <SearchOutlined />
         </button>
       </div>

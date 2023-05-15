@@ -72,7 +72,7 @@ function Account() {
       />
       <button
         className="button mx-auto"
-        type="button"
+        aria-label="Log in"
         disabled={pending.login}
         onClick={handleLogin}
       >

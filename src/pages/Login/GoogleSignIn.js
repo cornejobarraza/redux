@@ -39,7 +39,11 @@ function GoogleSignIn() {
           {authLoading ? (
             <div>Connecting to Google...</div>
           ) : (
-            <button className="google-identity shadow-md" onClick={googleSignIn}>
+            <button
+              className="google-identity shadow-md"
+              aria-label="Google sign in"
+              onClick={googleSignIn}
+            >
               <GoogleLogo />
               <span className="text">Sign in with Google</span>
             </button>
