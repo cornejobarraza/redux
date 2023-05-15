@@ -27,15 +27,15 @@ function Profile({ authUser }) {
   const [seed, setSeed] = useState(currentAvatar);
   const [isSwapperSpinning, setIsSwapperSpinning] = useState(false);
 
-  const updateGoogleAccount = useUpdateGoogleAccount(data);
-  const dispatch = useDispatch();
-
   useEffect(() => {
     if (data.avatar !== user.avatar) {
       setSeed(0);
       setData((prev) => ({ ...prev, avatar: user.avatar }));
     }
   }, [user.avatar]);
+
+  const updateGoogleAccount = useUpdateGoogleAccount(data);
+  const dispatch = useDispatch();
 
   const handleAvatar = () => {
     setIsSwapperSpinning(true);

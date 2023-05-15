@@ -15,14 +15,7 @@ import { AutoAwesome, BookmarkAdd, Delete } from "@mui/icons-material";
 export { Wishlist as default };
 
 function Wishlist() {
-  const currentAuth = JSON.parse(localStorage.getItem("currentUser"));
   const { user: stateUser, pending } = useSelector((state) => state.auth);
-  const auth = getAuth();
-
-  const [authUser, authLoading] = useAuthState(auth);
-  const dispatch = useDispatch();
-  const googleSignIn = useGoogleSignIn();
-
   const [isInputToggled, setIsInputToggled] = useState(false);
   const [isLoadingList, setIsLoadingList] = useState(false);
   const wishDeleteRef = useRef(null);
@@ -49,6 +42,13 @@ function Wishlist() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isInputToggled]);
+
+  const auth = getAuth();
+  const [authUser, authLoading] = useAuthState(auth);
+  const currentAuth = JSON.parse(localStorage.getItem("currentUser"));
+
+  const dispatch = useDispatch();
+  const googleSignIn = useGoogleSignIn();
 
   const handleWishInput = (e) => {
     e.preventDefault();
