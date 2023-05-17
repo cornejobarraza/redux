@@ -29,18 +29,9 @@ function Navbar() {
   return (
     <div className="navbar">
       <span className="logo">
-        <Link
-          className="text-redux-500"
-          to={
-            (logged && !gAuth && !sessionExpired) ||
-            (logged && authUser && !authLoading && gAuth && !sessionExpired)
-              ? "/"
-              : "/login"
-          }
-        >
-          Redux
-        </Link>{" "}
-        App
+        <Link to="/">
+          <span className="text-redux-500">Redux</span> App
+        </Link>
       </span>
       {((logged && !gAuth && !sessionExpired) ||
         (logged && authUser && !authLoading && gAuth && !sessionExpired)) && (
