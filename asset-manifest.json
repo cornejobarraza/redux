@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/redux/static/css/main.281cd309.css",
-    "main.js": "/redux/static/js/main.6c6dd161.js",
-    "static/js/712.1b2f46e6.chunk.js": "/redux/static/js/712.1b2f46e6.chunk.js",
+    "main.css": "/redux/static/css/main.b023ed9c.css",
+    "main.js": "/redux/static/js/main.c9d67af1.js",
+    "static/js/712.e4e5e0ac.chunk.js": "/redux/static/js/712.e4e5e0ac.chunk.js",
     "static/js/536.ff8a38b8.chunk.js": "/redux/static/js/536.ff8a38b8.chunk.js",
     "static/js/231.347bd2a7.chunk.js": "/redux/static/js/231.347bd2a7.chunk.js",
     "static/js/848.fb764e00.chunk.js": "/redux/static/js/848.fb764e00.chunk.js",
@@ -11,7 +11,7 @@
     "index.html": "/redux/index.html"
   },
   "entrypoints": [
-    "static/css/main.281cd309.css",
-    "static/js/main.6c6dd161.js"
+    "static/css/main.b023ed9c.css",
+    "static/js/main.c9d67af1.js"
   ]
 }
