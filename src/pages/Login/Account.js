@@ -46,7 +46,7 @@ function Account() {
         <>
           {user && !isEqual(user, defaultUser) && (
             <span className="reset cursor-pointer" title="Reset account" onClick={handleReset}>
-              <PersonRemove className="!fill-[#424242]" />
+              <PersonRemove className="!fill-[#616161]" />
             </span>
           )}
         </>
