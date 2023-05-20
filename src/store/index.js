@@ -12,6 +12,7 @@ const userMiddleware = (store) => (next) => (action) => {
   // Copy local user after Google log in starts
   if (action.type.match("user/loginGoogleSuccess")) {
     const state = store.getState().auth;
+    const gAuth = state.logged.gAuth;
 
     const currentItem = localStorage.getItem("currentUser");
     const pastItem = localStorage.getItem("pastUser");
@@ -19,7 +20,7 @@ const userMiddleware = (store) => (next) => (action) => {
     const current = JSON.parse(currentItem);
     const past = JSON.parse(pastItem);
 
-    if (!past && !isEqual(current?.user, defaultUser)) {
+    if (!past && !isEqual(current?.user, defaultUser) && !gAuth) {
       const pastUser = { user: state.user };
 
       localStorage.setItem("pastUser", JSON.stringify(pastUser));
