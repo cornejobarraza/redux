@@ -77,7 +77,7 @@ function Links({ authUser, authLoading, location }) {
 
   return (
     <div className="links">
-      <MenuLink icon={<HomeOutlined />} text="Main" route="/" />
+      <MenuLink icon={<HomeOutlined />} text="Home" route="/" />
       <MenuLink icon={<GroupOutlined />} text="Groups" />
       <MenuLink icon={<FileCopyOutlined />} text="Pages" />
       <MenuLink icon={<PhotoSizeSelectActualOutlined />} text="Photos" />

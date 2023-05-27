@@ -14,7 +14,7 @@ function Landing() {
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    document.title = "Redux - Main";
+    document.title = "Redux - Home";
   }, []);
 
   const features = [
@@ -74,7 +74,7 @@ function Landing() {
   ];
 
   return (
-    <div className="main">
+    <div className="home">
       <div className="welcome">
         <h1 className="page-header">Centralized state application</h1>
         <p className="mt-4 max-w-2xl text-lg text-gray-500">

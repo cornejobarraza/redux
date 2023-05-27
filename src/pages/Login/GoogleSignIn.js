@@ -22,10 +22,13 @@ function GoogleSignIn() {
 
   const handleGoogleSignOut = async () => {
     try {
-      dispatch(userActions.logoutGoogleStart());
-      await signOut(auth);
+      if (authUser) {
+        dispatch(userActions.logoutGoogleStart());
+        await signOut(auth);
+        dispatch(userActions.logoutGoogleSuccess());
+      }
+
       dispatch(userActions.resetUser());
-      dispatch(userActions.logoutGoogleSuccess());
       toast("Signed out successfully", { type: "success" });
     } catch (error) {
       dispatch(userActions.logoutGoogleError());
@@ -50,7 +53,7 @@ function GoogleSignIn() {
           )}
         </>
       )}
-      {authUser && (
+      {gAuth && (
         <span className="text-link text-center" onClick={handleGoogleSignOut}>
           Sign out from Google
         </span>

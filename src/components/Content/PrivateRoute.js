@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -22,14 +23,17 @@ function PrivateRoute({ children }) {
   const location = history.location;
 
   const sessionExpired = currentTimestamp - timestamp > sessionTime;
+  const hasToLogin = !logged || !!(!authUser && gAuth) || sessionExpired;
+
+  useEffect(() => {
+    if (location.state?.from !== "" && hasToLogin) {
+      toast("Please log in", { type: "warning" });
+    }
+  }, [location, hasToLogin]);
 
   if (authLoading) return;
 
-  if (!logged || (!authUser && gAuth) || sessionExpired) {
-    if (location.state?.from !== "") {
-      toast("Please log in", { type: "warning" });
-    }
-
+  if (hasToLogin) {
     // Not logged in so redirect to login page
     return <Navigate to="/login" state={{ from: location.pathname }} />;
   }
